@@ -1,4 +1,4 @@
-package org.example;
+package fr.uvsq.interfaces;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,15 +9,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * JavaFX App 
+ * JavaFX App
  */
 public class App extends Application {
 
     private static Scene scene;
-    
+    private final static int WIDTH_WINDOW = 1000;
+    private final static int HEIGHT_WINDOW = 700;
+
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("/fr/uvsq/app"));
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
