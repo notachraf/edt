@@ -2,19 +2,30 @@ package fr.uvsq.interfaces;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.io.IOException;
 
 public class AppController {
+    private Stage mAppStage;
+
     @FXML
     private Button mDashboardBtn,
                    mSallesBtn,
                    mProfBtn,
                    mCoursBtn,
                    mLatexBtn,
-                   mGroupeBtn;
+                   mGroupeBtn,
+                   mAjouteSalleBtn;
 
     @FXML
     private Pane mDashboardPane,
@@ -54,7 +65,33 @@ public class AppController {
     }
 
     @FXML
+    private void afficheDialogueSalle(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fr/uvsq/salle.fxml"));
+
+        try{
+            AnchorPane sallePane = loader.load();
+            SalleController salleController = loader.getController();
+            Scene scene = new Scene(sallePane);
+            Stage salleStage = new Stage(StageStyle.UNDECORATED);
+            salleController.setSalleDialogueStage(salleStage);
+            salleStage.setResizable(false);
+            salleStage.setScene(scene);
+            salleStage.initOwner(mAppStage);
+            salleStage.initModality(Modality.APPLICATION_MODAL);
+            salleStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void initialize(){
         mEdtPane.toFront();
+    }
+
+    public void setAppStage(Stage appStage){
+        mAppStage = appStage;
     }
 }
