@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="868.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.uvsq.interfaces.AppController">
    <children>
       <Pane prefHeight="580.0" prefWidth="232.0" style="-fx-background-color: #512da8#512da8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="636.0" AnchorPane.topAnchor="0.0">
@@ -54,26 +53,12 @@
                </font>
             </Button>
          </children>
-         <effect>
-            <DropShadow />
-         </effect>
       </Pane>
       <AnchorPane layoutX="236.0" prefHeight="580.0" prefWidth="632.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="232.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane fx:id="mCoursPane" prefHeight="580.0" prefWidth="631.0" style="-fx-background-color: #ff8a80;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Pane>
-            <Pane fx:id="mEdtPane" prefHeight="580.0" prefWidth="631.0" style="-fx-background-color: #f57f17;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Pane>
-            <Pane fx:id="mDashboardPane" prefHeight="580.0" prefWidth="631.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <effect>
-                  <DropShadow />
-               </effect>
+            <Pane fx:id="mCoursPane" prefHeight="580.0" prefWidth="637.0" style="-fx-background-color: #ff8a80;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Pane fx:id="mEdtPane" prefHeight="580.0" prefWidth="637.0" style="-fx-background-color: #f57f17;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Pane fx:id="mDashboardPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox prefHeight="580.0" prefWidth="637.0">
                      <children>
@@ -196,26 +181,10 @@
                   </VBox>
                </children>
             </Pane>
-            <Pane fx:id="mSallesPane" prefHeight="580.0" prefWidth="631.0" style="-fx-background-color: #82b1ff#82b1ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Pane>
-            <Pane fx:id="mProfPane" prefHeight="580.0" prefWidth="631.0" style="-fx-background-color: #81c784#81c784;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Pane>
-            <Pane fx:id="mGroupePane" prefHeight="580.0" prefWidth="631.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Pane>
-            <Pane fx:id="mLatexPane" layoutX="-6.0" prefHeight="580.0" prefWidth="637.0" style="-fx-background-color: #00acc1;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Pane>
+            <Pane fx:id="mSallesPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: #82b1ff#82b1ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Pane fx:id="mProfPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: #81c784#81c784;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Pane fx:id="mGroupePane" prefHeight="580.0" prefWidth="637.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Pane fx:id="mLatexPane" layoutX="-6.0" prefHeight="580.0" prefWidth="637.0" style="-fx-background-color: #00acc1;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>
