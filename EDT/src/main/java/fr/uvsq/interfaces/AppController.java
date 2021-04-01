@@ -1,12 +1,15 @@
 package fr.uvsq.interfaces;
 
+import fr.uvsq.models.Salle;
+import fr.uvsq.models.TypeSalle;
+import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -16,7 +19,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class AppController {
-    private Stage mAppStage;
+    private App mApp;
 
     @FXML
     private Button mDashboardBtn,
@@ -24,8 +27,7 @@ public class AppController {
                    mProfBtn,
                    mCoursBtn,
                    mLatexBtn,
-                   mGroupeBtn,
-                   mAjouteSalleBtn;
+                   mGroupeBtn;
 
     @FXML
     private Pane mDashboardPane,
@@ -35,6 +37,18 @@ public class AppController {
                  mLatexPane,
                  mGroupePane,
                  mEdtPane;
+
+    //=================== Salle TableView ======================
+    @FXML
+    private TableView<Salle> mSallesTableView;
+    @FXML
+    private TableColumn<Salle, Integer> mIdSalleCln;
+    @FXML
+    private TableColumn<Salle, String> mNomSalleCln;
+    @FXML
+    private TableColumn<Salle, Integer> mCapaciteSalleCln;
+    @FXML
+    private TableColumn<Salle, TypeSalle> mTypeSalleCln;
 
     @FXML
     private void onHomeLabelClick(){
@@ -74,10 +88,10 @@ public class AppController {
             SalleController salleController = loader.getController();
             Scene scene = new Scene(sallePane);
             Stage salleStage = new Stage(StageStyle.UNDECORATED);
-            salleController.setSalleDialogueStage(salleStage);
+            salleController.setApp(mApp, salleStage);
             salleStage.setResizable(false);
             salleStage.setScene(scene);
-            salleStage.initOwner(mAppStage);
+            salleStage.initOwner(mApp.getAppStage());
             salleStage.initModality(Modality.APPLICATION_MODAL);
             salleStage.showAndWait();
 
@@ -89,9 +103,66 @@ public class AppController {
     @FXML
     private void initialize(){
         mEdtPane.toFront();
+        initSalleTableView();
+
     }
 
-    public void setAppStage(Stage appStage){
-        mAppStage = appStage;
+    private void initSalleTableView(){
+        mIdSalleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getId();
+            }
+        });
+
+        mCapaciteSalleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getCapacite();
+            }
+        });
+        mTypeSalleCln.setCellValueFactory(cellData -> new ObservableValueBase<TypeSalle>(){
+            @Override
+            public TypeSalle getValue(){
+                return cellData.getValue().getTypeSalle();
+            }
+        });
+
+        mNomSalleCln.setCellValueFactory(cellData -> new ObservableValueBase<String>() {
+            @Override
+            public String getValue() {
+                return cellData.getValue().getNom();
+            }
+        });
+
+        mSallesTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+            afficheItemSalleSelectionne(newValue));
+    }
+
+    private void afficheItemSalleSelectionne(Salle salle){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fr/uvsq/salle.fxml"));
+
+        try{
+            AnchorPane sallePane = loader.load();
+            SalleController salleController = loader.getController();
+            salleController.initialiseDialogueModification(salle);
+            Scene scene = new Scene(sallePane);
+            Stage salleStage = new Stage(StageStyle.UNDECORATED);
+            salleController.setApp(mApp, salleStage);
+            salleStage.setResizable(false);
+            salleStage.setScene(scene);
+            salleStage.initOwner(mApp.getAppStage());
+            salleStage.initModality(Modality.APPLICATION_MODAL);
+            salleStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setApp(App app) {
+        mApp = app;
+        mSallesTableView.setItems(mApp.getListeSalles());
     }
 }

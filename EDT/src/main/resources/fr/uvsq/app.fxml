@@ -209,10 +209,10 @@
                         </HBox>
                         <TableView fx:id="mSallesTableView" prefHeight="462.0" prefWidth="636.0">
                           <columns>
-                            <TableColumn prefWidth="53.0" text="ID" />
-                            <TableColumn prefWidth="252.0" text="NOM" />
-                              <TableColumn prefWidth="112.0" text="CAPACITE" />
-                              <TableColumn prefWidth="85.0" text="TYPE" />
+                            <TableColumn fx:id="mIdSalleCln" prefWidth="53.0" text="ID" />
+                            <TableColumn fx:id="mNomSalleCln" prefWidth="252.0" text="NOM" />
+                              <TableColumn fx:id="mCapaciteSalleCln" prefWidth="112.0" text="CAPACITE" />
+                              <TableColumn fx:id="mTypeSalleCln" prefWidth="85.0" text="TYPE" />
                           </columns>
                            <VBox.margin>
                               <Insets bottom="30.0" left="30.0" right="30.0" />
