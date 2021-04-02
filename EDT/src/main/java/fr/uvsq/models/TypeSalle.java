@@ -1,8 +1,12 @@
 package fr.uvsq.models;
 
+/**
+ *
+ * @Author Siham, Feriel, Aziz
+ */
+
 public enum TypeSalle {
-    AMPHI,
+    COURS,
     TD,
-    TP,
-    INCONNU;
+    TP;
 }

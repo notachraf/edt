@@ -23,7 +23,7 @@ public class App extends Application {
     private Stage mAppStage;
     private ObservableList<Salle> mListeSalles = FXCollections.observableArrayList();
     /*
-        === les listes à afficher dans les tables correspondantes. ===
+        === ..les listes à afficher dans les tables correspondantes.. ===
     private ObservableList<Cours> mListeSalles = FXCollections.observableArrayList();
     private ObservableList<Groupe> mListeSalles = FXCollections.observableArrayList();
     private ObservableList<Professeur> mListeSalles = FXCollections.observableArrayList();
@@ -63,7 +63,7 @@ public class App extends Application {
         mListeSalles.add(new Salle("Descartes", 32, TypeSalle.TD));
         mListeSalles.add(new Salle("Centre", 32, TypeSalle.TD));
         mListeSalles.add(new Salle("Archimede", 32, TypeSalle.TP));
-        mListeSalles.add(new Salle("A", 32, TypeSalle.AMPHI));
+        mListeSalles.add(new Salle("A", 32, TypeSalle.COURS));
     }
 
     public ObservableList<Salle> getListeSalles() {
