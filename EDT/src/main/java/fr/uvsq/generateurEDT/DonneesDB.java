@@ -1,5 +1,6 @@
 package fr.uvsq.generateurEDT;
 
+import fr.uvsq.gestionDeDonnees.SalleDAO;
 import fr.uvsq.models.Groupe;
 import fr.uvsq.models.Professeur;
 import fr.uvsq.models.Salle;
@@ -17,6 +18,10 @@ public class DonneesDB {
      * @return
      */
     public List<Salle> getListeSalles() {
+        /*
+            SalleDAO s = new SalleDAO(BDConnection.getConnection);
+            mListeSalles = s.recupererListeSalles();
+         */
         return mListeSalles;
     }
 

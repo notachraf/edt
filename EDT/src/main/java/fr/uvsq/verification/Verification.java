@@ -87,7 +87,6 @@ public class Verification {
      * @param mot
      * @return boolean
      */
-
     private static boolean estUnEntier(String mot){
         return mot.matches("[+-]?\\d*(\\.\\d+)?");
     }
