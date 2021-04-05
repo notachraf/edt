@@ -72,12 +72,14 @@ public class Verification {
      * Soit pour modifier ou ajouter une module.
      * static : pour avoir accès à la méthode sans instancier un objet Verification
      *
-     * @param mNom
-     * @param capacite
-     * @param type
+     * @param nom nom du module
+     * @param nbHeure la durée
+     * @param nbModule nombre de matière
+     * @param nbTD nombre de TD
+     * @param nbTP nombre de TP
      * @return boolean
      */
-    public static boolean controleDonneesModule(String Nom, int id, int nbModule, int nbTD, int nbTP, int nbHeure){
+    public static boolean controleDonneesModule(String nom, String nbHeure,String nbModule,String nbTD, String nbTP){
         boolean isOK = true;
 
         List<String> listErreur = new ArrayList<>();
@@ -88,10 +90,10 @@ public class Verification {
             listErreur.add("Le champ <Nom> est vide ");
         }
 
-        //Vérifie le contenu du champ mIdTextField n'est pas vide
-        if (id== null || id.isEmpty()) {
+        //Vérifie le contenu du champ mNbHeureTextField n'est pas vide
+        if (nbHeure== null || nbHeure.isEmpty()) {
             isOK = false;
-            listErreur.add("Le champ <Id> est vide ");
+            listErreur.add("Le champ <NbHeure> est vide ");
         }
 
         //Vérifie le contenu du champ mNbModuleTextField n'est pas vide
@@ -112,15 +114,9 @@ public class Verification {
             listErreur.add("Le champ <NbTP> est vide ");
         }
 
-        //Vérifie le contenu du champ mNbHeureTextField n'est pas vide
-        if (nbHeure== null || nbHeure.isEmpty()) {
+        if( ! estUnEntier(nbHeure) ){
             isOK = false;
-            listErreur.add("Le champ <NbHeure> est vide ");
-        }
-
-        if( ! estUnEntier(id) ){
-            isOK = false;
-            listErreur.add("Le champ <Id> n'est pas un entier");
+            listErreur.add("Le champ <nbHeure> n'est pas un entier");
         }
 
         if( ! estUnEntier(nbModule) ){
@@ -137,12 +133,6 @@ public class Verification {
             isOK = false;
             listErreur.add("Le champ <nbTP> n'est pas un entier");
         }
-
-        if( ! estUnEntier(nbHeure) ){
-            isOK = false;
-            listErreur.add("Le champ <nbHeure> n'est pas un entier");
-        }
-
 
         // On vérifie s'il ya des erreurs dans la liste d'erreurs.
         if (!isOK) {
@@ -162,13 +152,12 @@ public class Verification {
      * Soit pour modifier ou ajouter un Professeur.
      * static : pour avoir accès à la méthode sans instancier un objet Verification
      *
-     * @param nom
-     * @param id
-     * @param nbProfesseur
+     * @param nom nom de professeur
+     * @param nbProfesseur nombre de professeur
      * @return boolean
      */
-    ********  ????? DOIT-T-ON RAJOUTER 'listemodule' en arguments ?********
-    public static boolean controleDonneesProfesseur(String nom, Int id, Int nbProfesseur){
+   // ********  ????? DOIT-T-ON RAJOUTER 'listemodule' en arguments ?********
+    public static boolean controleDonneesProfesseur(String nom, String nbProfesseur){
         boolean isOK = true;
 
         List<String> listErreur = new ArrayList<>();
@@ -179,27 +168,16 @@ public class Verification {
             listErreur.add("Le champ <Nom> est vide ");
         }
 
-        //Vérifie le contenu du champ mIdTextField n'est pas vide
-        if (id== null || id.isEmpty()) {
-            isOK = false;
-            listErreur.add("Le champ <Id> est vide ");
-        }
-
         //Vérifie le contenu du champ mnbProfesseurTextField n'est pas vide
         if (nbProfesseur== null || nbProfesseur.isEmpty()) {
             isOK = false;
             listErreur.add("Le champ <NbProfesseur> est vide ");
         }
+
         //Verifie que le nom de professeur est une chaine alphabétique
         if( !contientAlphabet(nom) ){
             isOK = false;
             listErreur.add("Le champ <Nom> n'est pas une chaîne alphabétique");
-        }
-
-        //Verifie que id est un entier
-        if( ! estUnEntier(id) ){
-            isOK = false;
-            listErreur.add("Le champ <Id> n'est pas un entier");
         }
 
         //Verifie que nbProfesseur est un entier
@@ -207,9 +185,6 @@ public class Verification {
             isOK = false;
             listErreur.add("Le champ <nbProfesseur> n'est pas un entier");
         }
-
-        // DOIT-ON VERIFIER QUE LE ID N'EST PAS DÉJÀ PRIS ?
-        // Peut-être dans la gestion de données (comme dans salle pour la redondance)
 
         // On vérifie s'il ya des erreurs dans la liste d'erreurs.
         if (!isOK) {
@@ -229,16 +204,14 @@ public class Verification {
      * Soit pour modifier ou ajouter un groupe
      * static : pour avoir accès à la méthode sans instancier un objet Verification
      *
-     * @param nom
-     * @param id
-     * @param taille
-     * @param Promo
-     * @param nbGroupe
-     * @param  ??????? Arraylist <Module> listemodule
+     * @param nom nom du groupe
+     * @param taille taille du groupe
+     * @param promo promo du groupe
+     * @param nbGroupe nombre de groupe
      * @return
      *
      */
-    public static boolean controleDonneesGroupe(String nom, Int id, Int taille, String promo,INT nbGroupe){
+    public static boolean controleDonneesGroupe(String nom, String taille, String promo,String nbGroupe){
         boolean isOK = true;
 
         List<String> listErreur = new ArrayList<>();
@@ -247,12 +220,6 @@ public class Verification {
         if (nom == null || nom.isEmpty()) {
             isOK = false;
             listErreur.add("Le champ <Nom> est vide ");
-        }
-
-        //Vérifie le contenu du champ mIdTextField n'est pas vide
-        if (id== null || id.isEmpty()) {
-            isOK = false;
-            listErreur.add("Le champ <id> est vide ");
         }
 
         //Vérifie le contenu du champ mTailleTextField n'est pas vide
@@ -273,12 +240,6 @@ public class Verification {
             listErreur.add("Le champ <nbGroupe> est vide ");
         }
 
-        //Verifie que id est un entier
-        if( ! estUnEntier(id) ){
-            isOK = false;
-            listErreur.add("Le champ <Id> n'est pas un entier");
-        }
-
         //Verifie que taille est un entier
         if( ! estUnEntier(taille) ){
             isOK = false;
@@ -296,9 +257,6 @@ public class Verification {
             listErreur.add("Le champ <NbGroupe> n'est pas un entier");
         }
 
-
-
-
         // On vérifie s'il ya des erreurs dans la liste d'erreurs.
         if (!isOK) {
             StringBuilder sb = new StringBuilder();
@@ -314,8 +272,8 @@ public class Verification {
 
     /**
      * Affiche une fenêtre d'erreur en fonction du message et du type d'erreur passés en paramètres
-     * @param messageErreur
-     * @param typeErreur
+     * @param messageErreur l'ensemble des erreurs
+     * @param typeErreur warning
      */
     private static void afficheErreur(String messageErreur, Alert.AlertType typeErreur) {
         Alert erreurAlert = new Alert(typeErreur);
@@ -328,18 +286,17 @@ public class Verification {
      *  Renvoie vrai si le mot est un entier, sinon faux
      *  Pour vérifier une chaîne numérique, nous pourrions utiliser
      *  La méthode matched() de la classe String qui prend regex comme argument et retourne un booléen
-     * @param mot
+     * @param mot le mot à verifier
      * @return boolean
      */
     private static boolean estUnEntier(String mot){
         return mot.matches("[+-]?\\d*(\\.\\d+)?");
     }
 
-
     /**
      *  Renvoie vrai si le mot contient de A-Z, a-z
      *
-     * @param mot
+     * @param mot le mot à vérifier
      * @return boolean
      */
     private static boolean contientAlphabet(String mot){
@@ -352,7 +309,7 @@ public class Verification {
     /**
      *  Renvoie vrai si le mot contient des caracteres speciaux
      *
-     * @param mot
+     * @param mot le mot à vérifier 
      * @return boolean
      */
     private static boolean contientCaractereSpeciaux(String mot){
