@@ -10,7 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-
+/**
+ * Gérer l'inter-action avec la fenêtre de dialogue salle.
+ */
 public class SalleController {
 
     // private SalleDAO mSalleDAO;
@@ -37,6 +39,11 @@ public class SalleController {
         mSalleStage.close();
     }
 
+    /**
+     * Initialise le contenu de la fenêtre de dialogue
+     * avec les attributs de la classe salle
+     * @param salle
+     */
     public void initialiseDialogueModification(Salle salle) {
         mTitleLabel.setText("Modification de la Salle");
         mNomTextField.setText("");
@@ -51,6 +58,10 @@ public class SalleController {
         }
     }
 
+    /**
+     * Gérer l'ajout d'une nouvelle salle dans le tableau des Salle
+     * @param event
+     */
     @FXML
     private void handleAjouterBtn(ActionEvent event) {
         if (event.getSource() == mAjouterSalleBtn) {
@@ -63,6 +74,9 @@ public class SalleController {
         }
     }
 
+    /**
+     * Vérifie les données de une salle et ajoute cette salle dans la liste des salles.
+     */
     private void ajouterNouvelleSalle() {
         Boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeTextField.getText());
         if( estValide ) {
@@ -73,6 +87,9 @@ public class SalleController {
         }
     }
 
+    /**
+     * Modifie les données d'une salle
+     */
     private void modifierSalle() {
         Boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeTextField.getText());
         if( estValide ) {
@@ -83,6 +100,11 @@ public class SalleController {
         }
     }
 
+    /**
+     * Modifie la classe App et Stage
+     * @param app
+     * @param salleStage
+     */
     public void setApp(App app, Stage salleStage) {
         mApp = app;
         mSalleStage = salleStage;

@@ -12,13 +12,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 
 /**
  * JavaFX App
  */
 public class App extends Application {
-
     private AppController mAppController;
     private Stage mAppStage;
     private ObservableList<Salle> mListeSalles = FXCollections.observableArrayList();

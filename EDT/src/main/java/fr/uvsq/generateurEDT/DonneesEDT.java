@@ -6,7 +6,7 @@ import fr.uvsq.models.Professeur;
 import fr.uvsq.models.Salle;
 import java.util.List;
 
-public class DonneesDB {
+public class DonneesEDT {
     
     private List<Salle> mListeSalles;
     private List<Professeur> mListeProfesseurs;
@@ -79,6 +79,28 @@ public class DonneesDB {
      */
     public void setListeGroupes(List<Groupe> listeGroupes) {
         mListeGroupes = listeGroupes;
+    }
+
+
+    /**
+     * Créer les évenement de type cours.
+     */
+    private void creerEvenementCours(){
+
+    }
+
+    /**
+     * Créer les évenement de type TP.
+     */
+    private void creerEvenementTP(){
+
+    }
+
+    /**
+     * Créer les évenement de type TD.
+     */
+    private void creerEvenementTD(){
+
     }
 }
 

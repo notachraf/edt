@@ -17,9 +17,14 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class AppController {
     private App mApp;
+
+    private String mEDTLatex;
+    private Map<Integer, List<String>> mTableauEDT;
 
     @FXML
     private Button mDashboardBtn,
@@ -55,6 +60,10 @@ public class AppController {
         mEdtPane.toFront();
     }
 
+    /**
+     * Gére l'action des bouttons onglets de l'application
+     * @param event
+     */
     @FXML
     private void handleButtonAction(ActionEvent event){
         if( event.getSource() == mDashboardBtn){
@@ -78,6 +87,11 @@ public class AppController {
         }
     }
 
+    /**
+     * Affiche la fenétre de dialogue salle
+     * en lui passe les données de la salle
+     * à afficher.
+     */
     @FXML
     private void afficheDialogueSalle(){
         FXMLLoader loader = new FXMLLoader();
@@ -100,6 +114,10 @@ public class AppController {
         }
     }
 
+    /**
+     * Initialise tous les onglets et affiche
+     * l'onglet EDT par défaut.
+     */
     @FXML
     private void initialize(){
         mEdtPane.toFront();
@@ -107,6 +125,10 @@ public class AppController {
 
     }
 
+    /**
+     * Iniatilise la liste des salles qui doivent
+     * être afficher dans le tableau @mSallesTableView
+     */
     private void initSalleTableView(){
         mIdSalleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
@@ -139,6 +161,11 @@ public class AppController {
             afficheItemSalleSelectionne(newValue));
     }
 
+    /**
+     * Affiche les données de la salle sélectionné
+     * dans une fenétre de dialogue.
+     * @param salle
+     */
     private void afficheItemSalleSelectionne(Salle salle){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fr/uvsq/salle.fxml"));
@@ -161,8 +188,22 @@ public class AppController {
         }
     }
 
+    /**
+     * Modifie la classe app et associe le tableau contenant
+     * les salles à une liste de salles.
+     *
+     * @param app
+     */
     public void setApp(App app) {
         mApp = app;
         mSallesTableView.setItems(mApp.getListeSalles());
+    }
+
+    /**
+     * Remplir le tableau d'EDT avec le dictionnaire
+     * Map<Integer, String>
+     */
+    public void remplirTableauEDT(){
+
     }
 }
