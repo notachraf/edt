@@ -34,6 +34,9 @@ public class SalleController {
 
     }
 
+    /**
+     * Ferme la fenêtre de dialogue salle.
+     */
     @FXML
     private void fermer() {
         mSalleStage.close();

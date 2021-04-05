@@ -88,7 +88,7 @@ public class AppController {
     }
 
     /**
-     * Affiche la fenétre de dialogue salle
+     * Affiche la fenêtre de dialogue salle
      * en lui passe les données de la salle
      * à afficher.
      */
@@ -163,7 +163,7 @@ public class AppController {
 
     /**
      * Affiche les données de la salle sélectionné
-     * dans une fenétre de dialogue.
+     * dans une fenêtre de dialogue.
      * @param salle
      */
     private void afficheItemSalleSelectionne(Salle salle){
@@ -204,6 +204,13 @@ public class AppController {
      * Map<Integer, String>
      */
     public void remplirTableauEDT(){
+
+    }
+
+    /**
+     * Sauvegarde l'EDT dans un fichier Latex.
+     */
+    public void saugarderEDTEnLatex(){
 
     }
 }
