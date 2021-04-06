@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -54,11 +55,7 @@
                   <Insets right="100.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="mTypeTextField" prefHeight="33.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets right="100.0" />
-               </GridPane.margin>
-            </TextField>
+            <ComboBox fx:id="mTypeComboBox" prefHeight="32.0" prefWidth="183.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Button fx:id="mAnnulerDialogueSalleBtn" layoutX="292.0" layoutY="348.0" mnemonicParsing="false" onAction="#fermer" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: red;" text="Annuler" textFill="#fcf6f6">
