@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -48,6 +49,7 @@ public class App extends Application {
         fxmlLoader.setLocation(getClass().getResource("/fr/uvsq/app.fxml"));
         try {
             AnchorPane appPane = fxmlLoader.load();
+
             mAppController = fxmlLoader.getController();
             mAppController.setApp(this);
             Scene appScene = new Scene(appPane);

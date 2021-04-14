@@ -1,5 +1,6 @@
 package fr.uvsq.interfaces;
 
+import com.calendarfx.view.CalendarView;
 import fr.uvsq.models.Salle;
 import fr.uvsq.models.TypeSalle;
 import javafx.beans.value.ObservableValueBase;
@@ -27,6 +28,9 @@ public class AppController {
     private Map<Integer, List<String>> mTableauEDT;
 
     @FXML
+    CalendarView mEDTCalendarPane;
+
+    @FXML
     private Button mDashboardBtn,
                    mSallesBtn,
                    mProfBtn,
@@ -40,8 +44,7 @@ public class AppController {
                  mProfPane,
                  mCoursPane,
                  mLatexPane,
-                 mGroupePane,
-                 mEdtPane;
+                 mGroupePane;
 
     //=================== Salle TableView ======================
     @FXML
@@ -57,7 +60,9 @@ public class AppController {
 
     @FXML
     private void onHomeLabelClick(){
-        mEdtPane.toFront();
+        System.out.println("=========== click on Home label +++++++++++");
+        mEDTCalendarPane.showMonthPage();
+        mEDTCalendarPane.toFront();
     }
 
     /**
@@ -120,7 +125,9 @@ public class AppController {
      */
     @FXML
     private void initialize(){
-        mEdtPane.toFront();
+        mEDTCalendarPane.showMonthPage();
+        mEDTCalendarPane.toFront();
+        mEDTCalendarPane.setShowAddCalendarButton(false);
         initSalleTableView();
 
     }
