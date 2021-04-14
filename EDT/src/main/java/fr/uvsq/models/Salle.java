@@ -34,6 +34,17 @@ public class Salle {
         mTypeSalle = typeSalle;
     }
 
+    public Salle(String nom, String capacite, String typesalle) {
+        mId = -1;
+        mNom = nom;
+        mCapacite = Integer.parseInt(capacite);
+        switch(typesalle) {
+            case "TD":      mTypeSalle = TypeSalle.TD;        break;
+            case "TP":      mTypeSalle = TypeSalle.TP;        break;
+            case "COURS":   mTypeSalle = TypeSalle.COURS;     break;
+        }
+    }
+
     /**
      * 
      * @return

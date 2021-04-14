@@ -5,33 +5,36 @@ import fr.uvsq.verification.Verification;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
 /**
  * Gérer l'inter-action avec la fenêtre de dialogue salle.
  */
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
 public class SalleController {
 
     // private SalleDAO mSalleDAO;
     private App mApp;
     private Stage mSalleStage;
+    private Salle mSalle;
+    private TableView<Salle> mSalleTableView;
 
     @FXML
     private Label mTitleLabel;
     @FXML
     private TextField mNomTextField,
-            mCapaciteTextField,
-            mTypeTextField;
-
+            mCapaciteTextField;
+    @FXML
+    private ComboBox<String> mTypeComboBox;
     @FXML
     private Button mAjouterSalleBtn;
 
+
     @FXML
     private void initialize() {
-
+        mTypeComboBox.getItems().add("TD");
+        mTypeComboBox.getItems().add("TP");
+        mTypeComboBox.getItems().add("COURS");
     }
 
     /**
@@ -51,13 +54,12 @@ public class SalleController {
         mTitleLabel.setText("Modification de la Salle");
         mNomTextField.setText("");
         mCapaciteTextField.setText("");
-        mTypeTextField.setText("");
         mAjouterSalleBtn.setText("Modifier");
 
         if (salle != null) {
             mNomTextField.setText(salle.getNom());
             mCapaciteTextField.setText(String.valueOf(salle.getCapacite()));
-            mTypeTextField.setText(String.valueOf(salle.getTypeSalle()));
+            mTypeComboBox.setValue(String.valueOf(salle.getTypeSalle()));
         }
     }
 
@@ -68,12 +70,11 @@ public class SalleController {
     @FXML
     private void handleAjouterBtn(ActionEvent event) {
         if (event.getSource() == mAjouterSalleBtn) {
-            if (mAjouterSalleBtn.getText() == "Modifier") {
+            if (mAjouterSalleBtn.getText().equals("Modifier")) {
                 modifierSalle();
             } else {
                 ajouterNouvelleSalle();
             }
-
         }
     }
 
@@ -81,11 +82,13 @@ public class SalleController {
      * Vérifie les données de une salle et ajoute cette salle dans la liste des salles.
      */
     private void ajouterNouvelleSalle() {
-        Boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeTextField.getText());
+        boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
+
         if( estValide ) {
             System.out.println(" ========= Les Données sont valides ============");
             System.out.println("======== Ajouter nouvelle salle");
-            mApp.updateListeSalles();
+
+            mApp.ajouteSalle(new Salle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue()));
             fermer();
         }
     }
@@ -94,11 +97,15 @@ public class SalleController {
      * Modifie les données d'une salle
      */
     private void modifierSalle() {
-        Boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeTextField.getText());
+        Boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
+
         if( estValide ) {
             System.out.println(" ========= Les Données sont valides ============");
             System.out.println("========= Modifier la salle ");
-            mApp.updateListeSalles();
+            if(mSalle != null) {
+                Salle nouvelleSalle = new Salle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
+                mApp.modifierSalle(mSalle, nouvelleSalle, mSalleTableView);
+            }
             fermer();
         }
     }
@@ -112,8 +119,4 @@ public class SalleController {
         mApp = app;
         mSalleStage = salleStage;
     }
-
 }
-
-
-

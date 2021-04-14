@@ -5,8 +5,8 @@ package fr.uvsq.models;
  * @Author Siham, Feriel, Aziz
  */
 public class Module {
-    private String mNom;
     private int mId;
+    private String mNom;
     private int mDuree;
     private int mNbCoursSemaine;
     private boolean mTD;
