@@ -40,7 +40,7 @@ public class AppController {
                    mProfBtn,
                    mCoursBtn,
                    mLatexBtn,
-                   mGroupeBtn;
+                   mPromoBtn;
 
     @FXML
     private Pane mDashboardPane,
@@ -48,7 +48,7 @@ public class AppController {
                  mProfPane,
                  mCoursPane,
                  mLatexPane,
-                 mGroupePane;
+                 mPromoPane;
 
     //=================== Salle TableView ======================
     @FXML
@@ -111,9 +111,9 @@ public class AppController {
         } else if (event.getSource() == mCoursBtn ) {
             System.out.println(" =========== cours button ===========");
             mCoursPane.toFront();
-        } else if (event.getSource() == mGroupeBtn ){
+        } else if (event.getSource() == mPromoBtn ){
             System.out.println(" =========== Groupe button ===========");
-            mGroupePane.toFront();
+            mPromoPane.toFront();
         } else if (event.getSource() == mLatexBtn){
             System.out.println(" =========== Latex button ===========");
             mLatexPane.toFront();

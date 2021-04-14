@@ -3,8 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -47,7 +49,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="mGroupeBtn" mnemonicParsing="false" onAction="#handleSideMenuButtons" prefHeight="50.0" prefWidth="252.0" text="Groupe" textFill="#fcfcfc">
+                  <Button fx:id="mPromoBtn" mnemonicParsing="false" onAction="#handleSideMenuButtons" prefHeight="50.0" prefWidth="252.0" text="Promotion" textFill="#fcfcfc">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -102,9 +104,28 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <Pane fx:id="mLatexPane" layoutX="-6.0" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: #00acc1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Pane fx:id="mLatexPane" layoutX="-6.0" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: #00acc1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox prefHeight="580.0" prefWidth="674.0">
+                     <children>
+                        <Label prefHeight="75.0" prefWidth="674.0" style="-fx-background-color: white;" text="Latex" textFill="#512da8">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <ScrollPane prefHeight="517.0" prefWidth="674.0">
+                           <content>
+                              <TextField prefHeight="510.0" prefWidth="673.0" promptText="Latex " />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children></Pane>
             <Pane fx:id="mEdtPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: #f57f17;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <Pane fx:id="mGroupePane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Pane fx:id="mPromoPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <AnchorPane fx:id="mSallesPane" layoutX="-5.0" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox prefHeight="580.0" prefWidth="673.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -275,7 +296,7 @@
                            <children>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label layoutX="22.0" layoutY="20.0" prefHeight="39.0" prefWidth="123.0" text="GROUPES" textFill="#512da8" AnchorPane.leftAnchor="20.0">
+                                    <Label layoutX="22.0" layoutY="20.0" prefHeight="39.0" prefWidth="123.0" text="Cours" textFill="#512da8" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
