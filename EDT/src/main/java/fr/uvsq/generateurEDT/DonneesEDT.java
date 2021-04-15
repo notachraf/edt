@@ -1,7 +1,6 @@
 package fr.uvsq.generateurEDT;
 
-import fr.uvsq.gestionDeDonnees.SalleDAO;
-import fr.uvsq.models.Groupe;
+import fr.uvsq.models.Promo;
 import fr.uvsq.models.Professeur;
 import fr.uvsq.models.Salle;
 import java.util.List;
@@ -11,7 +10,7 @@ public class DonneesEDT {
     private List<Salle> mListeSalles;
     private List<Professeur> mListeProfesseurs;
     private List<Module> mListeModules;
-    private List<Groupe> mListeGroupes;
+    private List<Promo> mListeGroupes;
 
     /**
      * 
@@ -69,7 +68,7 @@ public class DonneesEDT {
      * 
      * @return
      */
-    public List<Groupe> getListeGroupes() {
+    public List<Promo> getListeGroupes() {
         return mListeGroupes;
     }
 
@@ -77,7 +76,7 @@ public class DonneesEDT {
      * 
      * @param listeGroupes
      */
-    public void setListeGroupes(List<Groupe> listeGroupes) {
+    public void setListeGroupes(List<Promo> listeGroupes) {
         mListeGroupes = listeGroupes;
     }
 

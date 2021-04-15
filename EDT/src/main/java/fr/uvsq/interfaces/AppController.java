@@ -1,6 +1,9 @@
 package fr.uvsq.interfaces;
 
+import com.calendarfx.model.Calendar;
 import com.calendarfx.view.CalendarView;
+import fr.uvsq.generateurEDT.Evenement;
+import fr.uvsq.generateurEDT.GenerateurEDT;
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Salle;
 import fr.uvsq.models.TypeSalle;
@@ -28,8 +31,10 @@ import java.util.Map;
 public class AppController {
     private App mApp;
 
-    private String mEDTLatex;
-    private Map<Integer, List<String>> mTableauEDT;
+    private StringBuilder mEDTEnLatex;
+    private Map<Integer, List<Evenement>> mEvenementParJour;
+    private GenerateurEDT mGenerateurEDT;
+    private Calendar mCalendar;
 
     @FXML
     CalendarView mEDTCalendarPane;
@@ -83,8 +88,7 @@ public class AppController {
     private TableColumn<Module, Void> mActionModuleCln;
 
     //=================== Prof TableView ======================
-    //=================== Groupe TableView ======================
-    //
+    //=================== Promo TableView ======================
 
     @FXML
     private void onHomeLabelClick(){
@@ -435,7 +439,14 @@ public class AppController {
      * Remplir le tableau d'EDT avec le dictionnaire
      * Map<Integer, String>
      */
-    public void remplirTableauEDT(){
+    public void genereEDT(){
+
+    }
+
+    /**
+     * Affiche les évenements dans le calandrier.
+     */
+    public void afficheEDT(){
 
     }
 

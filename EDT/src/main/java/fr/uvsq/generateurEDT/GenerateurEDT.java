@@ -6,7 +6,8 @@ import java.util.Map;
 public class GenerateurEDT {
     private DonneesEDT mDonneesEDT;
     private Double mTemperature;
-    private List<EDT> mSolutions;
+    private List<EDT> mSolutions; // pour débugger
+    private EDT mSolutionFinale;
     private double mConstanteDiminue;
     private final static int TEMP_FINAL = 0;
 
@@ -16,6 +17,11 @@ public class GenerateurEDT {
         mSolutions = solutions;
         mConstanteDiminue = constanteDiminue;
     }
+
+    public void setSolutionFinale(EDT solutionFinale) {
+        mSolutionFinale = solutionFinale;
+    }
+    public EDT getSolutionFinale(){ return null;}
 
     public DonneesEDT getDonneesDB() {
         return mDonneesEDT;
@@ -89,19 +95,11 @@ public class GenerateurEDT {
     }
 
     /**
-     * Retourne la solution finale (EDT)
-     * @return String (EDT)
-     */
-    public String getSolutionFinale(){
-        return null;
-    }
-
-    /**
      * Retourne un dictionnaire contenant pour chaque entrée
      * Une liste d'événement pour chaque jour.
      * @return Map
      */
-    public Map<Integer, List<String>> getTableSolutionFinale(){
+    public Map<Integer, List<Evenement>> getEvenementParJour(){
         return null;
     }
 
@@ -111,4 +109,13 @@ public class GenerateurEDT {
     public void reoptimise(){
 
     }
+
+    /**
+     * Retourne la solution de l'EDT en Latex
+     * @return StringBuilder
+     */
+    public StringBuilder getSolutionEnLatex(){
+        return null;
+    }
+
 }

@@ -1,6 +1,6 @@
 package fr.uvsq.interfaces;
 
-import fr.uvsq.models.Groupe;
+import fr.uvsq.models.Promo;
 import fr.uvsq.models.Professeur;
 import fr.uvsq.models.Salle;
 
@@ -14,7 +14,7 @@ public class  GestionFichier{
 
     private String mCheminFichier;
     private List<Professeur> mListeProfesseurs;
-    private List<Groupe> mListeGroupes;
+    private List<Promo> mListeGroupes;
     private List<Salle> mListeSalles;
     private List<Module> mListeModules;
 
@@ -81,7 +81,7 @@ public class  GestionFichier{
      * @return
      */
 
-    public Groupe creerGroupe(String line){
+    public Promo creerGroupe(String line){
         return null;
     }
 
@@ -114,7 +114,7 @@ public class  GestionFichier{
     /**
      * @return la liste des groupes
      */
-    public List<Groupe> getListeGroupes() {
+    public List<Promo> getListeGroupes() {
         return mListeGroupes;
     }
 
@@ -123,7 +123,7 @@ public class  GestionFichier{
      * mListeProfesseurs
      * @param listeGroupes
      */
-    public void setListeGroupes(List<Groupe> listeGroupes) {
+    public void setListeGroupes(List<Promo> listeGroupes) {
         mListeGroupes = listeGroupes;
     }
 

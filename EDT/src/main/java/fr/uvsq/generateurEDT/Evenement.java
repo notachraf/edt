@@ -1,6 +1,6 @@
 package fr.uvsq.generateurEDT;
 
-import fr.uvsq.models.Groupe;
+import fr.uvsq.models.Promo;
 import fr.uvsq.models.Professeur;
 
 public class Evenement {
@@ -8,14 +8,23 @@ public class Evenement {
     private TypeEven mTypeEven;
     private Professeur mProfesseur;
     private Module mModule;
-    private Groupe mGroupe;
+    private Promo mGroupe;
     private static int NbEvenements;
-    
+    private Crenau mCrenau;
+
+    public Crenau getCrenau() {
+        return mCrenau;
+    }
+
+    public void setCrenau(Crenau crenau) {
+        mCrenau = crenau;
+    }
+
     public Evenement() {
         NbEvenements++;
     }
 
-    public Evenement(int id, TypeEven typeEven, Professeur professeur, Module module, Groupe groupe) {
+    public Evenement(int id, TypeEven typeEven, Professeur professeur, Module module, Promo groupe) {
         mId = id;
         mTypeEven = typeEven;
         mProfesseur = professeur;
@@ -92,7 +101,7 @@ public class Evenement {
      * 
      * @return
      */
-    public Groupe getGroupe() {
+    public Promo getGroupe() {
         return mGroupe;
     }
 
@@ -100,7 +109,7 @@ public class Evenement {
      * 
      * @param groupe
      */
-    public void setGroupe(Groupe groupe) {
+    public void setGroupe(Promo groupe) {
         mGroupe = groupe;
     }
 
