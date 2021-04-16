@@ -1,7 +1,7 @@
 package fr.uvsq.models;
 
 /**
- * 
+ *
  * @Author Siham, Feriel, Aziz
  */
 public class Module {
@@ -40,6 +40,8 @@ public class Module {
     public int getDuree() {
         return mDuree;
     }
+
+    public int getId() { return mId; }
 
     public void setDuree(int duree) {
         mDuree = duree;

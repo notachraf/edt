@@ -1,6 +1,7 @@
 package fr.uvsq.interfaces;
 
 import fr.uvsq.models.Module;
+import fr.uvsq.verification.Verification;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -23,12 +24,13 @@ public class ModuleController {
         @FXML
         private TextField mNomTextField,
                 mDureeTextField,
-                mNbCoursParSemaineTextField;
+                mNbCMTextField,
+                mNbTDTextField,
+                mNbTPTextField,
+                mDureeCMTextField,
+                mDureeTDTextField,
+                mDureeTPTextField;
 
-
-        @FXML
-        private CheckBox mTDCheckBox,
-                mTPCheckBox;
 
         @FXML
         void fermer() {
@@ -45,10 +47,12 @@ public class ModuleController {
                 if (module != null) {
                         mNomTextField.setText(module.getNom());
                         mDureeTextField.setText(String.valueOf(module.getDuree()));
-                        mNbCoursParSemaineTextField.setText(String.valueOf(module.getNbCoursSemaine()));
-
-                        mTDCheckBox.setSelected(module.isTD());
-                        mTPCheckBox.setSelected(module.isTP());
+                        mNbCMTextField.setText(String.valueOf(module.getNbCM()));
+                        mNbTDTextField.setText(String.valueOf(module.getNbTD()));
+                        mNbTPTextField.setText(String.valueOf(module.getNbTP()));
+                        mDureeCMTextField.setText(String.valueOf(module.getDureeCM()));
+                        mDureeTDTextField.setText(String.valueOf(module.getDureeTD()));
+                        mDureeTPTextField.setText(String.valueOf(module.getDureeTP()));
                 }
         }
 
@@ -72,11 +76,15 @@ public class ModuleController {
                         System.out.println("======== Ajouter nouveau module");
 
                         mApp.ajouteModule(new Module(
-                                        mNomTextField.getText(),
-                                        Integer.parseInt(mDureeTextField.getText()),
-                                        Integer.parseInt(mNbCoursParSemaineTextField.getText()),
-                                        mTDCheckBox.isSelected() ? true : false,
-                                        mTPCheckBox.isSelected() ? true : false
+                                mNomTextField.getText(),
+                                Integer.parseInt(mDureeTextField.getText()),
+                                Integer.parseInt(mNbTDTextField.getText()),
+                                Integer.parseInt(mNbCMTextField.getText()),
+                                Integer.parseInt(mNbTPTextField.getText()),
+                                Integer.parseInt(mDureeCMTextField.getText()),
+                                Integer.parseInt(mDureeTPTextField.getText()),
+                                Integer.parseInt(mDureeTDTextField.getText())
+
                         ));
                         fermer();
                 }
@@ -92,9 +100,12 @@ public class ModuleController {
                                 Module nouveauModule = new Module(
                                         mNomTextField.getText(),
                                         Integer.parseInt(mDureeTextField.getText()),
-                                        Integer.parseInt(mNbCoursParSemaineTextField.getText()),
-                                        mTDCheckBox.isSelected() ? true : false,
-                                        mTPCheckBox.isSelected() ? true : false
+                                        Integer.parseInt(mNbTDTextField.getText()),
+                                        Integer.parseInt(mNbCMTextField.getText()),
+                                        Integer.parseInt(mNbTPTextField.getText()),
+                                        Integer.parseInt(mDureeCMTextField.getText()),
+                                        Integer.parseInt(mDureeTPTextField.getText()),
+                                        Integer.parseInt(mDureeTDTextField.getText())
                                 );
                                 mApp.modifierModule(mModule, nouveauModule, mModuleTableView);
                         }

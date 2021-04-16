@@ -12,6 +12,26 @@ public class Professeur {
     private int mNbProfesseur;
     ArrayList<Module> mListeModules; //liste de cours
 
+    /** Constructeur
+     * @return Prefessur
+     */
+    public Professeur(String nom,  ArrayList<Module> listeModules) {
+        mNom = nom;
+        mListeModules = listeModules;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getListeModulesAsString() {
+        ArrayList<String> modules = new ArrayList<>();
+        for(Module module : mListeModules) {
+            modules.add(module.getNom());
+        }
+        return String.join(", ", modules);
+    }
+
     /**
      *
      * @return

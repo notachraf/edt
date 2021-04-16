@@ -4,10 +4,11 @@ import com.calendarfx.model.Calendar;
 import com.calendarfx.view.CalendarView;
 import fr.uvsq.generateurEDT.Evenement;
 import fr.uvsq.generateurEDT.GenerateurEDT;
+import fr.uvsq.models.*;
 import fr.uvsq.models.Module;
-import fr.uvsq.models.Salle;
-import fr.uvsq.models.TypeSalle;
 import javafx.beans.value.ObservableValueBase;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,19 +42,19 @@ public class AppController {
 
     @FXML
     private Button mDashboardBtn,
-                   mSallesBtn,
-                   mProfBtn,
-                   mCoursBtn,
-                   mLatexBtn,
-                   mPromoBtn;
+            mSallesBtn,
+            mProfBtn,
+            mCoursBtn,
+            mLatexBtn,
+            mPromoBtn;
 
     @FXML
     private Pane mDashboardPane,
-                 mSallesPane,
-                 mProfPane,
-                 mCoursPane,
-                 mLatexPane,
-                 mPromoPane;
+            mSallesPane,
+            mProfPane,
+            mModulePane,
+            mLatexPane,
+            mPromoPane;
 
     //=================== Salle TableView ======================
     @FXML
@@ -79,22 +80,54 @@ public class AppController {
     @FXML
     private TableColumn<Module, Integer> mDureeModuleCln;
     @FXML
-    private TableColumn<Module, Integer> mNbCoursSemaineCln;
+    private TableColumn<Module, Integer> mNbCMCln;
     @FXML
-    private TableColumn<Module, Boolean> mTDModuleCln;
+    private TableColumn<Module, Integer> mNbTDCln;
     @FXML
-    private TableColumn<Module, Boolean> mTPModuleCln;
+    private TableColumn<Module, Integer> mNbTPCln;
+    @FXML
+    private TableColumn<Module, Integer> mDureeCMCln;
+    @FXML
+    private TableColumn<Module, Integer> mDureeTDCln;
+    @FXML
+    private TableColumn<Module, Integer> mDureeTPCln;
     @FXML
     private TableColumn<Module, Void> mActionModuleCln;
 
     //=================== Prof TableView ======================
+    @FXML
+    private TableView<Professeur> mProfTableView;
+    @FXML
+    private TableColumn<Professeur, Integer> mIdProfCln;
+    @FXML
+    private TableColumn<Professeur, String> mNomProfCln;
+    @FXML
+    private TableColumn<Professeur, String> mModuleProfCln;
+    @FXML
+    private TableColumn<Professeur, Void> mActionProfCln;
+
     //=================== Promo TableView ======================
+    @FXML
+    private TableView<Promo> mPromotionTableView;
+    @FXML
+    private TableColumn<Promo, Integer> mIdPromoCln;
+    @FXML
+    private TableColumn<Promo, String> mNomPromoCln;
+    @FXML
+    private TableColumn<Promo, Integer> mNombreElevesPromoCln;
+    @FXML
+    private TableColumn<Promo, Integer> mNombreGroupesPromoCln;
+    @FXML
+    private TableColumn<Promo, String> mModulesPromoCln;
+    @FXML
+    private TableColumn<Promo, Void> mActionPromoCln;
+
 
     @FXML
     private void onHomeLabelClick(){
         System.out.println("=========== click on Home label +++++++++++");
-        mEDTCalendarPane.showMonthPage();
-        mEDTCalendarPane.toFront();
+//        mEDTCalendarPane.showMonthPage();
+//        mEDTCalendarPane.toFront();
     }
 
     /**
@@ -114,40 +147,13 @@ public class AppController {
             mProfPane.toFront();
         } else if (event.getSource() == mCoursBtn ) {
             System.out.println(" =========== cours button ===========");
-            mCoursPane.toFront();
+            mModulePane.toFront();
         } else if (event.getSource() == mPromoBtn ){
             System.out.println(" =========== Groupe button ===========");
             mPromoPane.toFront();
         } else if (event.getSource() == mLatexBtn){
             System.out.println(" =========== Latex button ===========");
             mLatexPane.toFront();
-        }
-    }
-
-    /**
-     * Affiche la fenêtre de dialogue salle
-     * en lui passe les données de la salle
-     * à afficher.
-     */
-    @FXML
-    private void afficheDialogueSalle(){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fr/uvsq/salle.fxml"));
-
-        try{
-            AnchorPane sallePane = loader.load();
-            SalleController salleController = loader.getController();
-            Scene scene = new Scene(sallePane);
-            Stage salleStage = new Stage(StageStyle.UNDECORATED);
-            salleController.setApp(mApp, salleStage);
-            salleStage.setResizable(false);
-            salleStage.setScene(scene);
-            salleStage.initOwner(mApp.getAppStage());
-            salleStage.initModality(Modality.APPLICATION_MODAL);
-            salleStage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -161,10 +167,16 @@ public class AppController {
         mEDTCalendarPane.toFront();
         mEDTCalendarPane.setShowAddCalendarButton(false);*/
         mDashboardPane.toFront();
+
         initSalleTableView();
         initModuleTableView();
-        ajouteBouttonsActionSalle();
-        ajouteBouttonsActionModule();
+        initProfTableView();
+        initPromoTableView();
+
+        ajouteBoutonsActionSalle();
+        ajouteBoutonsActionModule();
+        ajouteBoutonsActionProf();
+        ajouteBoutonsActionPromo();
 
         mIdSalleCln.setResizable(false);
         mNomSalleCln.setResizable(false);
@@ -220,28 +232,102 @@ public class AppController {
                 return cellData.getValue().getNom();
             }
         });
-        mNbCoursSemaineCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
-            @Override
-            public Integer getValue() {
-                return cellData.getValue().getNbCoursSemaine();
-            }
-        });
         mDureeModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
                 return cellData.getValue().getDuree();
             }
         });
-        mTDModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Boolean>() {
+        mNbCMCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
-            public Boolean getValue() {
-                return cellData.getValue().isTD();
+            public Integer getValue() {
+                return cellData.getValue().getNbCM();
             }
         });
-        mTPModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Boolean>() {
+        mNbTDCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
-            public Boolean getValue() {
-                return cellData.getValue().isTP();
+            public Integer getValue() {
+                return cellData.getValue().getNbTD();
+            }
+        });
+        mNbTPCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getNbTP();
+            }
+        });
+        mDureeCMCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getDureeCM();
+            }
+        });
+        mDureeTDCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getDureeTD();
+            }
+        });
+        mDureeTPCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getDureeTP();
+            }
+        });
+    }
+
+    private void initProfTableView() {
+
+        mIdProfCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getId();
+            }
+        });
+        mNomProfCln.setCellValueFactory(cellData -> new ObservableValueBase<String>() {
+            @Override
+            public String getValue() {
+                return cellData.getValue().getNom();
+            }
+        });
+
+        mModuleProfCln.setCellValueFactory(cellData -> new ObservableValueBase<>() {
+            @Override
+            public String getValue() {
+                return cellData.getValue().getListeModulesAsString();
+            }
+        });
+    }
+
+    private void initPromoTableView() {
+        mIdPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getId();
+            }
+        });
+        mNomPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<String>() {
+            @Override
+            public String getValue() {
+                return cellData.getValue().getNom();
+            }
+        });
+        mNombreElevesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getId();
+            }
+        });
+        mNombreGroupesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getId();
+            }
+        });
+        mModulesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<>() {
+            @Override
+            public String getValue() {
+                return cellData.getValue().getListeModulesAsString();
             }
         });
     }
@@ -290,6 +376,52 @@ public class AppController {
         }
     }
 
+    @FXML
+    private void afficherDialogueAjouterProf() {
+        System.out.println("Prof added");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fr/uvsq/prof.fxml"));
+
+        try{
+            AnchorPane profPane = loader.load();
+            ProfController profController = loader.getController();
+            Scene scene = new Scene(profPane);
+            Stage profStage = new Stage(StageStyle.UNDECORATED);
+            profController.setApp(mApp, profStage, mApp.getListModule());
+            profStage.setResizable(false);
+            profStage.setScene(scene);
+            profStage.initOwner(mApp.getAppStage());
+            profStage.initModality(Modality.APPLICATION_MODAL);
+            profStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void afficherDialogueAjouterPromo() {
+        System.out.println("Promo added");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fr/uvsq/promo.fxml"));
+
+        try{
+            AnchorPane promoPane = loader.load();
+            PromoController promoController = loader.getController();
+            Scene scene = new Scene(promoPane);
+            Stage promoStage = new Stage(StageStyle.UNDECORATED);
+            promoController.setApp(mApp, promoStage, mApp.getListModule());
+            promoStage.setResizable(false);
+            promoStage.setScene(scene);
+            promoStage.initOwner(mApp.getAppStage());
+            promoStage.initModality(Modality.APPLICATION_MODAL);
+            promoStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void afficherDialogueModifierSalle(Salle salle){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fr/uvsq/salle.fxml"));
@@ -297,7 +429,7 @@ public class AppController {
         try{
             AnchorPane sallePane = loader.load();
             SalleController salleController = loader.getController();
-            salleController.initialiseDialogueModification(salle);
+            salleController.initialiseDialogueModification(salle, mSallesTableView);
             Scene scene = new Scene(sallePane);
             Stage salleStage = new Stage(StageStyle.UNDECORATED);
             salleController.setApp(mApp, salleStage);
@@ -306,6 +438,28 @@ public class AppController {
             salleStage.initOwner(mApp.getAppStage());
             salleStage.initModality(Modality.APPLICATION_MODAL);
             salleStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void afficherDialogueModifierProf(Professeur prof) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fr/uvsq/prof.fxml"));
+
+        try{
+            AnchorPane profPane = loader.load();
+            ProfController profController = loader.getController();
+            profController.initialiseDialogueModification(prof, mProfTableView);
+            Scene scene = new Scene(profPane);
+            Stage profStage = new Stage(StageStyle.UNDECORATED);
+            profController.setApp(mApp, profStage, mApp.getListModule());
+            profStage.setResizable(false);
+            profStage.setScene(scene);
+            profStage.initOwner(mApp.getAppStage());
+            profStage.initModality(Modality.APPLICATION_MODAL);
+            profStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -334,8 +488,30 @@ public class AppController {
         }
     }
 
+    private void afficherDialogueModifierPromo(Promo promo) {
+        System.out.println("Promo added");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fr/uvsq/promo.fxml"));
 
-    private void ajouteBouttonsActionSalle() {
+        try{
+            AnchorPane promoPane = loader.load();
+            PromoController promoController = loader.getController();
+            promoController.initialiseDialogueModification(promo, mPromotionTableView);
+            Scene scene = new Scene(promoPane);
+            Stage promoStage = new Stage(StageStyle.UNDECORATED);
+            promoController.setApp(mApp, promoStage, mApp.getListModule());
+            promoStage.setResizable(false);
+            promoStage.setScene(scene);
+            promoStage.initOwner(mApp.getAppStage());
+            promoStage.initModality(Modality.APPLICATION_MODAL);
+            promoStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void ajouteBoutonsActionSalle() {
         Callback<TableColumn<Salle, Void>, TableCell<Salle, Void>> cellFactory = new Callback<TableColumn<Salle, Void>, TableCell<Salle, Void>>() {
             @Override
             public TableCell<Salle, Void> call(final TableColumn<Salle, Void> param) {
@@ -382,7 +558,7 @@ public class AppController {
         mActionSalleCln.setCellFactory(cellFactory);
     }
 
-    private void ajouteBouttonsActionModule() {
+    private void ajouteBoutonsActionModule() {
         Callback<TableColumn<Module, Void>, TableCell<Module, Void>> cellFactory = new Callback<TableColumn<Module, Void>, TableCell<Module, Void>>() {
             @Override
             public TableCell<Module, Void> call(final TableColumn<Module, Void> param) {
@@ -429,10 +605,108 @@ public class AppController {
         mActionModuleCln.setCellFactory(cellFactory);
     }
 
+    private void ajouteBoutonsActionProf() {
+        Callback<TableColumn<Professeur, Void>, TableCell<Professeur, Void>> cellFactory = new Callback<TableColumn<Professeur, Void>, TableCell<Professeur, Void>>() {
+            @Override
+            public TableCell<Professeur, Void> call(final TableColumn<Professeur, Void> param) {
+                final TableCell<Professeur, Void> cell = new TableCell<Professeur, Void>() {
+
+                    Button editBtn = new Button("Modifier");
+                    Button removeBtn = new Button("Supprimer");
+
+                    {
+                        editBtn.setStyle("-fx-text-fill: #ffffff");
+                        removeBtn.setStyle("-fx-text-fill: #ffffff");
+                        editBtn.setOnAction((ActionEvent event) -> {
+                            Professeur prof = getTableView().getItems().get(getIndex());
+                            System.out.println("selectedData: " + prof.getNom());
+                            afficherDialogueModifierProf(prof);
+                        });
+
+                        removeBtn.setOnAction((ActionEvent event) -> {
+                            Professeur prof = getTableView().getItems().get(getIndex());
+                            System.out.println("selectedData: " + prof.getNom());
+
+                            mApp.supprimerProf(prof);
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        HBox managebtn = new HBox(editBtn, removeBtn);
+                        HBox.setMargin(editBtn, new Insets(2, 2, 0, 3));
+                        HBox.setMargin(removeBtn, new Insets(2, 3, 0, 2));
+
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(managebtn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        mActionProfCln.setCellFactory(cellFactory);
+
+    }
+
+    private void ajouteBoutonsActionPromo() {
+        Callback<TableColumn<Promo, Void>, TableCell<Promo, Void>> cellFactory = new Callback<TableColumn<Promo, Void>, TableCell<Promo, Void>>() {
+            @Override
+            public TableCell<Promo, Void> call(final TableColumn<Promo, Void> param) {
+                final TableCell<Promo, Void> cell = new TableCell<Promo, Void>() {
+
+                    Button editBtn = new Button("Modifier");
+                    Button removeBtn = new Button("Supprimer");
+
+                    {
+                        editBtn.setStyle("-fx-text-fill: #ffffff");
+                        removeBtn.setStyle("-fx-text-fill: #ffffff");
+                        editBtn.setOnAction((ActionEvent event) -> {
+                            Promo promo = getTableView().getItems().get(getIndex());
+                            System.out.println("selectedData: " + promo.getNom());
+                            afficherDialogueModifierPromo(promo);
+                        });
+
+                        removeBtn.setOnAction((ActionEvent event) -> {
+                            Promo promo = getTableView().getItems().get(getIndex());
+                            System.out.println("selectedData: " + promo.getNom());
+
+                            mApp.supprimerPromo(promo);
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        HBox managebtn = new HBox(editBtn, removeBtn);
+                        HBox.setMargin(editBtn, new Insets(2, 2, 0, 3));
+                        HBox.setMargin(removeBtn, new Insets(2, 3, 0, 2));
+
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(managebtn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        mActionPromoCln.setCellFactory(cellFactory);
+
+    }
+
     public void setApp(App app) {
         mApp = app;
         mSallesTableView.setItems(mApp.getListeSalles());
         mModuleTableView.setItems(mApp.getListModule());
+        mProfTableView.setItems(mApp.getListeProfs());
+        mPromotionTableView.setItems(mApp.getListePromos());
     }
 
     /**

@@ -29,7 +29,9 @@ public class SalleController {
     @FXML
     private Button mAjouterSalleBtn;
 
-
+    /**
+     * Initialise la fenêtre de dialogue salle
+     */
     @FXML
     private void initialize() {
         mTypeComboBox.getItems().add("TD");
@@ -50,7 +52,9 @@ public class SalleController {
      * avec les attributs de la classe salle
      * @param salle
      */
-    public void initialiseDialogueModification(Salle salle) {
+    public void initialiseDialogueModification(Salle salle, TableView<Salle> salleTableView) {
+        mSalle = salle;
+        mSalleTableView = salleTableView;
         mTitleLabel.setText("Modification de la Salle");
         mNomTextField.setText("");
         mCapaciteTextField.setText("");
@@ -79,7 +83,7 @@ public class SalleController {
     }
 
     /**
-     * Vérifie les données de une salle et ajoute cette salle dans la liste des salles.
+     * Vérifie les données d'une salle et ajoute cette salle dans la liste des salles.
      */
     private void ajouterNouvelleSalle() {
         boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());

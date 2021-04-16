@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="580.0" prefWidth="868.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.uvsq.interfaces.AppController">
+<BorderPane prefHeight="676.0" prefWidth="1056.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.uvsq.interfaces.AppController">
    <left>
       <Pane prefHeight="580.0" prefWidth="252.0" scaleShape="false" style="-fx-background-color: #512da8#512da8;" BorderPane.alignment="CENTER">
          <children>
@@ -39,17 +39,17 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="mCoursBtn" mnemonicParsing="false" onAction="#handleSideMenuButtons" prefHeight="50.0" prefWidth="252.0" text="Cours" textFill="#fcfcfc">
+                  <Button fx:id="mCoursBtn" mnemonicParsing="false" onAction="#handleSideMenuButtons" prefHeight="50.0" prefWidth="252.0" text="Modules" textFill="#fcfcfc">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="mProfBtn" mnemonicParsing="false" onAction="#handleSideMenuButtons" prefHeight="50.0" prefWidth="252.0" text="Professeur" textFill="#fcfcfc">
+                  <Button fx:id="mProfBtn" mnemonicParsing="false" onAction="#handleSideMenuButtons" prefHeight="50.0" prefWidth="252.0" text="Professeurs" textFill="#fcfcfc">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="mPromoBtn" mnemonicParsing="false" onAction="#handleSideMenuButtons" prefHeight="50.0" prefWidth="252.0" text="Promotion" textFill="#fcfcfc">
+                  <Button fx:id="mPromoBtn" mnemonicParsing="false" onAction="#handleSideMenuButtons" prefHeight="50.0" prefWidth="252.0" text="Promotions" textFill="#fcfcfc">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -67,43 +67,6 @@
    <center>
       <AnchorPane prefHeight="580.0" prefWidth="665.0">
          <children>
-            <AnchorPane fx:id="mProfPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <VBox prefHeight="580.0" prefWidth="673.0">
-                     <children>
-                        <HBox alignment="BASELINE_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label layoutX="22.0" layoutY="20.0" prefHeight="39.0" prefWidth="123.0" text="Professeur" textFill="#512da8" AnchorPane.leftAnchor="20.0">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="mAjouteProfBtn" layoutX="527.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="136.0" text="Ajouter" textFill="#fffbfb" AnchorPane.rightAnchor="20.0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </HBox>
-                        <TableView fx:id="mProfTableView" editable="true" prefHeight="507.0" prefWidth="587.0" VBox.vgrow="ALWAYS">
-                           <columns>
-                              <TableColumn fx:id="mIdProfCln" prefWidth="38.0" text="ID" />
-                              <TableColumn fx:id="mNomProfCln" prefWidth="154.0" text="NOM" />
-                              <TableColumn fx:id="mModuleProfCln" prefWidth="251.0" text="NOM" />
-                              <TableColumn fx:id="mActionProfCln" minWidth="0.0" prefWidth="187.0" text="ACTION" />
-                           </columns>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" />
-                           </VBox.margin>
-                        </TableView>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
             <Pane fx:id="mLatexPane" layoutX="-6.0" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: #00acc1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox prefHeight="580.0" prefWidth="674.0">
@@ -124,51 +87,11 @@
                      </children>
                   </VBox>
                </children></Pane>
-            <Pane fx:id="mEdtPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: #f57f17;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <Pane fx:id="mPromoPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <AnchorPane fx:id="mSallesPane" layoutX="-5.0" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <VBox prefHeight="580.0" prefWidth="673.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <HBox alignment="BASELINE_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label layoutX="22.0" layoutY="20.0" prefHeight="39.0" prefWidth="123.0" text="SALLES" textFill="#512da8" AnchorPane.leftAnchor="20.0">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="mAjouteSalleBtn" layoutX="527.0" layoutY="24.0" mnemonicParsing="false" onAction="#afficherDialogueAjouterSalle" prefHeight="31.0" prefWidth="136.0" text="Ajouter" textFill="#fffbfb" AnchorPane.rightAnchor="20.0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </HBox>
-                        <TableView fx:id="mSallesTableView" editable="true" prefHeight="507.0" prefWidth="587.0" VBox.vgrow="ALWAYS">
-                          <columns>
-                            <TableColumn fx:id="mIdSalleCln" prefWidth="38.0" text="ID" />
-                            <TableColumn fx:id="mNomSalleCln" prefWidth="239.0" text="NOM" />
-                              <TableColumn fx:id="mCapaciteSalleCln" prefWidth="66.0" text="CAPACITE" />
-                              <TableColumn fx:id="mTypeSalleCln" prefWidth="60.0" text="TYPE" />
-                              <TableColumn fx:id="mActionSalleCln" minWidth="170.0" prefWidth="177.0" text="ACTION" />
-                          </columns>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" />
-                           </VBox.margin>
-                        </TableView>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
             <Pane fx:id="mDashboardPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox prefHeight="580.0" prefWidth="637.0">
+                  <VBox prefHeight="676.0" prefWidth="808.0">
                      <children>
-                        <GridPane alignment="BASELINE_CENTER" prefHeight="413.0" prefWidth="637.0">
+                        <GridPane alignment="BASELINE_CENTER" prefHeight="413.0" prefWidth="637.0" VBox.vgrow="ALWAYS">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -259,6 +182,9 @@
                                  </GridPane.margin>
                               </VBox>
                            </children>
+                           <VBox.margin>
+                              <Insets left="100.0" right="100.0" />
+                           </VBox.margin>
                         </GridPane>
                         <HBox prefHeight="119.0" prefWidth="637.0">
                            <children>
@@ -267,12 +193,12 @@
                                     <Insets />
                                  </HBox.margin>
                                  <children>
-                                    <Button layoutX="153.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="157.0" text="Générer EDT" textFill="#fffdfd">
+                                    <Button layoutX="220.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="157.0" text="Générer EDT" textFill="#fffdfd">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="328.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="157.0" text="Latex" textFill="#f8f5f5">
+                                    <Button layoutX="441.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="157.0" text="Latex" textFill="#f8f5f5">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -288,15 +214,15 @@
                   </VBox>
                </children>
             </Pane>
-            <AnchorPane fx:id="mCoursPane" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="mModulePane" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox prefHeight="580.0" prefWidth="673.0">
+                  <VBox prefHeight="676.0" prefWidth="804.0">
                      <children>
-                        <HBox alignment="BASELINE_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="BASELINE_LEFT" prefHeight="69.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
                            <children>
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                              <AnchorPane prefHeight="69.0" prefWidth="804.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label layoutX="22.0" layoutY="20.0" prefHeight="39.0" prefWidth="123.0" text="Cours" textFill="#512da8" AnchorPane.leftAnchor="20.0">
+                                    <Label layoutX="22.0" layoutY="20.0" prefHeight="39.0" prefWidth="123.0" text="Modules" textFill="#512da8" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -310,15 +236,132 @@
                               </AnchorPane>
                            </children>
                         </HBox>
-                        <TableView fx:id="mModuleTableView" editable="true" prefHeight="507.0" prefWidth="587.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="mModuleTableView" editable="true" prefHeight="484.0" prefWidth="678.0" VBox.vgrow="ALWAYS">
                            <columns>
                               <TableColumn fx:id="mIdModuleCln" prefWidth="38.0" text="ID" />
-                              <TableColumn fx:id="mNomModuleCln" prefWidth="128.0" text="NOM" />
-                              <TableColumn fx:id="mDureeModuleCln" prefWidth="43.0" text="Durée" />
-                              <TableColumn fx:id="mNbCoursSemaineCln" prefWidth="178.0" text="Nombre de cours par semaine" />
-                              <TableColumn fx:id="mTDModuleCln" minWidth="0.0" prefWidth="42.0" text="TD" />
-                              <TableColumn fx:id="mTPModuleCln" prefWidth="43.0" text="TP" />
-                              <TableColumn fx:id="mActionModuleCln" minWidth="129.0" prefWidth="159.0" text="ACTION" />
+                              <TableColumn fx:id="mNomModuleCln" prefWidth="147.0" text="NOM" />
+                              <TableColumn fx:id="mDureeModuleCln" minWidth="0.0" prefWidth="47.0" text="Durée" />
+                              <TableColumn fx:id="mNbCMCln" prefWidth="79.0" text="Nombre de &#10;cours" />
+                              <TableColumn fx:id="mNbTDCln" prefWidth="76.0" text="Nombre de &#10;TD" />
+                              <TableColumn fx:id="mNbTPCln" prefWidth="73.0" text="Nombre de &#10;TP" />
+                              <TableColumn fx:id="mDureeCMCln" minWidth="0.0" prefWidth="45.0" text="Durée &#10;cours" />
+                              <TableColumn fx:id="mDureeTDCln" prefWidth="50.0" text="Durée &#10;TD" />
+                              <TableColumn fx:id="mDureeTPCln" minWidth="46.0" prefWidth="49.0" text="Durée &#10;TP" />
+                              <TableColumn fx:id="mActionModuleCln" minWidth="12.0" prefWidth="158.0" text="Action" />
+                           </columns>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="mProfPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox prefHeight="580.0" prefWidth="673.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox alignment="BASELINE_LEFT" prefHeight="69.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label layoutX="22.0" layoutY="20.0" prefHeight="39.0" prefWidth="123.0" text="Professeurs" textFill="#512da8" AnchorPane.leftAnchor="20.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="mAjouteProfBtn" layoutX="527.0" layoutY="24.0" mnemonicParsing="false" onAction="#afficherDialogueAjouterProf" prefHeight="31.0" prefWidth="136.0" text="Ajouter" textFill="#fffbfb" AnchorPane.rightAnchor="20.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                        <TableView fx:id="mProfTableView" editable="true" prefHeight="507.0" prefWidth="587.0" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="mIdProfCln" prefWidth="38.0" text="ID" />
+                              <TableColumn fx:id="mNomProfCln" prefWidth="170.0" text="NOM" />
+                              <TableColumn fx:id="mModuleProfCln" prefWidth="380.0" text="Peut enseigner" />
+                              <TableColumn fx:id="mActionProfCln" minWidth="0.0" prefWidth="174.0" text="ACTION" />
+                           </columns>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="mSallesPane" layoutX="-5.0" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox prefHeight="580.0" prefWidth="673.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox alignment="BASELINE_LEFT" prefHeight="69.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label layoutX="22.0" layoutY="20.0" prefHeight="39.0" prefWidth="123.0" text="Salles" textFill="#512da8" AnchorPane.leftAnchor="20.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="mAjouteSalleBtn" layoutX="527.0" layoutY="24.0" mnemonicParsing="false" onAction="#afficherDialogueAjouterSalle" prefHeight="31.0" prefWidth="136.0" text="Ajouter" textFill="#fffbfb" AnchorPane.rightAnchor="20.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                        <TableView fx:id="mSallesTableView" editable="true" prefHeight="507.0" prefWidth="587.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn fx:id="mIdSalleCln" prefWidth="38.0" text="ID" />
+                            <TableColumn fx:id="mNomSalleCln" prefWidth="396.0" text="NOM" />
+                              <TableColumn fx:id="mCapaciteSalleCln" prefWidth="79.0" text="CAPACITE" />
+                              <TableColumn fx:id="mTypeSalleCln" prefWidth="67.0" text="TYPE" />
+                              <TableColumn fx:id="mActionSalleCln" minWidth="0.0" prefWidth="182.0" text="ACTION" />
+                          </columns>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="mPromoPane" layoutX="9.0" layoutY="10.0" prefHeight="590.0" prefWidth="684.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox prefHeight="590.0" prefWidth="683.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox alignment="BASELINE_LEFT" prefHeight="69.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label layoutX="22.0" layoutY="20.0" prefHeight="39.0" prefWidth="123.0" text="Promotions" textFill="#512da8" AnchorPane.leftAnchor="20.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="mAjoutePromotion" layoutX="527.0" layoutY="24.0" mnemonicParsing="false" onAction="#afficherDialogueAjouterPromo" prefHeight="31.0" prefWidth="136.0" text="Ajouter" textFill="#fffbfb" AnchorPane.rightAnchor="20.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                        <TableView fx:id="mPromotionTableView" editable="true" prefHeight="507.0" prefWidth="587.0" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="mIdPromoCln" prefWidth="38.0" text="ID" />
+                              <TableColumn fx:id="mNomPromoCln" prefWidth="120.0" text="Nom" />
+                              <TableColumn fx:id="mNombreElevesPromoCln" prefWidth="127.0" text="Nombre d'éléves" />
+                              <TableColumn fx:id="mNombreGroupesPromoCln" minWidth="0.0" prefWidth="134.0" style="-fx-cell-size: 200px;" text="Nombre de groupes" />
+                              <TableColumn fx:id="mModulesPromoCln" minWidth="0.0" prefWidth="163.0" text="Modules" />
+                              <TableColumn fx:id="mActionPromoCln" minWidth="0.0" prefWidth="765.0" text="ACTION" />
                            </columns>
                            <VBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" />

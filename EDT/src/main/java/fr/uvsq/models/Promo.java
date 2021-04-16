@@ -13,17 +13,21 @@ public class Promo {
     private int mNbEleves;
     private int mNbGroupes;
     private static int mNbPromotion;
-    private ArrayList<Module> mListeModules = new ArrayList();
-
-    public Promo(){
-
-    }
+    private ArrayList<Module> mListeModules;
 
     public Promo(String nom, int nbEleves, int nbGroupes, ArrayList<Module> listeModules) {
         mNom = nom;
         mNbEleves = nbEleves;
         mNbGroupes = nbGroupes;
         mListeModules = listeModules;
+    }
+
+    public Promo(){
+        mId = -1;
+        mNom = null;
+        mNbEleves = 0;
+        mNbGroupes = 0;
+        mListeModules = null;
     }
 
     public static int getmNbPromotion() {
@@ -68,5 +72,13 @@ public class Promo {
 
     public void setListeModules(ArrayList<Module> listeModules) {
         mListeModules = listeModules;
+    }
+
+    public String getListeModulesAsString() {
+        ArrayList<String> modules = new ArrayList<>();
+        for(Module module : mListeModules) {
+            modules.add(module.getNom());
+        }
+        return String.join(", ", modules);
     }
 }

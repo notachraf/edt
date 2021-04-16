@@ -12,7 +12,7 @@ public class Salle {
     private TypeSalle mTypeSalle;
 
     /**
-     * 
+     *
      */
     public Salle(){
         mId = -1;
@@ -22,7 +22,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @param nom
      * @param capacite
      * @param typeSalle
@@ -46,7 +46,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public int getId() {
@@ -54,7 +54,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @param id
      */
     public void setId(int id) {
@@ -62,7 +62,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getNom() {
@@ -70,7 +70,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @param nom
      */
     public void setNom(String nom) {
@@ -78,7 +78,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public int getCapacite() {
@@ -86,7 +86,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @param capacite
      */
     public void setCapacite(int capacite) {
@@ -94,7 +94,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public TypeSalle getTypeSalle() {
@@ -102,7 +102,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @param typeSalle
      */
     public void setTypeSalle(TypeSalle typeSalle) {

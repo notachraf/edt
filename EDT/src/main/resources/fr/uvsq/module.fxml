@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,14 +10,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="562.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.uvsq.interfaces.ModuleController">
+<AnchorPane prefHeight="529.0" prefWidth="562.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.uvsq.interfaces.ModuleController">
    <children>
-      <Button fx:id="mAnnulerDialogueSalleBtn" layoutX="292.0" layoutY="348.0" mnemonicParsing="false" onAction="#fermer" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: red;" text="Annuler" textFill="#fcf6f6">
+      <Button fx:id="mAnnulerDialogueSalleBtn" layoutX="294.0" layoutY="469.0" mnemonicParsing="false" onAction="#fermer" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: red;" text="Annuler" textFill="#fcf6f6">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="mAjouterModuleBtn" layoutX="150.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleAjouterBtn" prefHeight="27.0" prefWidth="122.0" text="Ajouter" textFill="#fffefe">
+      <Button fx:id="mAjouterModuleBtn" layoutX="152.0" layoutY="469.0" mnemonicParsing="false" onAction="#handleAjouterBtn" prefHeight="27.0" prefWidth="122.0" text="Ajouter" textFill="#fffefe">
          <font>
             <Font size="18.0" />
          </font>
@@ -28,7 +27,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <GridPane layoutY="63.0" prefHeight="245.0" prefWidth="562.0">
+      <GridPane layoutY="63.0" prefHeight="391.0" prefWidth="562.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -37,6 +36,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -56,7 +59,7 @@
                   <Insets left="50.0" />
                </padding>
             </Label>
-            <Label prefHeight="78.0" prefWidth="281.0" text="Nombre de cours par semaine:" GridPane.rowIndex="2">
+            <Label prefHeight="78.0" prefWidth="281.0" text="Nombre de CM:" GridPane.rowIndex="2">
                <padding>
                   <Insets left="50.0" />
                </padding>
@@ -71,24 +74,61 @@
                   <Insets right="100.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="mNbCoursParSemaineTextField" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="mNbCMTextField" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
             </TextField>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
-               <children>
-                  <CheckBox fx:id="mTDCheckBox" layoutX="72.0" layoutY="22.0" mnemonicParsing="false" />
-                  <Label layoutY="22.0" prefHeight="17.0" prefWidth="72.0" text="TD">
-                     <padding>
-                        <Insets left="50.0" />
-                     </padding>
-                  </Label>
-                  <CheckBox fx:id="mTPCheckBox" layoutX="148.0" layoutY="21.0" mnemonicParsing="false" />
-                  <Label layoutX="126.0" layoutY="21.0" text="TP" AnchorPane.leftAnchor="126.0" />
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Nombre de TD:" GridPane.rowIndex="3">
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Label>
+            <Label text="Nombre de TP:" GridPane.rowIndex="4">
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Label>
+            <Label text="Durée CM" GridPane.rowIndex="5">
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Label>
+            <Label text="Durée TD" GridPane.rowIndex="6">
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Label>
+            <Label text="Durée TP" GridPane.rowIndex="7">
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="mNbTDTextField" layoutX="291.0" layoutY="117.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="100.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="mNbTPTextField" layoutX="291.0" layoutY="166.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets right="100.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="mDureeCMTextField" layoutX="291.0" layoutY="215.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets right="100.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="mDureeTDTextField" layoutX="291.0" layoutY="264.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets right="100.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="mDureeTPTextField" layoutX="291.0" layoutY="313.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets right="100.0" />
+               </GridPane.margin>
+            </TextField>
          </children>
       </GridPane>
    </children>
