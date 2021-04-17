@@ -1,5 +1,7 @@
 package fr.uvsq.interfaces;
 
+import fr.uvsq.gestionDeDonnees.ModuleDAO;
+import fr.uvsq.gestionDeDonnees.ProfDAO;
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Professeur;
 import javafx.collections.FXCollections;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 
 public class ProfController {
 
+    private ProfDAO mProfDao;
     private App mApp;
     private Stage mProfStage;
     private ObservableList<Module> mListeModule;
@@ -39,8 +42,12 @@ public class ProfController {
     @FXML
     private Button mAjouterProfBtn;
 
+    private void initialize() {
+
+    };
+
     @FXML
-    void fermer() {
+    private void fermer() {
         mProfStage.close();
     }
 
@@ -60,7 +67,7 @@ public class ProfController {
     }
 
     @FXML
-    void handleAjouterBtn(ActionEvent event) {
+    private void handleAjouterBtn(ActionEvent event) {
         if (event.getSource() == mAjouterProfBtn) {
             if (mAjouterProfBtn.getText().equals("Modifier")) {
                 modifierProf();
@@ -85,7 +92,7 @@ public class ProfController {
                 }
             }
 
-            mApp.ajouterProf(new Professeur(mNomTextField.getText(), modules));
+            mApp.getListeProfs().add(new Professeur(mNomTextField.getText(), modules));
             fermer();
         }
     }
@@ -105,7 +112,12 @@ public class ProfController {
                 }
             }
             Professeur nouveauProf = new Professeur(mNomTextField.getText(), modules);
-            mApp.modifierProf(mProf, nouveauProf, mProfTableView);
+
+            int index = mApp.getListeProfs().indexOf(mProf);
+            mApp.getListeProfs().get(index).setNom(nouveauProf.getNom());
+            mApp.getListeProfs().get(index).setListeModules(nouveauProf.getListeModules());
+            mProfTableView.refresh();
+
             fermer();
         }
 

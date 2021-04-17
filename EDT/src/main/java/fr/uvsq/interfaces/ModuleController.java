@@ -1,5 +1,6 @@
 package fr.uvsq.interfaces;
 
+import fr.uvsq.gestionDeDonnees.ModuleDAO;
 import fr.uvsq.models.Module;
 import fr.uvsq.verification.Verification;
 import javafx.event.ActionEvent;
@@ -9,7 +10,7 @@ import javafx.stage.Stage;
 
 public class ModuleController {
 
-        // private ModuleDAO mModuleDao;
+        private ModuleDAO mModuleDao;
         private App mApp;
         private Stage mModuleStage;
         private Module mModule;
@@ -32,8 +33,12 @@ public class ModuleController {
                 mDureeTPTextField;
 
 
+        private void initialize() {
+
+        }
+
         @FXML
-        void fermer() {
+        private void fermer() {
                 mModuleStage.close();
         }
 
@@ -57,7 +62,7 @@ public class ModuleController {
         }
 
         @FXML
-        void handleAjouterBtn(ActionEvent event) {
+        private void handleAjouterBtn(ActionEvent event) {
                 if (event.getSource() == mAjouterModuleBtn) {
                         if (mAjouterModuleBtn.getText().equals("Modifier")) {
                                 modifierModule();
@@ -67,7 +72,7 @@ public class ModuleController {
                 }
         }
 
-        void ajouterModule() {
+        private void ajouterModule() {
                 //Vérification à implementer
                 boolean estValide = true;
 
@@ -75,7 +80,7 @@ public class ModuleController {
                         System.out.println(" ========= Les Données sont valides ============");
                         System.out.println("======== Ajouter nouveau module");
 
-                        mApp.ajouteModule(new Module(
+                        Module module = new Module(
                                 mNomTextField.getText(),
                                 Integer.parseInt(mDureeTextField.getText()),
                                 Integer.parseInt(mNbTDTextField.getText()),
@@ -85,12 +90,15 @@ public class ModuleController {
                                 Integer.parseInt(mDureeTPTextField.getText()),
                                 Integer.parseInt(mDureeTDTextField.getText())
 
-                        ));
+                        );
+
+                        mApp.getListModule().add(module);
+
                         fermer();
                 }
         }
 
-        void modifierModule() {
+        private void modifierModule() {
                 //Vérification à implementer
                 Boolean estValide = true;
                 if( estValide ) {
@@ -107,7 +115,17 @@ public class ModuleController {
                                         Integer.parseInt(mDureeTPTextField.getText()),
                                         Integer.parseInt(mDureeTDTextField.getText())
                                 );
-                                mApp.modifierModule(mModule, nouveauModule, mModuleTableView);
+
+                                int index = mApp.getListModule().indexOf(mModule);
+                                mApp.getListModule().get(index).setNom(nouveauModule.getNom());
+                                mApp.getListModule().get(index).setDuree(nouveauModule.getDuree());
+                                mApp.getListModule().get(index).setDureeCM(nouveauModule.getDureeCM());
+                                mApp.getListModule().get(index).setDureeTD(nouveauModule.getDureeTD());
+                                mApp.getListModule().get(index).setDureeTP(nouveauModule.getDureeTP());
+                                mApp.getListModule().get(index).setNbCM(nouveauModule.getNbCM());
+                                mApp.getListModule().get(index).setNbTD(nouveauModule.getNbTD());
+                                mApp.getListModule().get(index).setNbTP(nouveauModule.getNbTP());
+                                mModuleTableView.refresh();
                         }
                         fermer();
                 }

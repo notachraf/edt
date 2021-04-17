@@ -31,7 +31,6 @@ import java.util.Map;
 
 public class AppController {
     private App mApp;
-
     private StringBuilder mEDTEnLatex;
     private Map<Integer, List<Evenement>> mEvenementParJour;
     private GenerateurEDT mGenerateurEDT;
@@ -533,7 +532,10 @@ public class AppController {
                             Salle salle = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + salle.getNom());
 
-                            mApp.supprimerSalle(salle);
+//                            mApp.supprimerSalle(salle);
+                            mApp.getListeSalles().remove(salle);
+
+
                         });
                     }
 
@@ -580,7 +582,9 @@ public class AppController {
                             Module module = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + module.getNom());
 
-                            mApp.supprimerModule(module);
+//                            mApp.supprimerModule(module);
+                            mApp.getListModule().remove(module);
+
                         });
                     }
 
@@ -627,7 +631,7 @@ public class AppController {
                             Professeur prof = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + prof.getNom());
 
-                            mApp.supprimerProf(prof);
+                            mApp.getListeProfs().remove(prof);
                         });
                     }
 
@@ -675,7 +679,7 @@ public class AppController {
                             Promo promo = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + promo.getNom());
 
-                            mApp.supprimerPromo(promo);
+                            mApp.getListePromos().remove(promo);
                         });
                     }
 

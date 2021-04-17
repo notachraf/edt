@@ -1,5 +1,6 @@
 package fr.uvsq.interfaces;
 
+import fr.uvsq.gestionDeDonnees.SalleDAO;
 import fr.uvsq.models.Salle;
 import fr.uvsq.verification.Verification;
 import javafx.event.ActionEvent;
@@ -13,12 +14,11 @@ import javafx.stage.Stage;
 
 public class SalleController {
 
-    // private SalleDAO mSalleDAO;
+     private SalleDAO mSalleDAO;
     private App mApp;
     private Stage mSalleStage;
     private Salle mSalle;
     private TableView<Salle> mSalleTableView;
-
     @FXML
     private Label mTitleLabel;
     @FXML
@@ -92,7 +92,7 @@ public class SalleController {
             System.out.println(" ========= Les Données sont valides ============");
             System.out.println("======== Ajouter nouvelle salle");
 
-            mApp.ajouteSalle(new Salle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue()));
+            mApp.getListeSalles().add(new Salle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue()));
             fermer();
         }
     }
@@ -108,7 +108,13 @@ public class SalleController {
             System.out.println("========= Modifier la salle ");
             if(mSalle != null) {
                 Salle nouvelleSalle = new Salle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
-                mApp.modifierSalle(mSalle, nouvelleSalle, mSalleTableView);
+//                mApp.modifierSalle(mSalle, nouvelleSalle, mSalleTableView);
+
+                int index = mApp.getListeSalles().indexOf(mSalle);
+                mApp.getListeSalles().get(index).setNom(nouvelleSalle.getNom());
+                mApp.getListeSalles().get(index).setCapacite(nouvelleSalle.getCapacite());
+                mApp.getListeSalles().get(index).setTypeSalle(nouvelleSalle.getTypeSalle());
+                mSalleTableView.refresh();
             }
             fermer();
         }

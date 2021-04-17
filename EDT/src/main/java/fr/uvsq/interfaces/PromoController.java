@@ -1,7 +1,7 @@
 package fr.uvsq.interfaces;
 
+//import fr.uvsq.gestionDeDonnees.PromoDAO;
 import fr.uvsq.models.Module;
-import fr.uvsq.models.Professeur;
 import fr.uvsq.models.Promo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class PromoController {
 
+//    private PromoDAO mPromoDAO;
     private App mApp;
     private Stage mPromoStage;
     private ObservableList<Module> mListeModule;
@@ -36,8 +37,12 @@ public class PromoController {
     @FXML
     private Label mTitleLabel;
 
+    private void initialize() {
+
+    }
+
     @FXML
-    void fermer() {
+    private void fermer() {
         mPromoStage.close();
     }
 
@@ -71,7 +76,7 @@ public class PromoController {
 
             Promo promo = new Promo(nom, nbEleve, nbGroupes, modules);
 
-            mApp.ajouterPromo(promo);
+            mApp.getListePromos().add(promo);
             fermer();
 
         }
@@ -96,7 +101,13 @@ public class PromoController {
 
             Promo promo = new Promo(nom, nbEleve, nbGroupes, modules);
 
-            mApp.modifierPromo(mPromo, promo, mPromoTableView);
+            int index = mApp.getListePromos().indexOf(mPromo);
+            mApp.getListePromos().get(index).setNom(promo.getNom());
+            mApp.getListePromos().get(index).setNbEleves(promo.getNbEleves());
+            mApp.getListePromos().get(index).setNbGroupes(promo.getNbGroupes());
+            mApp.getListePromos().get(index).setListeModules(promo.getListeModules());
+            mPromoTableView.refresh();
+
             fermer();
 
         }
