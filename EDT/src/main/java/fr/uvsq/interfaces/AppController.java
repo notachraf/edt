@@ -1,7 +1,11 @@
 package fr.uvsq.interfaces;
 
 import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.model.Entry;
+import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
+import com.calendarfx.view.DetailedDayView;
 import fr.uvsq.generateurEDT.Evenement;
 import fr.uvsq.generateurEDT.GenerateurEDT;
 import fr.uvsq.models.*;
@@ -13,19 +17,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import javafx.scene.control.TableCell;
 
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,10 +39,19 @@ public class AppController {
     private StringBuilder mEDTEnLatex;
     private Map<Integer, List<Evenement>> mEvenementParJour;
     private GenerateurEDT mGenerateurEDT;
-    private Calendar mCalendar;
+    private Calendar mCalendarCM;
+    private Calendar mCalendarTD;
+    private Calendar mCalendarTP;
+    private Contraintes mContraintes;
 
     @FXML
     CalendarView mEDTCalendarPane;
+
+    @FXML
+    private TextField mNbCréneauxMax,
+                      mNbProfMax,
+                      mNbPromoMax,
+                      mNbSallesMax;
 
     @FXML
     private Button mDashboardBtn,
@@ -45,7 +59,8 @@ public class AppController {
             mProfBtn,
             mCoursBtn,
             mLatexBtn,
-            mPromoBtn;
+            mPromoBtn,
+            mContraintesBtn;
 
     @FXML
     private Pane mDashboardPane,
@@ -53,7 +68,8 @@ public class AppController {
             mProfPane,
             mModulePane,
             mLatexPane,
-            mPromoPane;
+            mPromoPane,
+            mContraintesPane;
 
     //=================== Salle TableView ======================
     @FXML
@@ -125,8 +141,8 @@ public class AppController {
     @FXML
     private void onHomeLabelClick(){
         System.out.println("=========== click on Home label +++++++++++");
-//        mEDTCalendarPane.showMonthPage();
-//        mEDTCalendarPane.toFront();
+        mEDTCalendarPane.showMonthPage();
+        mEDTCalendarPane.toFront();
     }
 
     /**
@@ -135,7 +151,10 @@ public class AppController {
      */
     @FXML
     private void handleSideMenuButtons(ActionEvent event){
-        if( event.getSource() == mDashboardBtn){
+        if (event.getSource() == mContraintesBtn){
+            System.out.println(" =========== Contraintes button ===========");
+            mContraintesPane.toFront();
+        } else if( event.getSource() == mDashboardBtn){
             System.out.println(" =========== Dashboard button ===========");
             mDashboardPane.toFront();
         } else if ( event.getSource() == mSallesBtn ){
@@ -157,15 +176,68 @@ public class AppController {
     }
 
     /**
+     * Initialise le calendrier.
+     */
+    private void initCalendarView(){
+        List<Entry<String>> mRV = new ArrayList<Entry<String>>();
+        mRV.add(new Entry<>("9H00 IN505 CM"));
+        mRV.add(new Entry<>("9H00 IN506 CM"));
+        mRV.add(new Entry<>("9H00 IN507 CM"));
+        mRV.add(new Entry<>("9H00 IN508 CM"));
+        mRV.add(new Entry<>("9H00 IN509 CM"));
+        mRV.add(new Entry<>("9H00 IN509 CM"));
+        mRV.add(new Entry<>("9H00 IN509 CM"));
+        mRV.add(new Entry<>("9H00 IN509 CM"));
+        mRV.add(new Entry<>("9H00 IN509 CM"));
+
+        mEDTCalendarPane.showMonthPage();
+        mEDTCalendarPane.setShowAddCalendarButton(false);
+        mEDTCalendarPane.setShowPrintButton(false);
+        mEDTCalendarPane.setShowDeveloperConsole(false);
+        mCalendarCM = new Calendar();
+        mCalendarTD = new Calendar();
+        mCalendarTP = new Calendar();
+        mCalendarCM.setStyle(Calendar.Style.STYLE1);
+        mCalendarTP.setStyle(Calendar.Style.STYLE3);
+        mCalendarTD.setStyle(Calendar.Style.STYLE6);
+
+        int i = 0;
+        for (Entry<String> entry :
+                mRV) {
+            entry.setUserObject("");
+            entry.setInterval(new Interval(LocalDate.now(), LocalTime.now(), LocalDate.now(),  LocalTime.of( LocalTime.now().getHour() + 3, 0)));
+            entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;BYDAY=MO;COUNT=12");
+            if (i % 2 == 0 && i % 3 == 0 ) {
+                mCalendarCM.setStyle(Calendar.Style.STYLE3);
+                mCalendarCM.addEntry(entry);
+            }
+            else if ( i % 3 == 0 && i % 2 != 0) {
+                mCalendarTD.setStyle(Calendar.Style.STYLE5);
+                mCalendarTD.addEntry(entry);
+
+            }
+            else {
+                mCalendarTP.setStyle(Calendar.Style.STYLE1);
+                mCalendarTP.addEntry(entry);
+
+            }
+
+            i++;
+        }
+        CalendarSource csrc = new CalendarSource();
+        csrc.getCalendars().addAll(mCalendarCM, mCalendarTP, mCalendarTD);
+        mEDTCalendarPane.getCalendarSources().add(csrc);
+        mEDTCalendarPane.toFront();
+    }
+
+    /**
      * Initialise tous les onglets et affiche
-     * l'onglet EDT par défaut.
+     * un emploi du temps vide.
      */
     @FXML
     private void initialize(){
-        /*mEDTCalendarPane.showMonthPage();
-        mEDTCalendarPane.toFront();
-        mEDTCalendarPane.setShowAddCalendarButton(false);*/
-        mDashboardPane.toFront();
+
+        initCalendarView();
 
         initSalleTableView();
         initModuleTableView();
@@ -351,6 +423,15 @@ public class AppController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Récuper les contraintes saisies par l'utilisateur
+     * et appelle méthode de vérification de la classe Vérification.
+     */
+    @FXML
+    private void validerContraintes(){
+
     }
 
     @FXML
@@ -714,15 +795,14 @@ public class AppController {
     }
 
     /**
-     * Remplir le tableau d'EDT avec le dictionnaire
-     * Map<Integer, String>
+     * Lance la génération de l'emploi du temps
      */
     public void genereEDT(){
 
     }
 
     /**
-     * Affiche les évenements dans le calandrier.
+     * Affiche les évenements sur le calendrier.
      */
     public void afficheEDT(){
 
