@@ -14,7 +14,10 @@ import javafx.stage.Stage;
 
 public class SalleController {
 
-     private SalleDAO mSalleDAO;
+    /**
+     * Argument qui permet la connexion avec la base de données
+     */
+    private SalleDAO mSalleDAO;
     private App mApp;
     private Stage mSalleStage;
     private Salle mSalle;
@@ -26,6 +29,10 @@ public class SalleController {
             mCapaciteTextField;
     @FXML
     private ComboBox<String> mTypeComboBox;
+
+    /**
+     * Bouton qui permet d'ajouter une salle
+     */
     @FXML
     private Button mAjouterSalleBtn;
 
@@ -51,6 +58,7 @@ public class SalleController {
      * Initialise le contenu de la fenêtre de dialogue
      * avec les attributs de la classe salle
      * @param salle
+     * @param salleTableView
      */
     public void initialiseDialogueModification(Salle salle, TableView<Salle> salleTableView) {
         mSalle = salle;
@@ -77,7 +85,7 @@ public class SalleController {
             if (mAjouterSalleBtn.getText().equals("Modifier")) {
                 modifierSalle();
             } else {
-                ajouterNouvelleSalle();
+                ajouterSalle();
             }
         }
     }
@@ -85,7 +93,7 @@ public class SalleController {
     /**
      * Vérifie les données d'une salle et ajoute cette salle dans la liste des salles.
      */
-    private void ajouterNouvelleSalle() {
+    private void ajouterSalle() {
         boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
 
         if( estValide ) {

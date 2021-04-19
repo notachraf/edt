@@ -10,12 +10,18 @@ import javafx.stage.Stage;
 
 public class ModuleController {
 
+        /**
+         * Argument qui permet la connexion avec la base de données
+         */
         private ModuleDAO mModuleDao;
         private App mApp;
         private Stage mModuleStage;
         private Module mModule;
         private TableView<Module> mModuleTableView;
 
+        /**
+         * Bouton qui permet d'ajouter un module
+         */
         @FXML
         private Button mAjouterModuleBtn;
 
@@ -33,15 +39,27 @@ public class ModuleController {
                 mDureeTPTextField;
 
 
+        /**
+         * Initialise la fenêtre de dialogue module
+         */
         private void initialize() {
 
         }
 
+        /**
+         * Ferme la fenêtre de dialogue module.
+         */
         @FXML
         private void fermer() {
                 mModuleStage.close();
         }
 
+        /**
+         * Initialise le contenu de la fenêtre de dialogue
+         * avec les attributs de la classe module
+         * @param module
+         * @param moduleTableView
+         */
         public void initialiseDialogueModification(Module module, TableView<Module> moduleTableView) {
                 mModule = module;
                 mModuleTableView = moduleTableView;
@@ -61,6 +79,10 @@ public class ModuleController {
                 }
         }
 
+        /**
+         * Gérer l'ajout d'un nouveau module
+         * @param event
+         */
         @FXML
         private void handleAjouterBtn(ActionEvent event) {
                 if (event.getSource() == mAjouterModuleBtn) {
@@ -72,6 +94,9 @@ public class ModuleController {
                 }
         }
 
+        /**
+         * Vérifie les données d'un module et ajoute ce module dans la liste des modules
+         */
         private void ajouterModule() {
                 //Vérification à implementer
                 boolean estValide = true;
@@ -98,6 +123,9 @@ public class ModuleController {
                 }
         }
 
+        /**
+         * Modifie les données d'un module
+         */
         private void modifierModule() {
                 //Vérification à implementer
                 Boolean estValide = true;

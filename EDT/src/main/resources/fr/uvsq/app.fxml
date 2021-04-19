@@ -40,7 +40,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="mCoursBtn" mnemonicParsing="false" onAction="#handleSideMenuButtons" prefHeight="50.0" prefWidth="252.0" text="Modules" textFill="#fcfcfc">
+                  <Button fx:id="mModuleBtn" mnemonicParsing="false" onAction="#handleSideMenuButtons" prefHeight="50.0" prefWidth="252.0" text="Modules" textFill="#fcfcfc">
                      <font>
                         <Font size="18.0" />
                      </font>

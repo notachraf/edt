@@ -5,19 +5,15 @@ import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
-import com.calendarfx.view.DetailedDayView;
 import fr.uvsq.generateurEDT.Evenement;
 import fr.uvsq.generateurEDT.GenerateurEDT;
 import fr.uvsq.models.*;
 import fr.uvsq.models.Module;
 import javafx.beans.value.ObservableValueBase;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -56,10 +52,10 @@ public class AppController {
     @FXML
     private Button mDashboardBtn,
             mSallesBtn,
+            mModuleBtn,
             mProfBtn,
-            mCoursBtn,
-            mLatexBtn,
             mPromoBtn,
+            mLatexBtn,
             mContraintesBtn;
 
     @FXML
@@ -137,7 +133,9 @@ public class AppController {
     @FXML
     private TableColumn<Promo, Void> mActionPromoCln;
 
-
+    /**
+     *  Affiche la page EDT
+     */
     @FXML
     private void onHomeLabelClick(){
         System.out.println("=========== click on Home label +++++++++++");
@@ -146,7 +144,7 @@ public class AppController {
     }
 
     /**
-     * Gére l'action des bouttons onglets de l'application
+     * Gére l'action des boutons onglets de l'application
      * @param event
      */
     @FXML
@@ -163,7 +161,7 @@ public class AppController {
         } else if (event.getSource() == mProfBtn ){
             System.out.println(" =========== Prof button ===========");
             mProfPane.toFront();
-        } else if (event.getSource() == mCoursBtn ) {
+        } else if (event.getSource() == mModuleBtn) {
             System.out.println(" =========== cours button ===========");
             mModulePane.toFront();
         } else if (event.getSource() == mPromoBtn ){
@@ -290,6 +288,10 @@ public class AppController {
         });
     }
 
+    /**
+     * Iniatilise la liste des modules qui doivent
+     * être afficher dans le tableau @mModuleTableView
+     */
     private void initModuleTableView() {
         mIdModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
@@ -347,6 +349,10 @@ public class AppController {
         });
     }
 
+    /**
+     * Iniatilise la liste des Professeurs qui doivent
+     * être afficher dans le tableau @mProfTbaleView
+     */
     private void initProfTableView() {
 
         mIdProfCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
@@ -370,6 +376,10 @@ public class AppController {
         });
     }
 
+    /**
+     * Iniatilise la liste des Promotions qui doivent
+     * être afficher dans le tableau @mPromotionTableView
+     */
     private void initPromoTableView() {
         mIdPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
@@ -403,6 +413,9 @@ public class AppController {
         });
     }
 
+    /**
+     * Affiche une fenêtre qui permet d'ajouter une salle
+     */
     @FXML
     private void afficherDialogueAjouterSalle(){
         FXMLLoader loader = new FXMLLoader();
@@ -426,14 +439,8 @@ public class AppController {
     }
 
     /**
-     * Récuper les contraintes saisies par l'utilisateur
-     * et appelle méthode de vérification de la classe Vérification.
+     * Affiche une fenêtre qui permet d'ajouter un module
      */
-    @FXML
-    private void validerContraintes(){
-
-    }
-
     @FXML
     private void afficherDialogueAjouterModule(){
         FXMLLoader loader = new FXMLLoader();
@@ -456,6 +463,9 @@ public class AppController {
         }
     }
 
+    /**
+     * Affiche une fenêtre qui permet d'ajouter un prof
+     */
     @FXML
     private void afficherDialogueAjouterProf() {
         System.out.println("Prof added");
@@ -479,6 +489,9 @@ public class AppController {
         }
     }
 
+    /**
+     * Affiche une fenêtre qui permet d'ajouter une promotion
+     */
     @FXML
     private void afficherDialogueAjouterPromo() {
         System.out.println("Promo added");
@@ -502,6 +515,10 @@ public class AppController {
         }
     }
 
+    /**
+     * Affiche une fenêtre qui permet de modifier une salle
+     * @param salle correspond à la salle à modifier
+     */
     private void afficherDialogueModifierSalle(Salle salle){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fr/uvsq/salle.fxml"));
@@ -524,6 +541,10 @@ public class AppController {
         }
     }
 
+    /**
+     * Affiche une fenêtre qui permet de modifier un prof
+     * @param prof correspond à au prof à modifier
+     */
     private void afficherDialogueModifierProf(Professeur prof) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fr/uvsq/prof.fxml"));
@@ -546,6 +567,10 @@ public class AppController {
         }
     }
 
+    /**
+     * Affiche une fenêtre qui permet de modifier un module
+     * @param module correspond à le module à modifier
+     */
     private void afficherDialogueModifierModule(Module module){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fr/uvsq/module.fxml"));
@@ -568,6 +593,10 @@ public class AppController {
         }
     }
 
+    /**
+     * Affiche une fenêtre qui permet de modifier une promotion
+     * @param promo correspond à la promotion à modifier
+     */
     private void afficherDialogueModifierPromo(Promo promo) {
         System.out.println("Promo added");
         FXMLLoader loader = new FXMLLoader();
@@ -591,6 +620,9 @@ public class AppController {
         }
     }
 
+    /**
+     * Ajoute des boutons qui permettent de modifier ou de supprimer une salle
+     */
     private void ajouteBoutonsActionSalle() {
         Callback<TableColumn<Salle, Void>, TableCell<Salle, Void>> cellFactory = new Callback<TableColumn<Salle, Void>, TableCell<Salle, Void>>() {
             @Override
@@ -641,6 +673,9 @@ public class AppController {
         mActionSalleCln.setCellFactory(cellFactory);
     }
 
+    /**
+     * Ajoute des boutons qui permettent de modifier ou de supprimer un module
+     */
     private void ajouteBoutonsActionModule() {
         Callback<TableColumn<Module, Void>, TableCell<Module, Void>> cellFactory = new Callback<TableColumn<Module, Void>, TableCell<Module, Void>>() {
             @Override
@@ -690,6 +725,9 @@ public class AppController {
         mActionModuleCln.setCellFactory(cellFactory);
     }
 
+    /**
+     * Ajoute des boutons qui permettent de modifier ou de supprimer un professeur
+     */
     private void ajouteBoutonsActionProf() {
         Callback<TableColumn<Professeur, Void>, TableCell<Professeur, Void>> cellFactory = new Callback<TableColumn<Professeur, Void>, TableCell<Professeur, Void>>() {
             @Override
@@ -738,6 +776,9 @@ public class AppController {
 
     }
 
+    /**
+     * Ajoute des boutons qui permettent de modifier ou de supprimer une promotion
+     */
     private void ajouteBoutonsActionPromo() {
         Callback<TableColumn<Promo, Void>, TableCell<Promo, Void>> cellFactory = new Callback<TableColumn<Promo, Void>, TableCell<Promo, Void>>() {
             @Override
@@ -786,12 +827,14 @@ public class AppController {
 
     }
 
-    public void setApp(App app) {
-        mApp = app;
-        mSallesTableView.setItems(mApp.getListeSalles());
-        mModuleTableView.setItems(mApp.getListModule());
-        mProfTableView.setItems(mApp.getListeProfs());
-        mPromotionTableView.setItems(mApp.getListePromos());
+
+    /**
+     * Récuper les contraintes saisies par l'utilisateur
+     * et appelle méthode de vérification de la classe Vérification.
+     */
+    @FXML
+    private void validerContraintes(){
+
     }
 
     /**
@@ -814,4 +857,13 @@ public class AppController {
     public void saugarderEDTEnLatex(){
 
     }
+
+    public void setApp(App app) {
+        mApp = app;
+        mSallesTableView.setItems(mApp.getListeSalles());
+        mModuleTableView.setItems(mApp.getListModule());
+        mProfTableView.setItems(mApp.getListeProfs());
+        mPromotionTableView.setItems(mApp.getListePromos());
+    }
+
 }

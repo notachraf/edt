@@ -1,6 +1,5 @@
 package fr.uvsq.interfaces;
 
-import fr.uvsq.gestionDeDonnees.ModuleDAO;
 import fr.uvsq.gestionDeDonnees.ProfDAO;
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Professeur;
@@ -19,6 +18,9 @@ import java.util.ArrayList;
 
 public class ProfController {
 
+    /**
+     * Argument qui permet la connexion avec la base de données
+     */
     private ProfDAO mProfDao;
     private App mApp;
     private Stage mProfStage;
@@ -34,23 +36,35 @@ public class ProfController {
     private CheckComboBox<String> mPeutEnseignerComboBox;
 
     @FXML
-    private Button mAnnulerDialogueProfBtn;
-
-    @FXML
     private Label mTitleLabel;
 
+    /**
+     * Bouton qui permet d'ajouter un professeur
+     */
     @FXML
     private Button mAjouterProfBtn;
 
+    /**
+     * Initialise la fenêtre de dialogue professeur
+     */
     private void initialize() {
 
-    };
+    }
 
+    /**
+     * Ferme la fenêtre de dialogue professeur
+     */
     @FXML
     private void fermer() {
         mProfStage.close();
     }
 
+    /**
+     * Initialise le contenu de la fenêtre de dialogue
+     * avec les attributs de la classe prof
+     * @param prof
+     * @param profTableView
+     */
     public void initialiseDialogueModification(Professeur prof, TableView<Professeur> profTableView) {
         mProf = prof;
         mProfTableView = profTableView;
@@ -66,18 +80,25 @@ public class ProfController {
         }
     }
 
+    /**
+     * Gérer l'ajout d'un nouveau professeur
+     * @param event
+     */
     @FXML
     private void handleAjouterBtn(ActionEvent event) {
         if (event.getSource() == mAjouterProfBtn) {
             if (mAjouterProfBtn.getText().equals("Modifier")) {
                 modifierProf();
             } else {
-                ajouterNouveauProf();
+                ajouterProf();
             }
         }
     }
 
-    private void ajouterNouveauProf() {
+    /**
+     * Vérifie les données d'une classe prof et ajoute cette classe dans la liste des prefesseurs
+     */
+    private void ajouterProf() {
         //
         boolean estValide = true;
 
@@ -97,6 +118,9 @@ public class ProfController {
         }
     }
 
+    /**
+     * Modifie les données d'une classe prof
+     */
     private void modifierProf() {
         //
         boolean estValide = true;

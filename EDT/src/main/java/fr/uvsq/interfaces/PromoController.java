@@ -1,6 +1,8 @@
 package fr.uvsq.interfaces;
 
 //import fr.uvsq.gestionDeDonnees.PromoDAO;
+import fr.uvsq.gestionDeDonnees.FactoryDAO;
+import fr.uvsq.gestionDeDonnees.PromoDAO;
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Promo;
 import javafx.collections.FXCollections;
@@ -18,7 +20,10 @@ import java.util.ArrayList;
 
 public class PromoController {
 
-//    private PromoDAO mPromoDAO;
+    /**
+     * Argument qui permet la connexion avec la base de données
+     */
+    private PromoDAO mPromoDAO;
     private App mApp;
     private Stage mPromoStage;
     private ObservableList<Module> mListeModule;
@@ -31,21 +36,51 @@ public class PromoController {
             mNombreElevesTextField;
     @FXML
     private CheckComboBox<String> mModulesPromoComboBox;
+
+    /**
+     * Bouton qui permet d'ajouter une promotions
+     */
     @FXML
-    private Button mAnnulerDialogueProfBtn,
-            mAjouterPromoBtn;
+    private Button mAjouterPromoBtn;
     @FXML
     private Label mTitleLabel;
 
+    /**
+     * Initialise la fenêtre de dialogue promotion
+     */
     private void initialize() {
 
     }
 
+    /**
+     * Ferme la fenêtre de dialogue promotion
+     */
     @FXML
     private void fermer() {
         mPromoStage.close();
     }
 
+    /**
+     * Initialise le contenu de la fenêtre de dialogue
+     * avec les attributs de la classe promo
+     * @param promo
+     * @param promotionTableView
+     */
+    public void initialiseDialogueModification(Promo promo, TableView<Promo> promotionTableView) {
+        mPromo = promo;
+        mPromoTableView = promotionTableView;
+        mTitleLabel.setText("Modification de la promotion");
+        mNomTextField.setText(promo.getNom());
+        mNombreElevesTextField.setText(String.valueOf(promo.getNbEleves()));
+        mNombreGroupesTextField.setText(String.valueOf(promo.getNbGroupes()));
+
+        mAjouterPromoBtn.setText("Modifier");
+    }
+
+    /**
+     * Gérer l'ajout d'une nouvelle promotion
+     * @param event
+     */
     @FXML
     void handleAjouterBtn(ActionEvent event) {
         if (event.getSource() == mAjouterPromoBtn) {
@@ -57,6 +92,9 @@ public class PromoController {
         }
     }
 
+    /**
+     * Vérifie les données d'une promotion et ajoute cette promotion dans la liste des promotions
+     */
     private void ajouterPromo() {
         //
         boolean estValide = true;
@@ -82,6 +120,9 @@ public class PromoController {
         }
     }
 
+    /**
+     * Modifie les données d'une promotion
+     */
     private void modifierPromo() {
         //
         boolean estValide = true;
@@ -125,14 +166,5 @@ public class PromoController {
         mModulesPromoComboBox.getItems().addAll(modules);
     }
 
-    public void initialiseDialogueModification(Promo promo, TableView<Promo> promotionTableView) {
-        mPromo = promo;
-        mPromoTableView = promotionTableView;
-        mTitleLabel.setText("Modification de la promotion");
-        mNomTextField.setText(promo.getNom());
-        mNombreElevesTextField.setText(String.valueOf(promo.getNbEleves()));
-        mNombreGroupesTextField.setText(String.valueOf(promo.getNbGroupes()));
 
-        mAjouterPromoBtn.setText("Modifier");
-    }
 }

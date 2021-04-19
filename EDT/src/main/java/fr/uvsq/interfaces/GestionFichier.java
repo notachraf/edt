@@ -3,6 +3,7 @@ package fr.uvsq.interfaces;
 import fr.uvsq.models.Promo;
 import fr.uvsq.models.Professeur;
 import fr.uvsq.models.Salle;
+import fr.uvsq.models.Salle;
 
 import java.util.ArrayList;
 import java.util.List;

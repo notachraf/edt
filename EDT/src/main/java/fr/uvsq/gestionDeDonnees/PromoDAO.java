@@ -6,10 +6,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupeDAO extends DA0<Promo>{
+public class PromoDAO extends DA0<Promo>{
 
 
-    public GroupeDAO(Connection connection) {
+    public PromoDAO(Connection connection) {
         super(connection);
     }
 
