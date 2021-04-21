@@ -1,7 +1,6 @@
 package fr.uvsq.verification;
 
 import javafx.scene.control.Alert;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,12 +46,12 @@ public class Verification {
         }
 
         //On doit vérifier que c'est soit TD, TP, COURS
-        List<String> listeType = Arrays.asList(new String[]{"TP", "TD", "COURS"});
+        List<String> listeType = Arrays.asList(new String[]{"TP", "TD", "CM"});
         if ( ! listeType.contains(type)){
             isOK = false;
-            listErreur.add("Le champ <Type> est inconnu \n (TP, TD, COURS) ");
-
+            listErreur.add("Le champ <Type> est inconnu \n (TP, TD,CM)");
         }
+
 
         // On vérifie s'il ya des erreurs dans la liste d'erreurs.
         if (!isOK) {
@@ -73,13 +72,16 @@ public class Verification {
      * static : pour avoir accès à la méthode sans instancier un objet Verification
      *
      * @param nom nom du module
-     * @param nbHeure la durée
-     * @param nbModule nombre de matière
+     * @param nbHeureTotal la durée
+     * @param nbCM nombre de CM
      * @param nbTD nombre de TD
      * @param nbTP nombre de TP
+     * @param DureeCM la durée d'un CM
+     * @param DureeTD la durée d'un TD
+     * @param DureeTP la durée d'un TP
      * @return boolean
      */
-    public static boolean controleDonneesModule(String nom, String nbHeure,String nbModule,String nbTD, String nbTP){
+    public static boolean controleDonneesModule(String nom, String nbHeureTotal,String nbCM,String nbTD, String nbTP, String DureeCM , String DureeTD , String DureeTP){
         boolean isOK = true;
 
         List<String> listErreur = new ArrayList<>();
@@ -91,15 +93,15 @@ public class Verification {
         }
 
         //Vérifie le contenu du champ mNbHeureTextField n'est pas vide
-        if (nbHeure== null || nbHeure.isEmpty()) {
+        if (nbHeureTotal== null || nbHeureTotal.isEmpty()) {
             isOK = false;
             listErreur.add("Le champ <NbHeure> est vide ");
         }
 
-        //Vérifie le contenu du champ mNbModuleTextField n'est pas vide
-        if (nbModule== null || nbModule.isEmpty()) {
+        //Vérifie le contenu du champ mNbCMTextField n'est pas vide
+        if (nbCM== null || nbCM.isEmpty()) {
             isOK = false;
-            listErreur.add("Le champ <NbModule> est vide ");
+            listErreur.add("Le champ <NbCM> est vide ");
         }
 
         //Vérifie le contenu du champ mNbTDTextField n'est pas vide
@@ -114,14 +116,33 @@ public class Verification {
             listErreur.add("Le champ <NbTP> est vide ");
         }
 
-        if( ! estUnEntier(nbHeure) ){
+        //Vérifie le contenu du champ mNbCMTextField n'est pas vide
+        if (DureeCM== null || DureeCM.isEmpty()) {
             isOK = false;
-            listErreur.add("Le champ <nbHeure> n'est pas un entier");
+            listErreur.add("Le champ <DureeCM> est vide ");
         }
 
-        if( ! estUnEntier(nbModule) ){
+
+        //Vérifie le contenu du champ mNbTPTextField n'est pas vide
+        if (DureeTD== null || DureeTD.isEmpty()) {
             isOK = false;
-            listErreur.add("Le champ <nbModule> n'est pas un entier");
+            listErreur.add("Le champ <DureeTD> est vide ");
+        }
+
+        //Vérifie le contenu du champ mNbTPTextField n'est pas vide
+        if (DureeTP== null || DureeTP.isEmpty()) {
+            isOK = false;
+            listErreur.add("Le champ <DureeTP> est vide ");
+        }
+
+        if( ! estUnEntier(nbHeureTotal) ){
+            isOK = false;
+            listErreur.add("Le champ <nbHeureTotal> n'est pas un entier");
+        }
+
+        if( ! estUnEntier(nbCM) ){
+            isOK = false;
+            listErreur.add("Le champ <nbCM> n'est pas un entier");
         }
 
         if( ! estUnEntier(nbTD) ){
@@ -132,6 +153,21 @@ public class Verification {
         if( ! estUnEntier(nbTP) ){
             isOK = false;
             listErreur.add("Le champ <nbTP> n'est pas un entier");
+        }
+
+        if( ! estUnEntier(DureeCM) ){
+            isOK = false;
+            listErreur.add("Le champ <DureeCM> n'est pas un entier");
+        }
+
+        if( ! estUnEntier(DureeTP) ){
+            isOK = false;
+            listErreur.add("Le champ <DureeTP> n'est pas un entier");
+        }
+
+        if( ! estUnEntier(DureeTD) ){
+            isOK = false;
+            listErreur.add("Le champ <DureeTD> n'est pas un entier");
         }
 
         // On vérifie s'il ya des erreurs dans la liste d'erreurs.
@@ -156,7 +192,6 @@ public class Verification {
      * @param nbProfesseur nombre de professeur
      * @return boolean
      */
-   // ********  ????? DOIT-T-ON RAJOUTER 'listemodule' en arguments ?********
     public static boolean controleDonneesProfesseur(String nom, String nbProfesseur){
         boolean isOK = true;
 
@@ -200,18 +235,17 @@ public class Verification {
     }
 
     /**
-     * Méthode qui controle les données saisies par l'utilisateur pour l'entité Groupe
+     * Méthode qui contrôle les données saisies par l'utilisateur pour l'entité Promotion
      * Soit pour modifier ou ajouter un groupe
      * static : pour avoir accès à la méthode sans instancier un objet Verification
      *
-     * @param nom nom du groupe
-     * @param taille taille du groupe
-     * @param promo promo du groupe
+     * @param nom nom de la promotion
+     * @param nbEleve nombre d'élèves dans une promotion
      * @param nbGroupe nombre de groupe
      * @return
      *
      */
-    public static boolean controleDonneesGroupe(String nom, String taille, String promo,String nbGroupe){
+    public static boolean controleDonneesPromotion ( String nom , String nbEleve , String nbGroupe ) {
         boolean isOK = true;
 
         List<String> listErreur = new ArrayList<>();
@@ -222,16 +256,10 @@ public class Verification {
             listErreur.add("Le champ <Nom> est vide ");
         }
 
-        //Vérifie le contenu du champ mTailleTextField n'est pas vide
-        if (taille== null || taille.isEmpty()) {
+        //Vérifie le contenu du champ mnbEleveTextField n'est pas vide
+        if (nbEleve== null || nbEleve.isEmpty()) {
             isOK = false;
             listErreur.add("Le champ <Taille> est vide ");
-        }
-
-        //Vérifie le contenu du champ mPromoTextField n'est pas vide
-        if (promo== null || promo.isEmpty()) {
-            isOK = false;
-            listErreur.add("Le champ <Promo> est vide ");
         }
 
         //Vérifie le contenu du champ mnbGroupeTextField n'est pas vide
@@ -240,21 +268,16 @@ public class Verification {
             listErreur.add("Le champ <nbGroupe> est vide ");
         }
 
-        //Verifie que taille est un entier
-        if( ! estUnEntier(taille) ){
+        //Verifie que nbEleve est un entier
+        if( ! estUnEntier(nbEleve) ){
             isOK = false;
-            listErreur.add("Le champ <Taille> n'est pas un entier");
+            listErreur.add("Le champ <nbEleve> n'est pas un entier");
         }
 
-        //Verifie que promo est un entier
-        if( ! estUnEntier(promo) ){
-            isOK = false;
-            listErreur.add("Le champ <Promo> n'est pas un entier");
-        }
-        //Verifie que groupe est un entier
+        //Verifie que nbGroupe est un entier
         if( ! estUnEntier(nbGroupe) ){
             isOK = false;
-            listErreur.add("Le champ <NbGroupe> n'est pas un entier");
+            listErreur.add("Le champ <nbGroupe> n'est pas un entier");
         }
 
         // On vérifie s'il ya des erreurs dans la liste d'erreurs.
@@ -309,7 +332,7 @@ public class Verification {
     /**
      *  Renvoie vrai si le mot contient des caracteres speciaux
      *
-     * @param mot le mot à vérifier 
+     * @param mot le mot à vérifier
      * @return boolean
      */
     private static boolean contientCaractereSpeciaux(String mot){
