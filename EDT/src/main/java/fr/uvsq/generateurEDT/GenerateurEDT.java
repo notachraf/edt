@@ -1,27 +1,34 @@
 package fr.uvsq.generateurEDT;
 
 import java.util.List;
+import java.util.Map;
 
 public class GenerateurEDT {
-    private DonneesDB mDonneesDB;
+    private DonneesEDT mDonneesEDT;
     private Double mTemperature;
-    private List<EDT> mSolutions;
+    private List<EDT> mSolutions; // pour débugger
+    private EDT mSolutionFinale;
     private double mConstanteDiminue;
     private final static int TEMP_FINAL = 0;
 
-    public GenerateurEDT(DonneesDB donneesDB, Double temperature, List<EDT> solutions, Double constanteDiminue) {
-        mDonneesDB = donneesDB;
+    public GenerateurEDT(DonneesEDT donneesEDT, Double temperature, List<EDT> solutions, Double constanteDiminue) {
+        mDonneesEDT = donneesEDT;
         mTemperature = temperature;
         mSolutions = solutions;
         mConstanteDiminue = constanteDiminue;
     }
 
-    public DonneesDB getDonneesDB() {
-        return mDonneesDB;
+    public void setSolutionFinale(EDT solutionFinale) {
+        mSolutionFinale = solutionFinale;
+    }
+    public EDT getSolutionFinale(){ return null;}
+
+    public DonneesEDT getDonneesDB() {
+        return mDonneesEDT;
     }
 
-    public void setDonneesDB(DonneesDB donneesDB) {
-        mDonneesDB = donneesDB;
+    public void setDonneesDB(DonneesEDT donneesEDT) {
+        mDonneesEDT = donneesEDT;
     }
 
     public Double getTemperature() {
@@ -86,6 +93,29 @@ public class GenerateurEDT {
     public EDT solutionInitiale(){
         return new EDT();
     }
-    
-    
+
+    /**
+     * Retourne un dictionnaire contenant pour chaque entrée
+     * Une liste d'événement pour chaque jour.
+     * @return Map
+     */
+    public Map<Integer, List<Evenement>> getEvenementParJour(){
+        return null;
+    }
+
+    /**
+     * Réoptimise un emploi du temps
+     */
+    public void reoptimise(){
+
+    }
+
+    /**
+     * Retourne la solution de l'EDT en Latex
+     * @return StringBuilder
+     */
+    public StringBuilder getSolutionEnLatex(){
+        return null;
+    }
+
 }

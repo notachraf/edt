@@ -1,17 +1,16 @@
 package fr.uvsq.generateurEDT;
 
-import fr.uvsq.gestionDeDonnees.SalleDAO;
-import fr.uvsq.models.Groupe;
+import fr.uvsq.models.Promo;
 import fr.uvsq.models.Professeur;
 import fr.uvsq.models.Salle;
 import java.util.List;
 
-public class DonneesDB {
+public class DonneesEDT {
     
     private List<Salle> mListeSalles;
     private List<Professeur> mListeProfesseurs;
     private List<Module> mListeModules;
-    private List<Groupe> mListeGroupes;
+    private List<Promo> mListeGroupes;
 
     /**
      * 
@@ -69,7 +68,7 @@ public class DonneesDB {
      * 
      * @return
      */
-    public List<Groupe> getListeGroupes() {
+    public List<Promo> getListeGroupes() {
         return mListeGroupes;
     }
 
@@ -77,8 +76,30 @@ public class DonneesDB {
      * 
      * @param listeGroupes
      */
-    public void setListeGroupes(List<Groupe> listeGroupes) {
+    public void setListeGroupes(List<Promo> listeGroupes) {
         mListeGroupes = listeGroupes;
+    }
+
+
+    /**
+     * Créer les évenement de type cours.
+     */
+    private void creerEvenementCours(){
+
+    }
+
+    /**
+     * Créer les évenement de type TP.
+     */
+    private void creerEvenementTP(){
+
+    }
+
+    /**
+     * Créer les évenement de type TD.
+     */
+    private void creerEvenementTD(){
+
     }
 }
 

@@ -5,13 +5,13 @@ import java.util.List;
 public class EDT {
     private List<EDTSalle> mListeEDTSalles;
     private int mEnergie;
-    private DonneesDB mDonneesDB;
+    private DonneesEDT mDonneesEDT;
     private List<Evenement> mListeEvenements;
 
-    public EDT(List<EDTSalle> listeEDTSalles, int energie, DonneesDB donneesDB) {
+    public EDT(List<EDTSalle> listeEDTSalles, int energie, DonneesEDT donneesEDT) {
         mListeEDTSalles = listeEDTSalles;
         mEnergie = energie;
-        mDonneesDB = donneesDB;
+        mDonneesEDT = donneesEDT;
     }
 
     public EDT() {
@@ -33,33 +33,12 @@ public class EDT {
         mEnergie = energie;
     }
 
-    public DonneesDB getDonneesDB() {
-        return mDonneesDB;
+    public DonneesEDT getDonneesDB() {
+        return mDonneesEDT;
     }
 
-    public void setDonneesDB(DonneesDB donneesDB) {
-        mDonneesDB = donneesDB;
-    }
-
-    /**
-     * Créer les évenement de type cours.
-     */
-    private void creerEvenementCours(){
-        
-    }
-
-    /**
-     * Créer les évenement de type TP.
-     */
-    private void creerEvenementTP(){
-
-    }
-
-    /**
-     * Créer les évenement de type TD.
-     */
-    private void creerEvenementTD(){
-
+    public void setDonneesDB(DonneesEDT donneesEDT) {
+        mDonneesEDT = donneesEDT;
     }
 
     /**

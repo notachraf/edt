@@ -1,129 +1,97 @@
 package fr.uvsq.models;
 
 /**
- * 
+ *
  * @Author Siham, Feriel, Aziz
  */
 public class Module {
-    private String mNom;
     private int mId;
+    private String mNom;
     private int mDuree;
-    private int mNbCoursSemaine;
-    private boolean mTD;
-    private boolean mTP;
+    private int mNbTD;
+    private int mNbCM;
+    private int mNbTP;
+    private int mDureeCM;
+    private int mDureeTP;
+    private int mDureeTD;
 
     public Module() {
     }
 
-    /**
-     * 
-     * @param nom
-     * @param duree
-     * @param nbCoursSemaine
-     * @param TD
-     * @param TP
-     */
-    public Module(String nom, int duree, int nbCoursSemaine, boolean TD, boolean TP) {
+    public Module(String nom, int duree, int nbTD, int nbCM, int nbTP, int dureeCM, int dureeTP, int dureeTD) {
         mNom = nom;
         mDuree = duree;
-        mNbCoursSemaine = nbCoursSemaine;
-        mTD = TD;
-        mTP = TP;
+        mNbTD = nbTD;
+        mNbCM = nbCM;
+        mNbTP = nbTP;
+        mDureeCM = dureeCM;
+        mDureeTP = dureeTP;
+        mDureeTD = dureeTD;
     }
 
-    /**
-     * 
-     * @return
-     */
     public String getNom() {
         return mNom;
     }
 
-    /**
-     * 
-     * @param nom
-     */
     public void setNom(String nom) {
         mNom = nom;
     }
 
-    /**
-     * 
-     * @return
-     */
-    public int getId() {
-        return mId;
-    }
-
-    /**
-     * 
-     * @param id
-     */
-    public void setId(int id) {
-        mId = id;
-    }
-
-    /**
-     * 
-     * @return
-     */
     public int getDuree() {
         return mDuree;
     }
 
-    /**
-     * 
-     * @param duree
-     */
+    public int getId() { return mId; }
+
     public void setDuree(int duree) {
         mDuree = duree;
     }
 
-    /**
-     * 
-     * @return
-     */
-    public int getNbCoursSemaine() {
-        return mNbCoursSemaine;
+    public int getNbTD() {
+        return mNbTD;
     }
 
-    /**
-     * 
-     * @param nbCoursSemaine
-     */
-    public void setNbCoursSemaine(int nbCoursSemaine) {
-        mNbCoursSemaine = nbCoursSemaine;
+    public void setNbTD(int nbTD) {
+        mNbTD = nbTD;
     }
 
-    /**
-     * 
-     * @return
-     */
-    public boolean isTD() {
-        return mTD;
+    public int getNbCM() {
+        return mNbCM;
     }
 
-    /**
-     * 
-     * @param TD
-     */
-    public void setTD(boolean TD) {
-        mTD = TD;
+    public void setNbCM(int nbCM) {
+        mNbCM = nbCM;
     }
 
-    /**
-     * 
-     * @return
-     */
-    public boolean isTP() {
-        return mTP;
+    public int getNbTP() {
+        return mNbTP;
     }
 
-    /**
-     * 
-     * @param TP
-     */
-    public void setTP(boolean TP) {
-        mTP = TP;
+    public void setNbTP(int nbTP) {
+        mNbTP = nbTP;
+    }
+
+    public int getDureeCM() {
+        return mDureeCM;
+    }
+
+    public void setDureeCM(int dureeCM) {
+        mDureeCM = dureeCM;
+    }
+
+    public int getDureeTP() {
+        return mDureeTP;
+    }
+
+    public void setDureeTP(int dureeTP) {
+        mDureeTP = dureeTP;
+    }
+
+    public int getDureeTD() {
+        return mDureeTD;
+    }
+
+    public void setDureeTD(int dureeTD) {
+        mDureeTD = dureeTD;
     }
 }
