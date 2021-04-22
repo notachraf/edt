@@ -12,7 +12,6 @@ public class Promo {
     private int mId;
     private int mNbEleves;
     private int mNbGroupes;
-    private static int mNbPromotion;
     private ArrayList<Module> mListeModules;
 
     public Promo(String nom, int nbEleves, int nbGroupes, ArrayList<Module> listeModules) {
@@ -29,10 +28,7 @@ public class Promo {
         mNbGroupes = 0;
         mListeModules = null;
     }
-
-    public static int getmNbPromotion() {
-        return mNbPromotion;
-    }
+}
 
     public String getNom() {
         return mNom;
