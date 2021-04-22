@@ -7,7 +7,6 @@ package fr.uvsq.models;
 public class Module {
     private int mId;
     private String mNom;
-    private int mDuree;
     private int mNbTD;
     private int mNbCM;
     private int mNbTP;
@@ -18,9 +17,8 @@ public class Module {
     public Module() {
     }
 
-    public Module(String nom, int duree, int nbTD, int nbCM, int nbTP, int dureeCM, int dureeTP, int dureeTD) {
+    public Module(String nom, int nbTD, int nbCM, int nbTP, int dureeCM, int dureeTP, int dureeTD) {
         mNom = nom;
-        mDuree = duree;
         mNbTD = nbTD;
         mNbCM = nbCM;
         mNbTP = nbTP;
@@ -37,15 +35,10 @@ public class Module {
         mNom = nom;
     }
 
-    public int getDuree() {
-        return mDuree;
-    }
-
+ 
     public int getId() { return mId; }
 
-    public void setDuree(int duree) {
-        mDuree = duree;
-    }
+  
 
     public int getNbTD() {
         return mNbTD;
