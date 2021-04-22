@@ -1,7 +1,6 @@
 package fr.uvsq.models;
 
 public class Groupe {
-    private int mId;
     private int mNom;
     private Promo mPromo;
     private int nbEleves;
@@ -14,14 +13,6 @@ public class Groupe {
         mNom = nom;
         mPromo = promo;
         this.nbEleves = nbEleves;
-    }
-
-    public int getId() {
-        return mId;
-    }
-
-    public void setId(int id) {
-        mId = id;
     }
 
     public int getNom() {
