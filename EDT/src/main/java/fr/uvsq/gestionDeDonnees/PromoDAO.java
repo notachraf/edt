@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromoDAO extends DA0<Promotion>{
+public class PromoDAO extends DAO<Promotion>{
 
 
     public PromoDAO(Connection connection) {

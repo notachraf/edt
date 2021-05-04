@@ -4,13 +4,12 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.uvsq.models.Salle;
 
-public abstract class DA0<T> {
+public abstract class DAO<T> {
 
     protected Connection mConnection = null;
 
-    public DA0(Connection connection){
+    public DAO(Connection connection){
         mConnection = connection;
     }
 

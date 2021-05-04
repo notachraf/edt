@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModuleDAO extends DA0<Module>{
+public class ModuleDAO extends DAO<Module>{
 
     public ModuleDAO(Connection connection){
         super(connection);

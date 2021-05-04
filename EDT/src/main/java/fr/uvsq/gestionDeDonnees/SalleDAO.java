@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SalleDAO extends DA0<Salle>{
+public class SalleDAO extends DAO<Salle>{
     public SalleDAO(Connection connection) {
         super(connection);
     }

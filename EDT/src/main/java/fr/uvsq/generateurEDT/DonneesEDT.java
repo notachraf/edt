@@ -118,7 +118,7 @@ public class DonneesEDT {
      * @return la liste des professeurs récupérés de la base de données
      */
     public List<Professeur> recupereProfesseursBD(){
-    	ProfDAO pDao = FactoryDAO.getProfDAO();
+    	DAO<Professeur> pDao = (ProfDAO)FactoryDAO.getProfDAO();
     	mListeProfesseurs = pDao.recupererListe();
     	return mListeProfesseurs;
     }
@@ -128,7 +128,7 @@ public class DonneesEDT {
      * @return la liste des modules récupérés de la base de données
      */
     public List<Module> recupereModulesBD() {
-    	ModuleDAO mDao = FactoryDAO.getModuleDAO();
+    	DAO<Module> mDao = (ModuleDAO)FactoryDAO.getModuleDAO();
     	mListeModules = mDao.recupererListe();
     	return mListeModules;
     }
@@ -138,7 +138,7 @@ public class DonneesEDT {
      * @return la liste des salles récupérées de la base de données
      */
     public List<Salle> recupereSallesBD() {
-    	SalleDAO sDao = FactoryDAO.getSalleDAO();
+    	DAO<Salle> sDao = (SalleDAO)FactoryDAO.getSalleDAO();
         mListeSalles = sDao.recupererListe();
         return mListeSalles;
         
@@ -149,7 +149,7 @@ public class DonneesEDT {
      * @return la liste des promotions récupérées de la base de données
      */
     public List<Promotion> recuperePromotionsBD() {
-    	PromoDAO promoDao= FactoryDAO.getPromoDAO();
+    	DAO<Promotion> promoDao = (PromoDAO)FactoryDAO.getPromoDAO();
     	mListePromotions = promoDao.recupererListe();
     	return mListePromotions;
     	

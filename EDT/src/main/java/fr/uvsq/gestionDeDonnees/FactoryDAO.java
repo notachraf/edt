@@ -2,6 +2,7 @@ package fr.uvsq.gestionDeDonnees;
 
 import java.sql.Connection;
 
+
 /**
  * Cette permet d'instancier des Classes.
  */
@@ -16,7 +17,7 @@ public class FactoryDAO {
      * Cette retourne une instance de la classe ModuleDAO
      * @return DAO
      */
-    public static ModuleDAO getModuleDAO(){
+    public static DAO getModuleDAO(){
         return new ModuleDAO(sConnection);
     }
     
@@ -24,7 +25,7 @@ public class FactoryDAO {
      * Cette retourne une instance de la classe SalleDAO
      * @return DAO
      */    
-    public static SalleDAO getSalleDAO(){
+    public static DAO getSalleDAO(){
         return new SalleDAO(sConnection);
     }
     
@@ -32,7 +33,7 @@ public class FactoryDAO {
      * Cette retourne une instance de la classe ProfDAO
      * @return DAO
      */
-    public static ProfDAO getProfDAO(){
+    public static DAO getProfDAO(){
         return new ProfDAO(sConnection);
     }
     
@@ -40,7 +41,7 @@ public class FactoryDAO {
      * Cette retourne une instance de la classe PromoDAO
      * @return DAO
      */
-    public static PromoDAO getPromoDAO(){
+    public static DAO getPromoDAO(){
         return new PromoDAO(sConnection);
     }
 }
