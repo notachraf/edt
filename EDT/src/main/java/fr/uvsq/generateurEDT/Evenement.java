@@ -1,37 +1,40 @@
 package fr.uvsq.generateurEDT;
 
-import fr.uvsq.models.Promo;
-import fr.uvsq.models.Professeur;
+import fr.uvsq.models.Module;
+import fr.uvsq.models.*;
+
 
 public class Evenement {
     private int mId;
     private TypeEven mTypeEven;
     private Professeur mProfesseur;
     private Module mModule;
-    private Promo mGroupe;
-    private static int NbEvenements;
-    private Crenau mCrenau;
+    private Groupe mGroupe;
+    private Creneau mCreneau;
+    private static int mNbEvenements = 0;
 
-    public Crenau getCrenau() {
-        return mCrenau;
-    }
-
-    public void setCrenau(Crenau crenau) {
-        mCrenau = crenau;
-    }
-
+    
     public Evenement() {
-        NbEvenements++;
+        mNbEvenements++;
+        mId = -1;
+        mTypeEven = TypeEven.CM;
+        mProfesseur = null;
+        mModule = null;
+        mGroupe = null;
+        mCreneau = null;
     }
 
-    public Evenement(int id, TypeEven typeEven, Professeur professeur, Module module, Promo groupe) {
+    public Evenement(int id, TypeEven typeEven, Professeur professeur, Module module, Groupe groupe, Creneau creneau) {
         mId = id;
         mTypeEven = typeEven;
         mProfesseur = professeur;
         mModule = module;
         mGroupe = groupe;
-        NbEvenements++;
+        mCreneau = creneau;
+        mNbEvenements++;
     }
+
+    
 
     /**
      * 
@@ -101,7 +104,7 @@ public class Evenement {
      * 
      * @return
      */
-    public Promo getGroupe() {
+    public Groupe getGroupe() {
         return mGroupe;
     }
 
@@ -109,15 +112,21 @@ public class Evenement {
      * 
      * @param groupe
      */
-    public void setGroupe(Promo groupe) {
+    public void setGroupe(Groupe groupe) {
         mGroupe = groupe;
     }
+    
+    public Creneau getCreneau() {
+        return mCreneau;
+    }
+
+    public void setCreneau(Creneau creneau) {
+        mCreneau = creneau;
+    }
+
 
     public static int getNbEvenements() {
-        return NbEvenements;
+        return mNbEvenements;
     }
 
-    public static void setNbEvenements(int mNbEvenements) {
-        Evenement.NbEvenements = mNbEvenements;
-    }
 }

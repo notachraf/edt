@@ -6,7 +6,7 @@ package fr.uvsq.models;
  */
 
 public enum TypeSalle {
-    COURS,
+    CM,
     TD,
     TP;
 }

@@ -1,3 +1,3 @@
 package fr.uvsq.generateurEDT;
 
-public enum TypeEven { COURS, TD, TP; }
+public enum TypeEven { CM, TD, TP; }

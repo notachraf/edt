@@ -50,7 +50,7 @@ public class ModuleDAO extends DA0<Module>{
      * Récuper le contenu de la table Module
      * @return une liste de Modules
      */
-    public ArrayList<Module> recupererListeModules() {
+    public ArrayList<Module> recupererListe() {
         return null;
     }
 }

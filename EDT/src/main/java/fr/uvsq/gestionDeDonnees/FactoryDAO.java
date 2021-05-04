@@ -13,10 +13,34 @@ public class FactoryDAO {
     public final static Connection sConnection = BDConnection.getConnection();
 
     /**
-     * Cette retourne une instance de la classe CoursDAO
+     * Cette retourne une instance de la classe ModuleDAO
      * @return DAO
      */
-    public static DA0 getCoursDAO(){
+    public static ModuleDAO getModuleDAO(){
         return new ModuleDAO(sConnection);
+    }
+    
+    /**
+     * Cette retourne une instance de la classe SalleDAO
+     * @return DAO
+     */    
+    public static SalleDAO getSalleDAO(){
+        return new SalleDAO(sConnection);
+    }
+    
+    /**
+     * Cette retourne une instance de la classe ProfDAO
+     * @return DAO
+     */
+    public static ProfDAO getProfDAO(){
+        return new ProfDAO(sConnection);
+    }
+    
+    /**
+     * Cette retourne une instance de la classe PromoDAO
+     * @return DAO
+     */
+    public static PromoDAO getPromoDAO(){
+        return new PromoDAO(sConnection);
     }
 }

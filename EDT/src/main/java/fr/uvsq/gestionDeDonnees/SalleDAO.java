@@ -1,5 +1,4 @@
 package fr.uvsq.gestionDeDonnees;
-
 import fr.uvsq.models.Salle;
 
 import java.sql.Connection;
@@ -45,12 +44,12 @@ public class SalleDAO extends DA0<Salle>{
     public Salle rechercher(String nom) {
         return null;
     }
-
+    
     /**
-     * Récuper le contenu de la table Salle
-     * @return une liste de Salle
+     * Récuper le contenu de la table Groupe
+     * @return une liste de Groupes.
      */
-    public ArrayList<Salle> recupererListeSalles() {
+    public ArrayList<Salle> recupererListe() {
         return null;
     }
 }

@@ -52,7 +52,7 @@ public class ProfDAO extends DA0<Professeur> {
      * Récuper le contenu de la table Professeur
      * @return une liste de Professeur
      */
-    public ArrayList<Professeur> recupererListeProfesseurs() {
+    public ArrayList<Professeur> recupererListe() {
         return null;
     }
 }

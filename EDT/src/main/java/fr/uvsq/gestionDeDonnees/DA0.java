@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.uvsq.models.Salle;
+
 public abstract class DA0<T> {
 
     protected Connection mConnection = null;
@@ -62,4 +64,10 @@ public abstract class DA0<T> {
      * @return
      */
     public abstract T rechercher(String nom);
+    
+    /**
+     * Récuper le contenu de la table Salle
+     * @return une liste de Salle
+     */
+    public abstract ArrayList<T> recupererListe();
 }
