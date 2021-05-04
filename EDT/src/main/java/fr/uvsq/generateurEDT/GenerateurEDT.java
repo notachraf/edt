@@ -2,8 +2,13 @@ package fr.uvsq.generateurEDT;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * 
+ * @author moulhat
+ *
+ */
 public class GenerateurEDT {
+	//les attributs
     private DonneesEDT mDonneesEDT;
     private double mConstRef;
     private final static int mTempFinal = 0;
@@ -11,6 +16,15 @@ public class GenerateurEDT {
     private List<EDT> mSolutions; // pour débugger
     private EDT mSolutionFinale;
 
+    //les constructeurs
+    /**
+     * 
+     * @param constRef
+     * @param temperature
+     * @param solutions
+     * @param solutionFinale
+     * @param donneesEDT
+     */
     public GenerateurEDT(double constRef, double temperature, List<EDT> solutions, EDT solutionFinale, DonneesEDT donneesEDT) {
         mDonneesEDT = donneesEDT;
         mTemperature = temperature;
@@ -20,43 +34,90 @@ public class GenerateurEDT {
     
     public GenerateurEDT() {}
 
+    // les méthodes 
+    
+    /**
+     * 
+     * @param solutionFinale
+     */
     public void setSolutionFinale(EDT solutionFinale) {
         mSolutionFinale = solutionFinale;
     }
+    
+    /**
+     * 
+     * @return la solution finale d'EDT générée
+     */
     public EDT getSolutionFinale(){ return null;}
 
+    /**
+     * 
+     * @return les donnees d'un EDT pour un generateurEDT
+     */
     public DonneesEDT getDonneesEDT() {
         return mDonneesEDT;
     }
 
+    /**
+     * 
+     * @param donneesEDT
+     */
     public void setDonneesEDT(DonneesEDT donneesEDT) {
         mDonneesEDT = donneesEDT;
     }
 
+    /**
+     * 
+     * @return la température que prend un genereEDT
+     */
     public double getTemperature() {
         return mTemperature;
     }
 
+    /**
+     * 
+     * @param temperature
+     */
     public void setTemperature(Double temperature) {
         mTemperature = temperature;
     }
 
+    /**
+     * 
+     * @return une liste de solutions d'EDT créés
+     */
     public List<EDT> getSolutions() {
         return mSolutions;
     }
 
+    /**
+     * 
+     * @param solutions
+     */
     public void setSolutions(List<EDT> solutions) {
         mSolutions = solutions;
     }
 
+    /**
+     * 
+     * @return la valeur de refroidissement de température d'un generateurEDT
+     */
     public double getConstanteDiminue() {
         return mConstRef;
     }
 
+    /**
+     * 
+     * @param constanteDiminue
+     */
     public void setConstanteDiminue(Double constanteDiminue) {
     	mConstRef = constanteDiminue;
     }
 
+    /**
+     * 
+     * @return la température final que prend un generateurEDT
+     */
     public static int getTempFinal() {
         return mTempFinal;
     }
@@ -65,7 +126,7 @@ public class GenerateurEDT {
      * Retourne l'energie accepteé.
      * @param energie1 energie de la solution initiale
      * @param energie2 energie de la solution voisine
-     * @param temp  temperature
+     * @param temp  une température
      * @return energie acceptée.
      */
     double accepteSolution(int energie1, int energie2, double temp){

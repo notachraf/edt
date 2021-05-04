@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * Cette classe représente l'entité groupe.
- * @Author Siham, Feriel, Aziz
+ * @Author Siham, Feriel, Aziz, Moulhat
  */
 
 public class Promotion {

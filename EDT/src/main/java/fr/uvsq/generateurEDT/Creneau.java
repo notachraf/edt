@@ -1,15 +1,17 @@
 package fr.uvsq.generateurEDT;
+/**
+ * Cette classe représente l'entité Creneau.
+ * @Author Moulhat
+ */
 
-// attribut doit commencer par m
 public class Creneau {
+	// les attributs
 	   private int mJour;
 	    private int mHoraire;
 	    private boolean mDisponible ;
 	    private int mIdsalle;
 
-	    /**
-	     * 
-	     */
+	    // les constructeurs
 	    public Creneau() {
 	    	mJour = -1;
 	    	mHoraire = -1;
@@ -30,10 +32,12 @@ public class Creneau {
 	        mDisponible = disponible;
 	        mIdsalle = idsalle;
 	    }
+	    
+	    // les méthodes
 
 	    /**
 	     * 
-	     * @return
+	     * @return l'attribut mJour de type entier de Creneau
 	     */
 	    public int getJour() {
 	        return mJour;
@@ -49,7 +53,7 @@ public class Creneau {
 
 	    /**
 	     * 
-	     * @return
+	     * @return l'attribut mHoraire de type entier de Creneau
 	     */
 	    public int getHoraire() {
 	        return mHoraire;
@@ -65,7 +69,7 @@ public class Creneau {
 
 	    /**
 	     * 
-	     * @return
+	     * @return la disponibilité d'un Creneau
 	     */
 	    public boolean isDisponible() {
 	        return mDisponible;
@@ -81,7 +85,7 @@ public class Creneau {
 
 	    /**
 	     * 
-	     * @return
+	     * @return l'identifiant de la salle d'un Creneau
 	     */
 	    public int getIdsalle() {
 	        return mIdsalle;

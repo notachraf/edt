@@ -10,15 +10,20 @@ import fr.uvsq.models.Groupe;
 
 import java.util.List;
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author moulhat
+ *
+ */
 public class DonneesEDT {
-	   
+	   // les attributs
     private List<Salle> mListeSalles;
     private List<Professeur> mListeProfesseurs;
     private List<Module> mListeModules;
     private List<Promotion> mListePromotions;
     private List<Evenement> mListeEvenements;
 
+    // le constructeur
     public DonneesEDT() {
     	mListeSalles = null;
     	mListeModules = null;
@@ -26,9 +31,11 @@ public class DonneesEDT {
     	mListePromotions = null;
     	mListeEvenements = null;
     }
+    
+    // les méthodes
     /**
      * 
-     * @return
+     * @return la liste des salles d'une donneesEDT
      */
     public List<Salle> getListeSalles() {
         return mListeSalles;
@@ -44,7 +51,7 @@ public class DonneesEDT {
 
     /**
      * 
-     * @return
+     * @return la liste des professeurs d'une DonneesEDT
      */
     public List<Professeur> getListeProfesseurs() {
         return mListeProfesseurs;
@@ -60,7 +67,7 @@ public class DonneesEDT {
     
     /**
      * 
-     * @return
+     * @return la liste des modules d'une DonneesEDT
      */
     public List<Module> getListeModules() {
         return mListeModules;
@@ -76,7 +83,7 @@ public class DonneesEDT {
 
     /**
      * 
-     * @return
+     * @return la liste des promotions d'une DonneesEDT
      */
     public List<Promotion> getListePromotions() {
         return mListePromotions;
@@ -99,29 +106,48 @@ public class DonneesEDT {
     
     /**
      * 
-     * @return
+     * @return la liste des événements d'une DonneesEDT
      */
     public List<Evenement> getListeEvenements() {
         return mListeEvenements;
     }
 
 
+    /**
+     * 
+     * @return la liste des professeurs récupérés de la base de données
+     */
     public List<Professeur> recupereProfesseursBD(){
     	ProfDAO pDao = FactoryDAO.getProfDAO();
     	mListeProfesseurs = pDao.recupererListe();
     	return mListeProfesseurs;
     }
+    
+    /**
+     * 
+     * @return la liste des modules récupérés de la base de données
+     */
     public List<Module> recupereModulesBD() {
     	ModuleDAO mDao = FactoryDAO.getModuleDAO();
     	mListeModules = mDao.recupererListe();
     	return mListeModules;
     }
+    
+    /**
+     * 
+     * @return la liste des salles récupérées de la base de données
+     */
     public List<Salle> recupereSallesBD() {
     	SalleDAO sDao = FactoryDAO.getSalleDAO();
         mListeSalles = sDao.recupererListe();
         return mListeSalles;
         
     }
+    
+    /**
+     * 
+     * @return la liste des promotions récupérées de la base de données
+     */
     public List<Promotion> recuperePromotionsBD() {
     	PromoDAO promoDao= FactoryDAO.getPromoDAO();
     	mListePromotions = promoDao.recupererListe();

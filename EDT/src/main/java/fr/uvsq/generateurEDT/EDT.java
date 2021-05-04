@@ -4,11 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import fr.uvsq.models.*;
 
+/**
+ * 
+ * @author moulhat
+ *
+ */
 public class EDT {
+	//les attributs
 	private List<EDTSalle> mListeEDTSalles;
 	private int mEnergie;
 	private DonneesEDT mDonneesEDT;
-
+	
+	// les constructeurs
+	/**
+	 * 
+	 * @param listeEDTSalles
+	 * @param energie
+	 * @param donneesEDT
+	 */
 	public EDT(List<EDTSalle> listeEDTSalles, int energie, DonneesEDT donneesEDT) {
         mListeEDTSalles = listeEDTSalles;
         mEnergie = energie;
@@ -21,34 +34,57 @@ public class EDT {
     	mDonneesEDT = null;
     }
 
+    	// les méthodes
+    
+    /**
+     * 
+     * @return la liste des emplois du temps de salles d'un EDT
+     */
 	public List<EDTSalle> getListeEDTSalles() {
         return mListeEDTSalles;
     }
 
+	/**
+	 * 
+	 * @param listeEDTSalles
+	 */
     public void setListeEDTSalles(List<EDTSalle> listeEDTSalles) {
         mListeEDTSalles = listeEDTSalles;
     }
     
+    /**
+     * 
+     * @return l'énergie d'un EDT
+     */
     public int getEnergie() {
         return mEnergie;
     }
-
+    
+    /**
+     * 
+     * @param energie
+     */
     public void setEnergie(int energie) {
         mEnergie = energie;
     }
 
+    /**
+     * 
+     * @return retourne les données d'un EDT
+     */
     public DonneesEDT getDonneesEDT() {
         return mDonneesEDT;
     }
 
+    /**
+     * 
+     * @param donneesEDT
+     */
     public void setDonneesEDT(DonneesEDT donneesEDT) {
         mDonneesEDT = donneesEDT;
     }
 
-	    /**
-	     * Contrainte pour l'heure de déroulement des cours
-	     * Contrainte pour l'écart entre deux Evénements.
-	     */
+
 
 	    /**
 	     * Calcule le nombre de fois que la capacité d'une
@@ -108,7 +144,7 @@ public class EDT {
 	    return contrainte;
     }
 
-	    /**    private List<Evenement> mListeEvenements;
+	    /**
 
 	     * Calcule le nombre de salles réservées pour un prof
 	     * en même temps.
@@ -144,7 +180,12 @@ public class EDT {
 	    	
     	return contrainte;
     }
-	    
+	
+    /**
+     * calcule le nombre de salle réservés pour 
+     * un groupe en même temps
+     * @return le nombre de contrainte
+     */
     private int contrainteResGroupes() {
     	
     	//créer les groupes
@@ -211,6 +252,10 @@ public class EDT {
     	return contrainte;
     }
     
+    /**
+     * compte le nombre de fois que des cours se chevauchement sur les horaires
+     * @return le nombre de contraintes
+     */
     private int contrainteChevauchements() {
     	int contrainte = 0;
     	for(EDTSalle edtSalle : mListeEDTSalles) {
@@ -254,6 +299,13 @@ public class EDT {
     return contrainte;
     }
 	    
+    /**
+     * Calcule l'énergie un emploi du temps en sommant toutes les contraintes
+     * @param conTypeSalle
+     * @param conCapSalle
+     * @param ResProf
+     * @return l'énergie d'un EDT
+     */
 	public double calculEnergie ( int conTypeSalle , int conCapSalle , int ResProf ) {
     	conTypeSalle = contrainteTypeSalle();
     	conCapSalle = contrainteCapaciteSalle() + contrainteChevauchements();

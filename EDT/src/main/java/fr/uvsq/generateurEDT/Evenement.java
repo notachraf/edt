@@ -5,6 +5,7 @@ import fr.uvsq.models.*;
 
 
 public class Evenement {
+	//les attributs
     private int mId;
     private TypeEven mTypeEven;
     private Professeur mProfesseur;
@@ -13,7 +14,7 @@ public class Evenement {
     private Creneau mCreneau;
     private static int mNbEvenements = 0;
 
-    
+    //les constructeurs
     public Evenement() {
         mNbEvenements++;
         mId = -1;
@@ -24,6 +25,15 @@ public class Evenement {
         mCreneau = null;
     }
 
+    /**
+     * 
+     * @param id
+     * @param typeEven
+     * @param professeur
+     * @param module
+     * @param groupe
+     * @param creneau
+     */
     public Evenement(int id, TypeEven typeEven, Professeur professeur, Module module, Groupe groupe, Creneau creneau) {
         mId = id;
         mTypeEven = typeEven;
@@ -35,10 +45,10 @@ public class Evenement {
     }
 
     
-
+    // les méthodes
     /**
      * 
-     * @return
+     * @return l'identifiant d'un événement
      */
     public int getId() {
         return mId;
@@ -54,7 +64,7 @@ public class Evenement {
 
     /**
      * 
-     * @return
+     * @return le type d'événement 
      */
     public TypeEven getTypeEven() {
         return mTypeEven;
@@ -70,7 +80,7 @@ public class Evenement {
 
     /**
      * 
-     * @return
+     * @return le professeur d'un événement
      */
     public Professeur getProfesseur() {
         return mProfesseur;
@@ -86,7 +96,7 @@ public class Evenement {
 
     /**
      * 
-     * @return
+     * @return le module d'un événement
      */
     public Module getModule() {
         return mModule;
@@ -102,7 +112,7 @@ public class Evenement {
 
     /**
      * 
-     * @return
+     * @return le groupe d'un événement
      */
     public Groupe getGroupe() {
         return mGroupe;
@@ -116,15 +126,26 @@ public class Evenement {
         mGroupe = groupe;
     }
     
+    /**
+     * 
+     * @return le créneau d'un événement
+     */
     public Creneau getCreneau() {
         return mCreneau;
     }
 
+    /**
+     * 
+     * @param creneau
+     */
     public void setCreneau(Creneau creneau) {
         mCreneau = creneau;
     }
 
-
+    /**
+     * 
+     * @return le nombre d'événements créés
+     */
     public static int getNbEvenements() {
         return mNbEvenements;
     }
