@@ -1,97 +1,56 @@
-package fr.uvsq.generateurEDT;
 
-import java.util.ArrayList;
 import java.util.List;
-import fr.uvsq.models.*;
+import java.util.ArrayList;
 
-/**
- * 
- * @author moulhat
- *
- */
 public class EDT {
-	//les attributs
-	private List<EDTSalle> mListeEDTSalles;
-	private int mEnergie;
-	private DonneesEDT mDonneesEDT;
-	
-	// les constructeurs
-	/**
-	 * 
-	 * @param listeEDTSalles
-	 * @param energie
-	 * @param donneesEDT
-	 */
-	public EDT(List<EDTSalle> listeEDTSalles, int energie, DonneesEDT donneesEDT) {
+    private List<EDTSalle> mListeEDTSalles;
+    private int mEnergie;
+    private DonneesEDT mDonneesEDT;
+
+    public EDT(List<EDTSalle> listeEDTSalles, int energie, DonneesEDT donneesEDT) {
         mListeEDTSalles = listeEDTSalles;
         mEnergie = energie;
         mDonneesEDT = donneesEDT;
     }
 
     public EDT() {
-    	mListeEDTSalles = null;
-    	mEnergie = -1;
-    	mDonneesEDT = null;
     }
 
-    	// les méthodes
-    
-    /**
-     * 
-     * @return la liste des emplois du temps de salles d'un EDT
-     */
-	public List<EDTSalle> getListeEDTSalles() {
+    public List<EDTSalle> getListeEDTSalles() {
         return mListeEDTSalles;
     }
 
-	/**
-	 * 
-	 * @param listeEDTSalles
-	 */
     public void setListeEDTSalles(List<EDTSalle> listeEDTSalles) {
         mListeEDTSalles = listeEDTSalles;
     }
-    
-    /**
-     * 
-     * @return l'énergie d'un EDT
-     */
+
     public int getEnergie() {
         return mEnergie;
     }
-    
-    /**
-     * 
-     * @param energie
-     */
+
     public void setEnergie(int energie) {
         mEnergie = energie;
     }
 
-    /**
-     * 
-     * @return retourne les données d'un EDT
-     */
     public DonneesEDT getDonneesEDT() {
         return mDonneesEDT;
     }
 
-    /**
-     * 
-     * @param donneesEDT
-     */
     public void setDonneesEDT(DonneesEDT donneesEDT) {
         mDonneesEDT = donneesEDT;
     }
 
+    /**
+     * Contrainte pour l'heure de déroulement des cours
+     * Contrainte pour l'écart entre deux Evénements.
+     */
 
-
-	    /**
-	     * Calcule le nombre de fois que la capacité d'une
-	     * Salle n'est pas respecté.
-	     * @return le nombre de contraintes
-	     */
-    private int contrainteCapaciteSalle(){
+    /**
+     * Calcule le nombre de fois que la capacité d'une
+     * Salle n'est pas respecté.
+     * @return le nombre de contraintes
+     */
+ private int contrainteCapaciteSalle(){
     	// pour chaque salle on regarde ses horaires de chaque jour
     	int contrainte = 0;
     	for(EDTSalle edtSalle : mListeEDTSalles){
@@ -103,7 +62,8 @@ public class EDT {
 	    			if(edtSalle.getEdt()[i][j] > -1) {
 	    				int idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 	    				while(idEven !=  edtSalle.getEdt()[i][j]  ){
-	    					even = (int)Math.random()*mDonneesEDT.getListeEvenements().size();
+	    					//even = (int)Math.random()*mDonneesEDT.getListeEvenements().size();
+	    					even++;
 	    					idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 	    				}
 	    			Evenement evenement = mDonneesEDT.getListeEvenements().get(even);
@@ -131,7 +91,8 @@ public class EDT {
 	    			if(edtSalle.getEdt()[i][j] != -1) {
 	    				int idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 	    				while(idEven !=  edtSalle.getEdt()[i][j]  ){
-	    					even = (int)Math.random()*mDonneesEDT.getListeEvenements().size();
+	    				//	even = (int)Math.random()*mDonneesEDT.getListeEvenements().size();
+							even++;
 	    					idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 	    				}
 	    				Evenement evenement = mDonneesEDT.getListeEvenements().get(even);
@@ -144,13 +105,13 @@ public class EDT {
 	    return contrainte;
     }
 
-	    /**
+	    /**    private List<Evenement> mListeEvenements;
 
 	     * Calcule le nombre de salles réservées pour un prof
 	     * en même temps.
 	     * @return le nombre de contraintes.
 	     */
-    private int contrainteReservationProf(){
+	private int contrainteReservationProf(){
 	   	int contrainte = 0;
 	    	
     	for(Professeur prof : mDonneesEDT.getListeProfesseurs()) {
@@ -165,7 +126,8 @@ public class EDT {
 		    			if(edtSalle.getEdt()[i][j] != -1) {
 		    				int idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 		    				while(idEven !=  edtSalle.getEdt()[i][j]  ){
-		    					even = (int)Math.random()*mDonneesEDT.getListeEvenements().size();
+		    					//even = (int)Math.random()*mDonneesEDT.getListeEvenements().size();
+		    					even++;
 		    					idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 		    				}
 			    			Evenement evenement = mDonneesEDT.getListeEvenements().get(even);
@@ -173,19 +135,15 @@ public class EDT {
 			    			if(evenement.getProfesseur() == prof) contrainteJoursHoraires++;
 		    			}
 	   		    	}
-	   		    	contrainte += (contrainteJoursHoraires-1);
+	   		    	
+	   		    	if(contrainteJoursHoraires > 0) contrainte += (contrainteJoursHoraires-1);
 	    		}
 	   		}
 	   	}
 	    	
     	return contrainte;
     }
-	
-    /**
-     * calcule le nombre de salle réservés pour 
-     * un groupe en même temps
-     * @return le nombre de contrainte
-     */
+	   
     private int contrainteResGroupes() {
     	
     	//créer les groupes
@@ -204,15 +162,9 @@ public class EDT {
 				Groupe gpe = new Groupe(nomGroupe,(nbeleves/nbgroupes),promo);
 					groupesPromo.add(gpe);
 					nbeleves -= (nbeleves/nbgroupes);
+					nbgroupes--;
 			}
-				int n=0; int p = 0;
-				if(nbeleves > 0) {
-					for(n=0;n<nbeleves;n++) {
-					if(p>promo.getNbGroupes()) p = 0;
-					groupesPromo.get(p).setNbEleves(groupesPromo.get(p).getNbEleves()+1);
-					p++;
-					}
-				}
+
         	}
         	
         	for(Groupe G : groupesPromo) listeGroupes.add(G);
@@ -231,7 +183,8 @@ public class EDT {
 		    			if(edtSalle.getEdt()[i][j] != -1) {
 		    				int idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 		    				while(idEven !=  edtSalle.getEdt()[i][j]  ){
-		    					even = (int)Math.random()*mDonneesEDT.getListeEvenements().size();
+		    					//even = (int)Math.random()*mDonneesEDT.getListeEvenements().size();
+		    					even++;
 		    					idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 		    				}
 			    			Evenement evenement = mDonneesEDT.getListeEvenements().get(even);
@@ -245,17 +198,13 @@ public class EDT {
 			    			}
 		    			}
 	   		    	}
-	   		    	contrainte += (contrainteJoursHoraires-1);
+	   		    	if(contrainteJoursHoraires > 0) contrainte += (contrainteJoursHoraires-1);
 	    		}
 	   		}
     	}
     	return contrainte;
     }
     
-    /**
-     * compte le nombre de fois que des cours se chevauchement sur les horaires
-     * @return le nombre de contraintes
-     */
     private int contrainteChevauchements() {
     	int contrainte = 0;
     	for(EDTSalle edtSalle : mListeEDTSalles) {
@@ -266,7 +215,8 @@ public class EDT {
 	    			if(edtSalle.getEdt()[i][j] != -1) {
 	    				int idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 	    				while(idEven !=  edtSalle.getEdt()[i][j]  ){
-	    					even = (int)Math.random()*mDonneesEDT.getListeEvenements().size();
+	    					//even = (int)Math.random()*mDonneesEDT.getListeEvenements().size();
+	    					even++;
 	    					idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 	    				}
 	    			}
@@ -299,18 +249,11 @@ public class EDT {
     return contrainte;
     }
 	    
-    /**
-     * Calcule l'énergie un emploi du temps en sommant toutes les contraintes
-     * @param conTypeSalle
-     * @param conCapSalle
-     * @param ResProf
-     * @return l'énergie d'un EDT
-     */
 	public double calculEnergie ( int conTypeSalle , int conCapSalle , int ResProf ) {
-    	conTypeSalle = contrainteTypeSalle();
-    	conCapSalle = contrainteCapaciteSalle() + contrainteChevauchements();
+    	conCapSalle = contrainteCapaciteSalle();
+    	conTypeSalle = contrainteTypeSalle() + contrainteChevauchements();
 	   	ResProf = contrainteReservationProf() + contrainteResGroupes();
 	   	mEnergie = conTypeSalle + conCapSalle + ResProf;
-	   	return (conTypeSalle + conCapSalle + ResProf);
+	   	return (double)mEnergie;
    }
 }

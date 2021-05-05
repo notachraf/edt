@@ -1,12 +1,5 @@
-package fr.uvsq.models;
-
 import java.util.ArrayList;
 
-
-/**
- *
- * @Author Siham, Feriel, Aziz
- */
 public class Professeur {
 	   private String mNom;
 	    private int mId;
@@ -112,7 +105,7 @@ public class Professeur {
 	    private int getRepetModule(Module m) {
 	        int repet=0;
 	        for(int i = 0; i < (double)this.mListeModules.size(); i++){
-	        if(m == (Module)mListeModules.get(i)) repet++;          }
+	        if(m == mListeModules.get(i)) repet++;          }
 	         return repet; 
 	    }
 

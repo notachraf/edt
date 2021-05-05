@@ -1,11 +1,3 @@
-package fr.uvsq.generateurEDT;
-
-import fr.uvsq.models.Salle;
-/**
- * 
- * @author moulhat
- *
- */
 public class EDTSalle {
     private Salle mSalle;
     private int[][] mEdt;
@@ -30,8 +22,6 @@ public class EDTSalle {
        **********************************************************************
      */
 
-    //les contructeurs
-    
     public EDTSalle() {
     	mSalle = null;
     	mEdt = null;
@@ -42,51 +32,26 @@ public class EDTSalle {
         mEdt = edt;
     }
 
-    //les méthodes
-    /**
-     * 
-     * @return la salle d'un EDTSalle
-     */
     public Salle getSalle() {
         return mSalle;
     }
 
-    /**
-     * 
-     * @param salle
-     */
     public void setSalle(Salle salle) {
         mSalle = salle;
     }
 
-    /**
-     * 
-     * @return la matrice d'un EDTSalle
-     */
     public int[][] getEdt() {
         return mEdt;
     }
 
-    /**
-     * 
-     * @param edt
-     */
     public void setEdt(int[][] edt) {
         mEdt = edt;
     }
-    
-    /**
-     * 
-     * @return le nombre de jours que prend la matrice d'un EDTSalle
-     */
+
     public static final int getNbJours() {
         return NB_JOURS;
     }
 
-    /**
-     * 
-     * @return le nombre d'horaires que prend la mtrice d'un EDTSalle
-     */
     public static final int getNbHoraires() {
         return NB_HORAIRES;
     }
@@ -98,7 +63,7 @@ public class EDTSalle {
      * @return boolean
      */
     public boolean aUnEvenement(int jours, int horaire) {
-    	if(mEdt[jours][horaire] > 0) return true;
+    	if(mEdt[jours][horaire] != -1) return true;
         return false;
     }
 

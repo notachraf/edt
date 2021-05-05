@@ -1,101 +1,94 @@
-package fr.uvsq.generateurEDT;
-/**
- * Cette classe représente l'entité Creneau.
- * @Author Moulhat
- */
-
 public class Creneau {
-	// les attributs
-	   private int mJour;
-	    private int mHoraire;
-	    private boolean mDisponible ;
-	    private int mIdsalle;
+    private int mJour;
+    private int mHoraire;
+    private boolean mDisponible ;
+    private int mIdsalle;
 
-	    // les constructeurs
-	    public Creneau() {
-	    	mJour = -1;
-	    	mHoraire = -1;
-	    	mDisponible = true;
-	    	mIdsalle = -1;
-	    }
+    /**
+     * 
+     */
+    public Creneau() {
+    	mJour = -1;
+    	mHoraire = -1;
+    	mDisponible = true;
+    	mIdsalle = -1;
+    }
 
-	    /**
-	     * 
-	     * @param jour
-	     * @param horaire
-	     * @param disponible
-	     * @param idSalle
-	     */
-	    public Creneau(int jour, int horaire, boolean disponible, int idsalle) {
-	        mJour = jour;
-	        mHoraire = horaire;
-	        mDisponible = disponible;
-	        mIdsalle = idsalle;
-	    }
-	    
-	    // les méthodes
+    /**
+     * 
+     * @param jour
+     * @param horaire
+     * @param disponible
+     * @param idSalle
+     */
+    public Creneau(int jour, int horaire, boolean disponible, int idsalle) {
+        mJour = jour;
+        mHoraire = horaire;
+        mDisponible = disponible;
+        mIdsalle = idsalle;
+    }
 
-	    /**
-	     * 
-	     * @return l'attribut mJour de type entier de Creneau
-	     */
-	    public int getJour() {
-	        return mJour;
-	    }
+    /**
+     * 
+     * @return
+     */
+    public int getJour() {
+        return mJour;
+    }
 
-	    /**
-	     * 
-	     * @param jour
-	     */
-	    public void setJour(int jour) {
-	        mJour = jour;
-	    }
+    /**
+     * 
+     * @param jour
+     */
+    public void setJour(int jour) {
+        mJour = jour;
+    }
 
-	    /**
-	     * 
-	     * @return l'attribut mHoraire de type entier de Creneau
-	     */
-	    public int getHoraire() {
-	        return mHoraire;
-	    }
+    /**
+     * 
+     * @return
+     */
+    public int getHoraire() {
+        return mHoraire;
+    }
 
-	    /**
-	     * 
-	     * @param horaire
-	     */
-	    public void setHoraire(int horaire) {
-	        mHoraire = horaire;
-	    }
+    /**
+     * 
+     * @param horaire
+     */
+    public void setHoraire(int horaire) {
+        mHoraire = horaire;
+    }
 
-	    /**
-	     * 
-	     * @return la disponibilité d'un Creneau
-	     */
-	    public boolean isDisponible() {
-	        return mDisponible;
-	    }
+    /**
+     * 
+     * @return
+     */
+    public boolean isDisponible() {
+        return mDisponible;
+    }
 
-	    /**
-	     * 
-	     * @param disponible
-	     */
-	    public void setDisponible(boolean disponible) {
-	        mDisponible = disponible;
-	    }
+    /**
+     * 
+     * @param disponible
+     */
+    public void setDisponible(boolean disponible) {
+        mDisponible = disponible;
+    }
 
-	    /**
-	     * 
-	     * @return l'identifiant de la salle d'un Creneau
-	     */
-	    public int getIdsalle() {
-	        return mIdsalle;
-	    }
+    /**
+     * 
+     * @return
+     */
+    public int getIdsalle() {
+        return mIdsalle;
+    }
 
-	    /**
-	     * 
-	     * @param idsalle
-	     */
-	    public void setIdsalle(int idsalle) {
-	        mIdsalle = idsalle;
-	    }
+    /**
+     * 
+     * @param idsalle
+     */
+    public void setIdsalle(int idsalle) {
+        mIdsalle = idsalle;
+    }
 }

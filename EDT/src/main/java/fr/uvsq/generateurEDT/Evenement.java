@@ -1,20 +1,14 @@
-package fr.uvsq.generateurEDT;
-
-import fr.uvsq.models.Module;
-import fr.uvsq.models.*;
-
-
 public class Evenement {
-	//les attributs
+	
     private int mId;
     private TypeEven mTypeEven;
     private Professeur mProfesseur;
-    private Module mModule;
     private Groupe mGroupe;
+    private Module mModule;
     private Creneau mCreneau;
     private static int mNbEvenements = 0;
 
-    //les constructeurs
+    
     public Evenement() {
         mNbEvenements++;
         mId = -1;
@@ -25,30 +19,21 @@ public class Evenement {
         mCreneau = null;
     }
 
-    /**
-     * 
-     * @param id
-     * @param typeEven
-     * @param professeur
-     * @param module
-     * @param groupe
-     * @param creneau
-     */
     public Evenement(int id, TypeEven typeEven, Professeur professeur, Module module, Groupe groupe, Creneau creneau) {
         mId = id;
         mTypeEven = typeEven;
         mProfesseur = professeur;
         mModule = module;
-        mGroupe = groupe;
+		mGroupe = groupe;
         mCreneau = creneau;
         mNbEvenements++;
     }
 
     
-    // les méthodes
+
     /**
      * 
-     * @return l'identifiant d'un événement
+     * @return
      */
     public int getId() {
         return mId;
@@ -64,7 +49,7 @@ public class Evenement {
 
     /**
      * 
-     * @return le type d'événement 
+     * @return
      */
     public TypeEven getTypeEven() {
         return mTypeEven;
@@ -80,7 +65,7 @@ public class Evenement {
 
     /**
      * 
-     * @return le professeur d'un événement
+     * @return
      */
     public Professeur getProfesseur() {
         return mProfesseur;
@@ -96,9 +81,9 @@ public class Evenement {
 
     /**
      * 
-     * @return le module d'un événement
+     * @return
      */
-    public Module getModule() {
+    public Matiere getModule() {
         return mModule;
     }
 
@@ -106,13 +91,13 @@ public class Evenement {
      * 
      * @param module
      */
-    public void setModule(Module module) {
+    public void setModule(Matiere module) {
         mModule = module;
     }
 
     /**
      * 
-     * @return le groupe d'un événement
+     * @return
      */
     public Groupe getGroupe() {
         return mGroupe;
@@ -126,26 +111,15 @@ public class Evenement {
         mGroupe = groupe;
     }
     
-    /**
-     * 
-     * @return le créneau d'un événement
-     */
     public Creneau getCreneau() {
         return mCreneau;
     }
 
-    /**
-     * 
-     * @param creneau
-     */
     public void setCreneau(Creneau creneau) {
         mCreneau = creneau;
     }
 
-    /**
-     * 
-     * @return le nombre d'événements créés
-     */
+
     public static int getNbEvenements() {
         return mNbEvenements;
     }

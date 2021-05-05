@@ -1,12 +1,4 @@
-package fr.uvsq.models;
-
 import java.util.ArrayList;
-
-
-/**
- * Cette classe représente l'entité groupe.
- * @Author Siham, Feriel, Aziz, Moulhat
- */
 
 public class Promotion {
     private String mNom;
@@ -90,7 +82,7 @@ public class Promotion {
     private int getRepetModule ( Module module ) {
         int repet=0;
         for(int i = 0; i < this.mListeModules.size(); i++){
-        if(module == (Module)mListeModules.get(i)) repet++;          }
+        if(module == mListeModules.get(i)) repet++;          }
          return repet;    	
     }
     public void removeDoublons () {

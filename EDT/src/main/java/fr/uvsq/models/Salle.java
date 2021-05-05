@@ -1,10 +1,3 @@
-package fr.uvsq.models;
-
-
-/**
- *
- * @Author Siham, Feriel, Aziz
- */
 public class Salle {
 
     private int mId;

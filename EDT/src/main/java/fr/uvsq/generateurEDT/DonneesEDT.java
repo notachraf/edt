@@ -1,29 +1,15 @@
-package fr.uvsq.generateurEDT;
 
-import fr.uvsq.gestionDeDonnees.ProfDAO;
-import fr.uvsq.gestionDeDonnees.*;
-import fr.uvsq.models.Module;
-import fr.uvsq.models.Professeur;
-import fr.uvsq.models.Promotion;
-import fr.uvsq.models.Salle;
-import fr.uvsq.models.Groupe;
-
-import java.util.List;
 import java.util.ArrayList;
-/**
- * 
- * @author moulhat
- *
- */
+import java.util.List;
+
 public class DonneesEDT {
-	   // les attributs
+    
     private List<Salle> mListeSalles;
     private List<Professeur> mListeProfesseurs;
     private List<Module> mListeModules;
     private List<Promotion> mListePromotions;
     private List<Evenement> mListeEvenements;
 
-    // le constructeur
     public DonneesEDT() {
     	mListeSalles = null;
     	mListeModules = null;
@@ -31,11 +17,9 @@ public class DonneesEDT {
     	mListePromotions = null;
     	mListeEvenements = null;
     }
-    
-    // les méthodes
     /**
      * 
-     * @return la liste des salles d'une donneesEDT
+     * @return
      */
     public List<Salle> getListeSalles() {
         return mListeSalles;
@@ -51,7 +35,7 @@ public class DonneesEDT {
 
     /**
      * 
-     * @return la liste des professeurs d'une DonneesEDT
+     * @return
      */
     public List<Professeur> getListeProfesseurs() {
         return mListeProfesseurs;
@@ -67,7 +51,7 @@ public class DonneesEDT {
     
     /**
      * 
-     * @return la liste des modules d'une DonneesEDT
+     * @return
      */
     public List<Module> getListeModules() {
         return mListeModules;
@@ -83,7 +67,7 @@ public class DonneesEDT {
 
     /**
      * 
-     * @return la liste des promotions d'une DonneesEDT
+     * @return
      */
     public List<Promotion> getListePromotions() {
         return mListePromotions;
@@ -106,50 +90,31 @@ public class DonneesEDT {
     
     /**
      * 
-     * @return la liste des événements d'une DonneesEDT
+     * @return
      */
     public List<Evenement> getListeEvenements() {
         return mListeEvenements;
     }
 
 
-    /**
-     * 
-     * @return la liste des professeurs récupérés de la base de données
-     */
     public List<Professeur> recupereProfesseursBD(){
-    	DAO<Professeur> pDao = (ProfDAO)FactoryDAO.getProfDAO();
+    	ProfDAO pDao = FactoryDAO.getProfDAO();
     	mListeProfesseurs = pDao.recupererListe();
     	return mListeProfesseurs;
     }
-    
-    /**
-     * 
-     * @return la liste des modules récupérés de la base de données
-     */
     public List<Module> recupereModulesBD() {
-    	DAO<Module> mDao = (ModuleDAO)FactoryDAO.getModuleDAO();
+    	ModuleDAO mDao = FactoryDAO.getModuleDAO();
     	mListeModules = mDao.recupererListe();
     	return mListeModules;
     }
-    
-    /**
-     * 
-     * @return la liste des salles récupérées de la base de données
-     */
     public List<Salle> recupereSallesBD() {
-    	DAO<Salle> sDao = (SalleDAO)FactoryDAO.getSalleDAO();
+    	SalleDAO sDao = FactoryDAO.getSalleDAO();
         mListeSalles = sDao.recupererListe();
         return mListeSalles;
         
     }
-    
-    /**
-     * 
-     * @return la liste des promotions récupérées de la base de données
-     */
     public List<Promotion> recuperePromotionsBD() {
-    	DAO<Promotion> promoDao = (PromoDAO)FactoryDAO.getPromoDAO();
+    	PromoDAO promoDao= FactoryDAO.getPromoDAO();
     	mListePromotions = promoDao.recupererListe();
     	return mListePromotions;
     	
@@ -159,6 +124,9 @@ public class DonneesEDT {
      * Créer les évenement de type cours.
      */
     public void creerEvenementsCM(){
+    	 List<Evenement> listeEven = new ArrayList<>();
+    	if(mListeEvenements != null) listeEven = mListeEvenements;
+    	
     	for(Promotion promo : mListePromotions) {
     		for(Module module : promo.getListeModules()) {
     			if(module.getNbCM() > 0) {
@@ -167,117 +135,124 @@ public class DonneesEDT {
     				
     				//choisi un prof
     				int indiceProf = 0;
-    				while(!mListeProfesseurs.get(indiceProf).peutEnseigner(module)) {
-    						indiceProf = (int)Math.random()*mListeProfesseurs.size();
+    				while(mListeProfesseurs.get(indiceProf).peutEnseigner(module) == false) {
+    				//		indiceProf = (int)Math.random()*mListeProfesseurs.size();
+						indiceProf++;
     				}
     				
     				Professeur prof = mListeProfesseurs.get(indiceProf);
     				Creneau creneau = new Creneau();
     				Evenement even = new Evenement(Evenement.getNbEvenements(),TypeEven.CM,prof,module,maPromo,creneau);
-    				mListeEvenements.add(even);
+    				listeEven.add(even);
     			}
+    			else System.out.println("");
     		}
     	}
+    	mListeEvenements = listeEven;
     }
 
     /**
      * Créer les évenement de type TP.
      */
     public void creerEvenementsTP(){
+    	
     	int nbeleves; int nbgroupes;
-        for(Promotion promo : mListePromotions) {
-    		List<Groupe> groupesPromo = new ArrayList<>();
+    	List<Evenement> listeEven = new ArrayList<>();
+    	if(mListeEvenements != null) listeEven = mListeEvenements;
+    	
+    	//creer les groupes
+       	List<Groupe> groupesPromo = new ArrayList<>();
+        				
+       				
 
-        	if(promo.getNbGroupes()>0) {
-        		//creer les groupes
-								
-				nbeleves = promo.getNbEleves();
-				nbgroupes = promo.getNbGroupes();      				
-				
-			for(int j=0;j<promo.getNbGroupes();j++) {
-				String nomGroupe = "Groupe" + (j+1) + "";
-				Groupe gpe = new Groupe(nomGroupe,(nbeleves/nbgroupes),promo);
-				groupesPromo.add(gpe);
-				nbeleves -= (nbeleves/nbgroupes);
-			}
-			int n=0; int p = 0;
-			if(nbeleves > 0) {
-				for(n=0;n<nbeleves;n++) {
-					if(p>promo.getNbGroupes()) p = 0;
-					groupesPromo.get(p).setNbEleves(groupesPromo.get(p).getNbEleves()+1);
-					p++;
-				}
-			}
-        	}
-        	
+        for(Promotion promo : mListePromotions) {
+			
+					nbeleves = promo.getNbEleves();
+       				nbgroupes = promo.getNbGroupes();      				
+        			
+        			
+        			for(int j=0;j<promo.getNbGroupes();j++) {
+        				String nomGroupe = "Groupe" + (j+1) + "";
+        				Groupe gpe = new Groupe(nomGroupe,(nbeleves/nbgroupes),promo);
+        				groupesPromo.add(gpe);
+       					nbeleves -= (nbeleves/nbgroupes);
+       					nbgroupes--;
+       				}
         	for(Module module : promo.getListeModules()) {
+       				
        			if(module.getNbTP() > 0) {
         				//créer les événements TP pour chaque groupe de de la promotion
         				//choisi un prof
        				for(Groupe unGroupe : groupesPromo) {
    	    				int indiceProf = 0;
    	    				while(!mListeProfesseurs.get(indiceProf).peutEnseigner(module)) {
-   	    					indiceProf = (int)Math.random()*mListeProfesseurs.size();
+   	    					//indiceProf = (int)Math.random()*mListeProfesseurs.size();
+   	    					indiceProf++;
    	    				}
     	    				
     	   				Professeur prof = mListeProfesseurs.get(indiceProf);
         				Creneau creneau = new Creneau();
    	    				Evenement even = new Evenement(Evenement.getNbEvenements(),TypeEven.TP,prof,module,unGroupe,creneau);
-  	    				mListeEvenements.add(even);
+  	    				listeEven.add(even);
        				}
         		}
+        		else System.out.println("");
         	}
         }
+            	mListeEvenements = listeEven;
+            	
+
+
     }
 
     /**
      * Créer les évenement de type TD.
      */
     public void creerEvenementsTD(){
+   	
     	int nbeleves; int nbgroupes;
-        for(Promotion promo : mListePromotions) {
-    		List<Groupe> groupesPromo = new ArrayList<>();
+    	List<Evenement> listeEven = new ArrayList<>();
+    	if(mListeEvenements != null) listeEven = mListeEvenements;
+    	
+    	//creer les groupes
+       	List<Groupe> groupesPromo = new ArrayList<>();
+        				
+       				
 
-        	if(promo.getNbGroupes()>0) {
-        		//creer les groupes
-								
-				nbeleves = promo.getNbEleves();
-				nbgroupes = promo.getNbGroupes();      				
-				
-			for(int j=0;j<promo.getNbGroupes();j++) {
-				String nomGroupe = "Groupe" + (j+1) + "";
-				Groupe gpe = new Groupe(nomGroupe,(nbeleves/nbgroupes),promo);
-				groupesPromo.add(gpe);
-				nbeleves -= (nbeleves/nbgroupes);
-			}
-			int n=0; int p = 0;
-			if(nbeleves > 0) {
-				for(n=0;n<nbeleves;n++) {
-					if(p>promo.getNbGroupes()) p = 0;
-					groupesPromo.get(p).setNbEleves(groupesPromo.get(p).getNbEleves()+1);
-					p++;
-				}
-			}
-        	}
-        	
+        for(Promotion promo : mListePromotions) {
+			
+					nbeleves = promo.getNbEleves();
+       				nbgroupes = promo.getNbGroupes();      				
+        			
+        			
+        			for(int j=0;j<promo.getNbGroupes();j++) {
+        				String nomGroupe = "Groupe" + (j+1) + "";
+        				Groupe gpe = new Groupe(nomGroupe,(nbeleves/nbgroupes),promo);
+        				groupesPromo.add(gpe);
+       					nbeleves -= (nbeleves/nbgroupes);
+       					nbgroupes--;
+       				}
         	for(Module module : promo.getListeModules()) {
+       				
        			if(module.getNbTD() > 0) {
         				//créer les événements TD pour chaque groupe de de la promotion
         				//choisi un prof
        				for(Groupe unGroupe : groupesPromo) {
    	    				int indiceProf = 0;
    	    				while(!mListeProfesseurs.get(indiceProf).peutEnseigner(module)) {
-   	    					indiceProf = (int)Math.random()*mListeProfesseurs.size();
+   	    					//indiceProf = (int)Math.random()*mListeProfesseurs.size();
+   	    					indiceProf++;
    	    				}
     	    				
     	   				Professeur prof = mListeProfesseurs.get(indiceProf);
         				Creneau creneau = new Creneau();
    	    				Evenement even = new Evenement(Evenement.getNbEvenements(),TypeEven.TD,prof,module,unGroupe,creneau);
-  	    				mListeEvenements.add(even);
+  	    				listeEven.add(even);
        				}
         		}
+        		else System.out.println("");
         	}
         }
-    }
+            	mListeEvenements = listeEven;
+        }
 }
-
