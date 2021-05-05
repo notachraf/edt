@@ -1,3 +1,6 @@
+package fr.uvsq.generateurEDT;
+import fr.uvsq.models.*;
+
 public class EDTSalle {
     private Salle mSalle;
     private int[][] mEdt;

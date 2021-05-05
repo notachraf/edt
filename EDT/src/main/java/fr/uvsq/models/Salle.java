@@ -1,3 +1,6 @@
+package fr.uvsq.models;
+
+
 public class Salle {
 
     private int mId;

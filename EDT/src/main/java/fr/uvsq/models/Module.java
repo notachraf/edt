@@ -1,3 +1,4 @@
+package fr.uvsq.models;
 
 public class Module {
     private int mId;

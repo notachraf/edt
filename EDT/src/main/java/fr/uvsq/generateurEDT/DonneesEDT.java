@@ -1,6 +1,11 @@
+package fr.uvsq.generateurEDT;
 
 import java.util.ArrayList;
 import java.util.List;
+import fr.uvsq.models.*;
+import fr.uvsq.models.Module;
+
+import fr.uvsq.gestionDeDonnees.*;
 
 public class DonneesEDT {
     
@@ -98,23 +103,23 @@ public class DonneesEDT {
 
 
     public List<Professeur> recupereProfesseursBD(){
-    	ProfDAO pDao = FactoryDAO.getProfDAO();
+    	DAO<Professeur> pDao = (ProfDAO)FactoryDAO.getProfDAO();
     	mListeProfesseurs = pDao.recupererListe();
     	return mListeProfesseurs;
     }
     public List<Module> recupereModulesBD() {
-    	ModuleDAO mDao = FactoryDAO.getModuleDAO();
+    	DAO<Module> mDao = (ModuleDAO)FactoryDAO.getModuleDAO();
     	mListeModules = mDao.recupererListe();
     	return mListeModules;
     }
     public List<Salle> recupereSallesBD() {
-    	SalleDAO sDao = FactoryDAO.getSalleDAO();
+    	DAO<Salle> sDao = (SalleDAO)FactoryDAO.getSalleDAO();
         mListeSalles = sDao.recupererListe();
         return mListeSalles;
         
     }
     public List<Promotion> recuperePromotionsBD() {
-    	PromoDAO promoDao= FactoryDAO.getPromoDAO();
+    	DAO<Promotion> promoDao= (PromoDAO)FactoryDAO.getPromoDAO();
     	mListePromotions = promoDao.recupererListe();
     	return mListePromotions;
     	

@@ -1,3 +1,5 @@
+package fr.uvsq.models;
+
 import java.util.ArrayList;
 
 public class Professeur {

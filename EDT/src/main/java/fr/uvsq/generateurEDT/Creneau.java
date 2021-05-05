@@ -1,3 +1,5 @@
+package fr.uvsq.generateurEDT;
+
 public class Creneau {
     private int mJour;
     private int mHoraire;

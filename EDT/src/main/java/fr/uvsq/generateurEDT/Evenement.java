@@ -1,3 +1,6 @@
+package fr.uvsq.generateurEDT;
+import fr.uvsq.models.*;
+import fr.uvsq.models.Module;
 public class Evenement {
 	
     private int mId;
@@ -83,7 +86,7 @@ public class Evenement {
      * 
      * @return
      */
-    public Matiere getModule() {
+    public Module getModule() {
         return mModule;
     }
 
@@ -91,7 +94,7 @@ public class Evenement {
      * 
      * @param module
      */
-    public void setModule(Matiere module) {
+    public void setModule(Module module) {
         mModule = module;
     }
 

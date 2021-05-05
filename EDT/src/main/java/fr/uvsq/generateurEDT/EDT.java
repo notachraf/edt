@@ -1,4 +1,5 @@
-
+package fr.uvsq.generateurEDT;
+import fr.uvsq.models.*;
 import java.util.List;
 import java.util.ArrayList;
 

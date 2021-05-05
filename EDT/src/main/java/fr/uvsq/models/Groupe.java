@@ -1,3 +1,5 @@
+package fr.uvsq.models;
+
 public class Groupe {
     private String mNom;
     private Promotion mPromotion;

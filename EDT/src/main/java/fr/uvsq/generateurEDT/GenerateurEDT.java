@@ -1,3 +1,4 @@
+package fr.uvsq.generateurEDT;
 import java.util.List;
 import java.util.Map;
 
