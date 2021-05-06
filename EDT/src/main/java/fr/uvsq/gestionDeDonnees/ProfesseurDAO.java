@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfDAO extends DA0<Professeur> {
+public class ProfesseurDAO extends DA0<Professeur> {
 
     public ProfDAO(Connection connection) {
         super(connection);
