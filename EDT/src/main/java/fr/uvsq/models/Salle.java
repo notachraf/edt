@@ -113,10 +113,10 @@ public class Salle {
         mTypeSalle = typeSalle;
     }
     
-    public static void main(String[] args) {
-			TypeSalle ts = TypeSalle.valueOf("COURS");
-			System.out.println(ts.name());
-			System.out.println(ts);
+   @Override
+	public String toString() {
+		return "Salle [mId=" + mId + ", mNom=" + mNom + ", mCapacite=" + mCapacite +" , mTypeSalle="+ mTypeSalle +"]";
 	}
+    
     
 }
