@@ -1,6 +1,9 @@
 package fr.uvsq.models;
 
-
+/**
+ *
+ * @Author Siham, Feriel, Aziz
+ */
 public class Salle {
 
     private int mId;
@@ -15,7 +18,7 @@ public class Salle {
         mId = -1;
         mNom = "";
         mCapacite = 0;
-        mTypeSalle = TypeSalle.CM;
+        mTypeSalle = TypeSalle.COURS;
     }
 
     /**
@@ -31,18 +34,22 @@ public class Salle {
         mTypeSalle = typeSalle;
     }
 
-  /*  public Salle(String nom, String capacite, String typesalle) {
+    public Salle(String nom, int capacite, String typesalle) {
         mId = -1;
         mNom = nom;
-        mCapacite = Integer.parseInt(capacite);
-        switch(typesalle) {
-            case "TD":      mTypeSalle = TypeSalle.TD;        break;
-            case "TP":      mTypeSalle = TypeSalle.TP;        break;
-            case "COURS":   mTypeSalle = TypeSalle.CM;     break;
-        }
-    }*/
+        mCapacite = capacite;
+        mTypeSalle = TypeSalle.valueOf(typesalle);
+    }
+ 
+    
+    public Salle(String nom, String capacite, String typesalle) {
+        mId = -1;
+        mNom = nom;
+        mCapacite = Integer.valueOf(capacite);
+        mTypeSalle = TypeSalle.valueOf(typesalle);
+    }
 
-    /**
+	/**
      *
      * @return
      */
@@ -105,4 +112,11 @@ public class Salle {
     public void setTypeSalle(TypeSalle typeSalle) {
         mTypeSalle = typeSalle;
     }
+    
+    public static void main(String[] args) {
+			TypeSalle ts = TypeSalle.valueOf("COURS");
+			System.out.println(ts.name());
+			System.out.println(ts);
+	}
+    
 }
