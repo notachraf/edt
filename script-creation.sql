@@ -73,6 +73,3 @@ CREATE TABLE `Promotion_Module` (
 
 
 
-CREATE TABLE `Evenement` ( 
-	... A FAIRE
-)
