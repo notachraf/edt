@@ -4,11 +4,12 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class DA0<T> {
+
+public abstract class DAO<T> {
 
     protected Connection mConnection = null;
 
-    public DA0(Connection connection){
+    public DAO(Connection connection){
         mConnection = connection;
     }
 
@@ -62,4 +63,10 @@ public abstract class DA0<T> {
      * @return
      */
     public abstract T rechercher(String nom);
+    
+    /**
+     * Récuper le contenu de la table Salle
+     * @return une liste de Salle
+     */
+    public abstract ArrayList<T> recupererListe();
 }

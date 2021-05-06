@@ -1,12 +1,12 @@
 package fr.uvsq.gestionDeDonnees;
 
-import fr.uvsq.models.Promo;
+import fr.uvsq.models.Promotion;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromoDAO extends DA0<Promo>{
+public class PromoDAO extends DAO<Promotion>{
 
 
     public PromoDAO(Connection connection) {
@@ -14,37 +14,38 @@ public class PromoDAO extends DA0<Promo>{
     }
 
     @Override
-    public boolean inserer(Promo obj) {
-        return false;
-    }
-    
-    public boolean insererListe(List<Promo> obj) {
+    public boolean inserer(Promotion obj) {
         return false;
     }
 
     @Override
-    public Promo selectionner(int id) {
+    public boolean insererListe(List<Promotion> obj) {
+        return false;
+    }
+
+    @Override
+    public Promotion selectionner(int id) {
         return null;
     }
 
 
     @Override
-    public boolean supprimer(Promo obj) {
+    public boolean supprimer(Promotion obj) {
         return false;
     }
 
     @Override
-    public Promo rechercher(int id) {
+    public Promotion rechercher(int id) {
         return null;
     }
 
     @Override
-    public boolean modifier(Promo obj) {
+    public boolean modifier(Promotion obj) {
         return false;
     }
 
     @Override
-    public Promo rechercher(String nom) {
+    public Promotion rechercher(String nom) {
         return null;
     }
 
@@ -52,7 +53,7 @@ public class PromoDAO extends DA0<Promo>{
      * Récuper le contenu de la table Groupe
      * @return une liste de Groupes.
      */
-    public ArrayList<Promo> recupererListeGroupe() {
+    public ArrayList<Promotion> recupererListe() {
         return null;
     }
 }

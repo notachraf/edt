@@ -1,37 +1,38 @@
 package fr.uvsq.generateurEDT;
-
 import java.util.List;
 import java.util.Map;
 
 public class GenerateurEDT {
     private DonneesEDT mDonneesEDT;
-    private Double mTemperature;
+    private double mConstRef;
+    private final static int mTempFinal = 0;
+    private double mTemperature;
     private List<EDT> mSolutions; // pour débugger
     private EDT mSolutionFinale;
-    private double mConstanteDiminue;
-    private final static int TEMP_FINAL = 0;
 
-    public GenerateurEDT(DonneesEDT donneesEDT, Double temperature, List<EDT> solutions, Double constanteDiminue) {
+    public GenerateurEDT(double constRef, double temperature, List<EDT> solutions, EDT solutionFinale, DonneesEDT donneesEDT) {
         mDonneesEDT = donneesEDT;
         mTemperature = temperature;
         mSolutions = solutions;
-        mConstanteDiminue = constanteDiminue;
+        mConstRef = constRef;
     }
+    
+    public GenerateurEDT() {}
 
     public void setSolutionFinale(EDT solutionFinale) {
         mSolutionFinale = solutionFinale;
     }
     public EDT getSolutionFinale(){ return null;}
 
-    public DonneesEDT getDonneesDB() {
+    public DonneesEDT getDonneesEDT() {
         return mDonneesEDT;
     }
 
-    public void setDonneesDB(DonneesEDT donneesEDT) {
+    public void setDonneesEDT(DonneesEDT donneesEDT) {
         mDonneesEDT = donneesEDT;
     }
 
-    public Double getTemperature() {
+    public double getTemperature() {
         return mTemperature;
     }
 
@@ -47,16 +48,16 @@ public class GenerateurEDT {
         mSolutions = solutions;
     }
 
-    public Double getConstanteDiminue() {
-        return mConstanteDiminue;
+    public double getConstanteDiminue() {
+        return mConstRef;
     }
 
     public void setConstanteDiminue(Double constanteDiminue) {
-        mConstanteDiminue = constanteDiminue;
+    	mConstRef = constanteDiminue;
     }
 
     public static int getTempFinal() {
-        return TEMP_FINAL;
+        return mTempFinal;
     }
 
     /**
@@ -91,6 +92,7 @@ public class GenerateurEDT {
      * @return edt
      */
     public EDT solutionInitiale(){
+    	
         return new EDT();
     }
 
@@ -99,7 +101,7 @@ public class GenerateurEDT {
      * Une liste d'événement pour chaque jour.
      * @return Map
      */
-    public Map<Integer, List<Evenement>> getEvenementParJour(){
+    public Map<Integer, List<Evenement>> getEvenementsParJour(){
         return null;
     }
 

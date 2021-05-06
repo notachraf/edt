@@ -1,9 +1,5 @@
 package fr.uvsq.models;
 
-/**
- *
- * @Author Siham, Feriel, Aziz
- */
 public class Module {
     private int mId;
     private String mNom;
@@ -15,9 +11,17 @@ public class Module {
     private int mDureeTD;
 
     public Module() {
+    	mId = -1;
+    	mNom = "";
+        mNbTD = -1;
+        mNbCM = -1;
+        mNbTP = -1;
+        mDureeCM = -1;
+        mDureeTP = -1;
+        mDureeTD = -1;
     }
 
-    public Module(String nom, int nbTD, int nbCM, int nbTP, int dureeCM, int dureeTP, int dureeTD) {
+    public Module(String nom, int nbCM, int nbTD, int nbTP, int dureeCM, int dureeTD, int dureeTP) {
         mNom = nom;
         mNbTD = nbTD;
         mNbCM = nbCM;
@@ -38,7 +42,9 @@ public class Module {
  
     public int getId() { return mId; }
 
-  
+    public void setId(int id) {
+    	mId = id;
+    }
 
     public int getNbTD() {
         return mNbTD;

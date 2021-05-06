@@ -1,7 +1,6 @@
 package fr.uvsq.generateurEDT;
 
-// attribut doit commencer par m
-public class Crenau {
+public class Creneau {
     private int mJour;
     private int mHoraire;
     private boolean mDisponible ;
@@ -10,7 +9,11 @@ public class Crenau {
     /**
      * 
      */
-    public Crenau() {
+    public Creneau() {
+    	mJour = -1;
+    	mHoraire = -1;
+    	mDisponible = true;
+    	mIdsalle = -1;
     }
 
     /**
@@ -18,9 +21,9 @@ public class Crenau {
      * @param jour
      * @param horaire
      * @param disponible
-     * @param idsalle
+     * @param idSalle
      */
-    public Crenau(int jour, int horaire, boolean disponible, int idsalle) {
+    public Creneau(int jour, int horaire, boolean disponible, int idsalle) {
         mJour = jour;
         mHoraire = horaire;
         mDisponible = disponible;

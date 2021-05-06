@@ -1,29 +1,35 @@
 package fr.uvsq.generateurEDT;
-
-import fr.uvsq.models.Salle;
+import fr.uvsq.models.*;
 
 public class EDTSalle {
     private Salle mSalle;
     private int[][] mEdt;
     private static final int NB_JOURS = 5;
-    private static final int NB_HORAIRES = 6;
+    private static final int NB_HORAIRES = 12;
 
     /*
        *********************************************************************
        *                             EDTSALLES                             *
        *********************************************************************
-       *    LUNDI   *   MARDI   *   MERCREDI   *   JEUDI   *   VENDREDI    *
+       *      LUNDI   *   MARDI   *   MERCREDI   *   JEUDI   *   VENDREDI    *
        *********************************************************************
-       * 1 | 
+       *  8h| 
        *********************************************************************
-       * 2 |
+       *  9h|
        *********************************************************************
-       * 3 |
+       * 10h|
        **********************************************************************
-       * 4 |
+       * 11h|
+       * ...
+       * 19h|
        **********************************************************************
      */
 
+    public EDTSalle() {
+    	mSalle = null;
+    	mEdt = null;
+    }
+    
     public EDTSalle(Salle salle, int[][] edt) {
         mSalle = salle;
         mEdt = edt;
@@ -45,21 +51,22 @@ public class EDTSalle {
         mEdt = edt;
     }
 
-    public static int getNbJours() {
+    public static final int getNbJours() {
         return NB_JOURS;
     }
 
-    public static int getNbHoraires() {
+    public static final int getNbHoraires() {
         return NB_HORAIRES;
     }
 
     /**
-     * Vérifie si un Évenement exite dans le planning salle
+     * Vérifie si un Évenement existe dans le planning salle
      * @param jours le jour
      * @param horaire l'horaire
      * @return boolean
      */
     public boolean aUnEvenement(int jours, int horaire) {
+    	if(mEdt[jours][horaire] != -1) return true;
         return false;
     }
 
@@ -69,7 +76,16 @@ public class EDTSalle {
      * @param jours le jour
      * @param horaire l'horaire
      */
-    public void ajouterEvenement(Evenement e, int jours, int horaire){
+    public void ajouterEvenement(Evenement e, int jour, int horaire){
+    	
+    	if( e != null) {
+    		boolean dispo = !(this.aUnEvenement(jour, horaire));
+    		if(dispo) {
+    			mEdt[jour][horaire] = e.getId();
+    			Creneau creneau = new Creneau(jour,horaire, !dispo, mSalle.getId());
+    			e.setCreneau(creneau);
+    		}
+    	}
     }
     
 }
