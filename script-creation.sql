@@ -8,10 +8,10 @@ CREATE TABLE `Module` (
   `mod_nom` varchar(100) NOT NULL,
   `mod_nb_td` int DEFAULT NULL,
   `mod_nb_tp` varchar(100) DEFAULT NULL,
-  `mod_nb_cours` varchar(100) DEFAULT NULL,
+  `mod_nb_cm` varchar(100) DEFAULT NULL,
   `mod_duree_td` float DEFAULT NULL,
   `mod_duree_tp` float DEFAULT NULL,
-  `mod_duree_cours` float DEFAULT NULL,
+  `mod_duree_cm` float DEFAULT NULL,
   PRIMARY KEY (`mod_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
