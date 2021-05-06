@@ -103,7 +103,7 @@ public class PromoController {
             for(String module : mModulesPromoComboBox.getCheckModel().getCheckedItems()) {
                 for(Module m : mListeModule) {
                     if(module.equals(m.getNom())) {
-                        modules.add(new Module(m.getNom(), m.getDuree(), m.getNbTD(), m.getNbCM(), m.getNbTP(), m.getDureeCM(), m.getDureeTP(), m.getDureeTD()));
+                        modules.add(new Module(m.getNom(), m.getNbTD(), m.getNbCM(), m.getNbTP(), m.getDureeCM(), m.getDureeTP(), m.getDureeTD()));
                     }
                 }
             }
@@ -131,7 +131,7 @@ public class PromoController {
             for(String module : mModulesPromoComboBox.getCheckModel().getCheckedItems()) {
                 for(Module m : mListeModule) {
                     if(module.equals(m.getNom())) {
-                        modules.add(new Module(m.getNom(), m.getDuree(), m.getNbTD(), m.getNbCM(), m.getNbTP(), m.getDureeCM(), m.getDureeTP(), m.getDureeTD()));
+                        modules.add(new Module(m.getNom(), m.getNbTD(), m.getNbCM(), m.getNbTP(), m.getDureeCM(), m.getDureeTP(), m.getDureeTD()));
                     }
                 }
             }

@@ -101,11 +101,9 @@ public class Professeur {
      * @param module
      */
     public void ajouteModule(Module module){
-         Module m = new Module(module.getNom(), module.getId(), module.getnbCours(), module.getnbTD(), module.getnbTP(),module.getNbHeure());
-       this.listemodule.add(m);
     }
     public boolean peutEnseigner(Module module){
-        return listemodule.contains(module);
+        return false;
     }
 
     /**
@@ -114,23 +112,14 @@ public class Professeur {
      * @return
      */
     private int getRepetModule(Module m) {
-        int repet=0;
-        for(int index = 0,index<(double)this.listemodule.size(),i++){
-        if(m= (Module)this.listemodule.get(index)) repet++;          }
-         return repet; 
+        return 0;
     }
 
     /**
      * supp les doublons de notre liste de cours 
      */
     public void removeDoublons() {
-         for (int i = 0; i < this.listemodule.size(); i++) { 
-                   if (getRepetModule( this.listemodule(i))>1) 
-                    this.listemodule.remove(i);
+
     }
 }
 
-
-
-
-}

@@ -16,7 +16,6 @@ public class SalleDAO extends DA0<Salle>{
         return false;
     }
 
-    @Override
     public boolean insererListe(List<Salle> obj) {
         return false;
     }

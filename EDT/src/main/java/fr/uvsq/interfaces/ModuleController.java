@@ -69,7 +69,7 @@ public class ModuleController {
 
                 if (module != null) {
                         mNomTextField.setText(module.getNom());
-                        mDureeTextField.setText(String.valueOf(module.getDuree()));
+                        //mDureeTextField.setText(String.valueOf(module.getDuree()));
                         mNbCMTextField.setText(String.valueOf(module.getNbCM()));
                         mNbTDTextField.setText(String.valueOf(module.getNbTD()));
                         mNbTPTextField.setText(String.valueOf(module.getNbTP()));
@@ -107,7 +107,6 @@ public class ModuleController {
 
                         Module module = new Module(
                                 mNomTextField.getText(),
-                                Integer.parseInt(mDureeTextField.getText()),
                                 Integer.parseInt(mNbTDTextField.getText()),
                                 Integer.parseInt(mNbCMTextField.getText()),
                                 Integer.parseInt(mNbTPTextField.getText()),
@@ -135,7 +134,6 @@ public class ModuleController {
                         if(mModule != null) {
                                 Module nouveauModule = new Module(
                                         mNomTextField.getText(),
-                                        Integer.parseInt(mDureeTextField.getText()),
                                         Integer.parseInt(mNbTDTextField.getText()),
                                         Integer.parseInt(mNbCMTextField.getText()),
                                         Integer.parseInt(mNbTPTextField.getText()),
@@ -146,7 +144,6 @@ public class ModuleController {
 
                                 int index = mApp.getListModule().indexOf(mModule);
                                 mApp.getListModule().get(index).setNom(nouveauModule.getNom());
-                                mApp.getListModule().get(index).setDuree(nouveauModule.getDuree());
                                 mApp.getListModule().get(index).setDureeCM(nouveauModule.getDureeCM());
                                 mApp.getListModule().get(index).setDureeTD(nouveauModule.getDureeTD());
                                 mApp.getListModule().get(index).setDureeTP(nouveauModule.getDureeTP());

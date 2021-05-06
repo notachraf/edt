@@ -74,12 +74,12 @@ public class App extends Application {
         mListeSalles.add(new Salle("Archimede", 32, TypeSalle.TP));
     }
     private void initListeModules() {
-        mListeModule.add(new Module("IN608 - Projet", 50, 13, 13, 13, 90, 180, 180));
+        mListeModule.add(new Module("IN608 - Projet", 13, 13, 13, 90, 180, 180));
     }
 
     private void initListeProfs() {
         ArrayList<Module> modules = new ArrayList<>();
-        modules.add(new Module("IN608 - Projet", 50, 3, 3, 3,2,2,2));
+        modules.add(new Module("IN608 - Projet", 3, 3, 3,2,2,2));
     }
 
     public static void main(String[] args) {

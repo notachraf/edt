@@ -17,8 +17,7 @@ public class PromoDAO extends DA0<Promo>{
     public boolean inserer(Promo obj) {
         return false;
     }
-
-    @Override
+    
     public boolean insererListe(List<Promo> obj) {
         return false;
     }

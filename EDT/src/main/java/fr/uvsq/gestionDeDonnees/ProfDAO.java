@@ -17,7 +17,6 @@ public class ProfDAO extends DA0<Professeur> {
         return false;
     }
 
-    @Override
     public boolean insererListe(List<Professeur> obj) {
         return false;
     }

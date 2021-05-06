@@ -305,12 +305,12 @@ public class AppController {
                 return cellData.getValue().getNom();
             }
         });
-        mDureeModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+        /*mDureeModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
                 return cellData.getValue().getDuree();
             }
-        });
+        });*/
         mNbCMCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
