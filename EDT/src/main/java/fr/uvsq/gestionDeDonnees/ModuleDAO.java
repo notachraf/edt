@@ -22,7 +22,7 @@ public class ModuleDAO extends DAO<Module>{
         Connection connection = getConnection();
         PreparedStatement ps = null; 
         try {
-            ps = connection.prepareStatement("INSERT INTO Module(mod_nom, mod_nb_td, mod_nb_tp, mod_nb_cours, mod_duree_td, mod_duree_tp, mod_duree_cours) VALUES(?, ?, ?, ?, ?, ?, ?)", 
+            ps = connection.prepareStatement("INSERT INTO Module(mod_nom, mod_nb_td, mod_nb_tp, mod_nb_cm, mod_duree_td, mod_duree_tp, mod_duree_cm) VALUES(?, ?, ?, ?, ?, ?, ?)", 
             		Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, module.getNom());
@@ -139,12 +139,12 @@ public class ModuleDAO extends DAO<Module>{
         	module =  new Module();
    			module.setId( result.getInt("mod_id"));
    			module.setNom( result.getString("mod_nom"));
-   			module.setNbCM( result.getInt("mod_nb_cours"));
+   			module.setNbCM( result.getInt("mod_nb_cm"));
    			module.setNbTD( result.getInt("mod_nb_td"));
    			module.setNbTP( result.getInt("mod_nb_tp"));
    			module.setDureeTD(result.getInt("mod_duree_td"));
    			module.setDureeTP(result.getInt("mod_duree_tp"));
-   			module.setDureeCM(result.getInt("mod_duree_cours"));
+   			module.setDureeCM(result.getInt("mod_duree_cm"));
            	}
            
            } catch (SQLException e) {
@@ -163,12 +163,12 @@ public class ModuleDAO extends DAO<Module>{
     	PreparedStatement ps = null; 
         try {
             ps = connection.prepareStatement("UPDATE Module SET mod_nom=?, "
-            		+ " mod_nb_cours=?, "
+            		+ " mod_nb_cm=?, "
             		+ " mod_nb_td=?, "
             		+ " mod_nb_tp=?, "
             		+ " mod_duree_td=?, "
             		+ " mod_duree_tp=?, "
-            		+ " mod_duree_cours=? "
+            		+ " mod_duree_cm=? "
             		+ "WHERE mod_id=?");
             
             ps.setString(1, module.getNom());
@@ -213,12 +213,12 @@ public class ModuleDAO extends DAO<Module>{
         	        module =  new Module();
         			module.setId( result.getInt("mod_id"));
         			module.setNom( result.getString("mod_nom"));
-        			module.setNbCM( result.getInt("mod_nb_cours"));
+        			module.setNbCM( result.getInt("mod_nb_cm"));
         			module.setNbTD( result.getInt("mod_nb_td"));
         			module.setNbTP( result.getInt("mod_nb_tp"));
         			module.setDureeTD(result.getInt("mod_duree_td"));
         			module.setDureeTP(result.getInt("mod_duree_tp"));
-        			module.setDureeCM(result.getInt("mod_duree_cours"));
+        			module.setDureeCM(result.getInt("mod_duree_cm"));
            	}
            
            } catch (SQLException e) {
@@ -254,12 +254,12 @@ public class ModuleDAO extends DAO<Module>{
         	module =  new Module();
    			module.setId( result.getInt("mod_id"));
    			module.setNom( result.getString("mod_nom"));
-   			module.setNbCM( result.getInt("mod_nb_cours"));
+   			module.setNbCM( result.getInt("mod_nb_cm"));
    			module.setNbTD( result.getInt("mod_nb_td"));
    			module.setNbTP( result.getInt("mod_nb_tp"));
    			module.setDureeTD(result.getInt("mod_duree_td"));
    			module.setDureeTP(result.getInt("mod_duree_tp"));
-   			module.setDureeCM(result.getInt("mod_duree_cours"));
+   			module.setDureeCM(result.getInt("mod_duree_cm"));
                modules.add(module);
            }
            
