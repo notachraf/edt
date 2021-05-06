@@ -18,7 +18,7 @@ public class Salle {
         mId = -1;
         mNom = "";
         mCapacite = 0;
-        mTypeSalle = TypeSalle.COURS;
+        mTypeSalle = TypeSalle.CM;
     }
 
     /**
