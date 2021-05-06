@@ -4,7 +4,7 @@ package fr.uvsq.interfaces;
 import fr.uvsq.gestionDeDonnees.FactoryDAO;
 import fr.uvsq.gestionDeDonnees.PromoDAO;
 import fr.uvsq.models.Module;
-import fr.uvsq.models.Promo;
+import fr.uvsq.models.Promotion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,8 +27,8 @@ public class PromoController {
     private App mApp;
     private Stage mPromoStage;
     private ObservableList<Module> mListeModule;
-    private Promo mPromo;
-    private TableView<Promo> mPromoTableView;
+    private Promotion mPromo;
+    private TableView<Promotion> mPromoTableView;
 
     @FXML
     private TextField mNomTextField,
@@ -66,7 +66,7 @@ public class PromoController {
      * @param promo
      * @param promotionTableView
      */
-    public void initialiseDialogueModification(Promo promo, TableView<Promo> promotionTableView) {
+    public void initialiseDialogueModification(Promotion promo, TableView<Promotion> promotionTableView) {
         mPromo = promo;
         mPromoTableView = promotionTableView;
         mTitleLabel.setText("Modification de la promotion");
@@ -112,7 +112,7 @@ public class PromoController {
             int nbEleve = Integer.parseInt(mNombreElevesTextField.getText());
             int nbGroupes = Integer.parseInt(mNombreGroupesTextField.getText());
 
-            Promo promo = new Promo(nom, nbEleve, nbGroupes, modules);
+            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules);
 
             mApp.getListePromos().add(promo);
             fermer();
@@ -140,7 +140,7 @@ public class PromoController {
             int nbEleve = Integer.parseInt(mNombreElevesTextField.getText());
             int nbGroupes = Integer.parseInt(mNombreGroupesTextField.getText());
 
-            Promo promo = new Promo(nom, nbEleve, nbGroupes, modules);
+            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules);
 
             int index = mApp.getListePromos().indexOf(mPromo);
             mApp.getListePromos().get(index).setNom(promo.getNom());

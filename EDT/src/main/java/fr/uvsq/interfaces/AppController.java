@@ -38,7 +38,6 @@ public class AppController {
     private Calendar mCalendarCM;
     private Calendar mCalendarTD;
     private Calendar mCalendarTP;
-    private Contraintes mContraintes;
 
     @FXML
     CalendarView mEDTCalendarPane;
@@ -55,8 +54,7 @@ public class AppController {
             mModuleBtn,
             mProfBtn,
             mPromoBtn,
-            mLatexBtn,
-            mContraintesBtn;
+            mLatexBtn;
 
     @FXML
     private Pane mDashboardPane,
@@ -119,19 +117,19 @@ public class AppController {
 
     //=================== Promo TableView ======================
     @FXML
-    private TableView<Promo> mPromotionTableView;
+    private TableView<Promotion> mPromotionTableView;
     @FXML
-    private TableColumn<Promo, Integer> mIdPromoCln;
+    private TableColumn<Promotion, Integer> mIdPromoCln;
     @FXML
-    private TableColumn<Promo, String> mNomPromoCln;
+    private TableColumn<Promotion, String> mNomPromoCln;
     @FXML
-    private TableColumn<Promo, Integer> mNombreElevesPromoCln;
+    private TableColumn<Promotion, Integer> mNombreElevesPromoCln;
     @FXML
-    private TableColumn<Promo, Integer> mNombreGroupesPromoCln;
+    private TableColumn<Promotion, Integer> mNombreGroupesPromoCln;
     @FXML
-    private TableColumn<Promo, String> mModulesPromoCln;
+    private TableColumn<Promotion, String> mModulesPromoCln;
     @FXML
-    private TableColumn<Promo, Void> mActionPromoCln;
+    private TableColumn<Promotion, Void> mActionPromoCln;
 
     /**
      *  Affiche la page EDT
@@ -149,10 +147,7 @@ public class AppController {
      */
     @FXML
     private void handleSideMenuButtons(ActionEvent event){
-        if (event.getSource() == mContraintesBtn){
-            System.out.println(" =========== Contraintes button ===========");
-            mContraintesPane.toFront();
-        } else if( event.getSource() == mDashboardBtn){
+       if( event.getSource() == mDashboardBtn){
             System.out.println(" =========== Dashboard button ===========");
             mDashboardPane.toFront();
         } else if ( event.getSource() == mSallesBtn ){
@@ -597,7 +592,7 @@ public class AppController {
      * Affiche une fenêtre qui permet de modifier une promotion
      * @param promo correspond à la promotion à modifier
      */
-    private void afficherDialogueModifierPromo(Promo promo) {
+    private void afficherDialogueModifierPromo(Promotion promo) {
         System.out.println("Promo added");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fr/uvsq/promo.fxml"));
@@ -780,10 +775,10 @@ public class AppController {
      * Ajoute des boutons qui permettent de modifier ou de supprimer une promotion
      */
     private void ajouteBoutonsActionPromo() {
-        Callback<TableColumn<Promo, Void>, TableCell<Promo, Void>> cellFactory = new Callback<TableColumn<Promo, Void>, TableCell<Promo, Void>>() {
+        Callback<TableColumn<Promotion, Void>, TableCell<Promotion, Void>> cellFactory = new Callback<TableColumn<Promotion, Void>, TableCell<Promotion, Void>>() {
             @Override
-            public TableCell<Promo, Void> call(final TableColumn<Promo, Void> param) {
-                final TableCell<Promo, Void> cell = new TableCell<Promo, Void>() {
+            public TableCell<Promotion, Void> call(final TableColumn<Promotion, Void> param) {
+                final TableCell<Promotion, Void> cell = new TableCell<Promotion, Void>() {
 
                     Button editBtn = new Button("Modifier");
                     Button removeBtn = new Button("Supprimer");
@@ -792,13 +787,13 @@ public class AppController {
                         editBtn.setStyle("-fx-text-fill: #ffffff");
                         removeBtn.setStyle("-fx-text-fill: #ffffff");
                         editBtn.setOnAction((ActionEvent event) -> {
-                            Promo promo = getTableView().getItems().get(getIndex());
+                            Promotion promo = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + promo.getNom());
                             afficherDialogueModifierPromo(promo);
                         });
 
                         removeBtn.setOnAction((ActionEvent event) -> {
-                            Promo promo = getTableView().getItems().get(getIndex());
+                            Promotion promo = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + promo.getNom());
 
                             mApp.getListePromos().remove(promo);

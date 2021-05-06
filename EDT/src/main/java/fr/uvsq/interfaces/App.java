@@ -25,7 +25,7 @@ public class App extends Application {
     private ObservableList<Salle> mListeSalles = FXCollections.observableArrayList();
     private ObservableList<Module> mListeModule = FXCollections.observableArrayList();
     private ObservableList<Professeur> mListeProfs = FXCollections.observableArrayList();
-    private ObservableList<Promo> mListePromos = FXCollections.observableArrayList();
+    private ObservableList<Promotion> mListePromos = FXCollections.observableArrayList();
     private SalleDAO mSalleDAO;
     private ModuleDAO mModuleDAO;
     private ProfDAO mProfDAO;
@@ -36,7 +36,7 @@ public class App extends Application {
     }
     public ObservableList<Module> getListModule() { return mListeModule; }
     public ObservableList<Professeur> getListeProfs() { return mListeProfs; }
-    public ObservableList<Promo> getListePromos() { return mListePromos; }
+    public ObservableList<Promotion> getListePromos() { return mListePromos; }
     public Stage getAppStage() {
         return mAppStage;
     }
