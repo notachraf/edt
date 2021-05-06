@@ -93,4 +93,10 @@ public class Module {
     public void setDureeTD(int dureeTD) {
         mDureeTD = dureeTD;
     }
+    	@Override
+	public String toString() {
+		return "Module [mId=" + mId + ", mNom=" + mNom + ", mNbTD=" + mNbTD + ", mNbCM=" + mNbCM + ", mNbTP=" + mNbTP
+				+ ", mDureeCM=" + mDureeCM + ", mDureeTP=" + mDureeTP + ", mDureeTD=" + mDureeTD + "]";
+	}
+
 }
