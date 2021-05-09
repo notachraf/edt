@@ -103,7 +103,7 @@ public class DonneesEDT {
 
 
     public List<Professeur> recupereProfesseursBD(){
-    	DAO<Professeur> pDao = (ProfDAO)FactoryDAO.getProfDAO();
+	DAO<Professeur> pDao = FactoryDAO.getProfesseurDAO();
     	mListeProfesseurs = pDao.recupererListe();
     	return mListeProfesseurs;
     }
@@ -119,7 +119,7 @@ public class DonneesEDT {
         
     }
     public List<Promotion> recuperePromotionsBD() {
-    	DAO<Promotion> promoDao= (PromoDAO)FactoryDAO.getPromoDAO();
+    	DAO<Promotion> promoDao= (PromoDAO)FactoryDAO.getPromotionDAO();
     	mListePromotions = promoDao.recupererListe();
     	return mListePromotions;
     	

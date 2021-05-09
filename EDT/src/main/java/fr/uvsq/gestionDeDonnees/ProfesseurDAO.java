@@ -6,9 +6,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfDAO extends DAO<Professeur> {
+public class ProfesseurDAO extends DAO<Professeur> {
 
-    public ProfDAO(Connection connection) {
+    public ProfesseurDAO(Connection connection) {
         super(connection);
     }
 
@@ -49,6 +49,7 @@ public class ProfDAO extends DAO<Professeur> {
 
     /**
      * Récuper le contenu de la table Professeur
+     *
      * @return une liste de Professeur
      */
     public ArrayList<Professeur> recupererListe() {
