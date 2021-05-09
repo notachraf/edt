@@ -2,7 +2,7 @@ package fr.uvsq.interfaces;
 
 import fr.uvsq.gestionDeDonnees.FactoryDAO;
 import fr.uvsq.gestionDeDonnees.ModuleDAO;
-import fr.uvsq.gestionDeDonnees.ProfDAO;
+import fr.uvsq.gestionDeDonnees.ProfesseurDAO;
 import fr.uvsq.gestionDeDonnees.SalleDAO;
 import fr.uvsq.models.*;
 import fr.uvsq.models.Module;
@@ -28,7 +28,7 @@ public class App extends Application {
     private ObservableList<Promotion> mListePromos = FXCollections.observableArrayList();
     private SalleDAO mSalleDAO;
     private ModuleDAO mModuleDAO;
-    private ProfDAO mProfDAO;
+    private ProfesseurDAO mProfDAO;
     private FactoryDAO mFactoryDAO;
 
     public ObservableList<Salle> getListeSalles() {

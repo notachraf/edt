@@ -23,11 +23,11 @@ public class Creneau {
      * @param disponible
      * @param idSalle
      */
-    public Creneau(int jour, int horaire, boolean disponible, int idsalle) {
+    public Creneau(int jour, int horaire, boolean disponible, int idSalle) {
         mJour = jour;
         mHoraire = horaire;
         mDisponible = disponible;
-        mIdsalle = idsalle;
+        mIdsalle = idSalle;
     }
 
     /**

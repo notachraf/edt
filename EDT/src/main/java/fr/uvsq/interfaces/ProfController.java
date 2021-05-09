@@ -1,6 +1,6 @@
 package fr.uvsq.interfaces;
 
-import fr.uvsq.gestionDeDonnees.ProfDAO;
+import fr.uvsq.gestionDeDonnees.ProfesseurDAO;
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Professeur;
 import javafx.collections.FXCollections;
@@ -21,7 +21,7 @@ public class ProfController {
     /**
      * Argument qui permet la connexion avec la base de données
      */
-    private ProfDAO mProfDao;
+    private ProfesseurDAO mProfDao;
     private App mApp;
     private Stage mProfStage;
     private ObservableList<Module> mListeModule;
