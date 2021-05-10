@@ -391,13 +391,13 @@ public class AppController {
         mNombreElevesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
-                return cellData.getValue().getId();
+                return cellData.getValue().getNbEleves();
             }
         });
         mNombreGroupesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
-                return cellData.getValue().getId();
+                return cellData.getValue().getNbGroupes();
             }
         });
         mModulesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<>() {

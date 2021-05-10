@@ -28,8 +28,9 @@ public class App extends Application {
     private ObservableList<Professeur> mListeProfs = FXCollections.observableArrayList();
     private ObservableList<Promotion> mListePromos = FXCollections.observableArrayList();
     private SalleDAO mSalleDAO = (SalleDAO) FactoryDAO.getSalleDAO();
-    private ModuleDAO mModuleDAO;
-    private ProfesseurDAO mProfDAO;
+    private ModuleDAO mModuleDAO = (ModuleDAO) FactoryDAO.getModuleDAO();
+    private PromoDAO mPromoDAO = (PromoDAO) FactoryDAO.getPromotionDAO();
+    private ProfesseurDAO mProfDAO = (ProfesseurDAO) FactoryDAO.getProfesseurDAO();
     private FactoryDAO mFactoryDAO;
 
     public ObservableList<Salle> getListeSalles() {
@@ -45,12 +46,12 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         mAppStage = stage;
-        initialiseApp();
         initBaseDonnes();
+        initialiseApp();
         initListeSalles();
         initListeModules();
         initListeProfs();
-//        initListeGroupes();
+        initListePromotions();
     }
 
     private void initialiseApp(){
@@ -73,23 +74,23 @@ public class App extends Application {
         for (Salle salle : mSalleDAO.recupererListe()) {
             mListeSalles.add(salle);
         }
-        /*
-        mListeSalles.add(new Salle("Buffon", 32, TypeSalle.TD));
-        mListeSalles.add(new Salle("Descartes", 32, TypeSalle.TD));
-        mListeSalles.add(new Salle("Centre", 32, TypeSalle.TD));
-        mListeSalles.add(new Salle("Archimede", 32, TypeSalle.TP));
-        */
+    }
+
+    private void initListePromotions(){
+        for( Promotion promotion : mPromoDAO.recupererListe() ){
+            mListePromos.add(promotion);
+        }
     }
     private void initListeModules() {
-        /*for (Module module : mModuleDAO.recupererListe()) {
+        for (Module module : mModuleDAO.recupererListe()) {
             mListeModule.add(module);
-        }*/
-        mListeModule.add(new Module("IN608 - Projet", 13, 13, 13, 90, 180, 180));
+        }
     }
 
     private void initListeProfs() {
-        //ArrayList<Module> modules = new ArrayList<>();
-        //modules.add(new Module("IN608 - Projet", 3, 3, 3,2,2,2));
+        for (Professeur professeur : mProfDAO.recupererListe()) {
+            mListeProfs.add(professeur);
+        }
     }
 
     private void initBaseDonnes() {
@@ -102,6 +103,7 @@ public class App extends Application {
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args) {
         launch();
     }

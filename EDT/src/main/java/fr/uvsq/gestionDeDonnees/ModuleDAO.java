@@ -196,18 +196,14 @@ public class ModuleDAO extends DAO<Module>{
     @Override
     public Module rechercher(String nom) {
     	Module module = null; 
-    	Connection connection= getConnection(); 
-    	Statement stmt = null;
+    	PreparedStatement stmt = null;
     	ResultSet result = null; 
        try {
-           	stmt = this.getConnection()
-                                   .createStatement(
-                                               ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                                               ResultSet.CONCUR_UPDATABLE
-                                            ); 
-           	result = stmt.executeQuery(
-                                               "SELECT * FROM Module WHERE mod_nom = " + nom
-                                            );
+           	stmt = getConnection().prepareStatement("SELECT * FROM Module WHERE mod_nom=?",
+                                                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                        ResultSet.CONCUR_UPDATABLE);
+           	stmt.setString(1, nom);
+           	result = stmt.executeQuery();
            if(result.first()) {
         	        module =  new Module();
         			module.setId( result.getInt("mod_id"));
@@ -238,14 +234,11 @@ public class ModuleDAO extends DAO<Module>{
     	ResultSet result = null; 
     	
        try {
-           stmt = connection
-                                   .createStatement(
+           stmt = connection.createStatement(
                                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                ResultSet.CONCUR_UPDATABLE
                                             ); 
-           result = stmt.executeQuery(
-                                               "SELECT * FROM Module "
-                                            );
+           result = stmt.executeQuery("SELECT * FROM Module ");
            
            Module module =  null; 
            while(result.next())
