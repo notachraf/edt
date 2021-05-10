@@ -200,40 +200,40 @@ public class SalleDAO extends DAO<Salle> {
             return salle;
         }
 
-        /**
-         * Récuper le contenu de la table Groupe
-         * @return une liste de Groupes.
-         */
-            @Override
-            public ArrayList<Salle> recupererListe () {
+    /**
+     * Récuper le contenu de la table Groupe
+     * @return une liste de Groupes.
+     */
+    @Override
+    public ArrayList<Salle> recupererListe () {
 
-                Connection connection = this.getConnection();
-                Statement stmt = null;
-                ResultSet rs = null;
+        Connection connection = this.getConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
 
-                try {
-                    stmt = connection.createStatement();
-                    rs = stmt.executeQuery("SELECT * FROM salle ");
+        try {
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM salle ");
 
-                    ArrayList<Salle> salles = new ArrayList<Salle>();
-                    Salle salle = null;
+            ArrayList<Salle> salles = new ArrayList<Salle>();
 
-                    while (rs.next()) {
-                        salle.setId(rs.getInt("salle_id"));
-                        salle.setNom(rs.getString("salle_nom"));
-                        salle.setCapacite(rs.getInt("salle_capacite"));
-                        salle.setTypeSalle(TypeSalle.valueOf(rs.getString("salle_type")));
-                        salles.add(salle);
-                    }
-
-                    return salles;
-
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                } finally {
-                    //ConnectionUtils.fermerConnection(rs, stmt, connection);
-                }
-                return null;
+            while (rs.next()) {
+                Salle salle = new Salle();
+                salle.setId(rs.getInt("salle_id"));
+                salle.setNom(rs.getString("salle_nom"));
+                salle.setCapacite(rs.getInt("salle_capacite"));
+                salle.setTypeSalle(TypeSalle.valueOf(rs.getString("salle_type")));
+                salles.add(salle);
             }
+
+            return salles;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            //ConnectionUtils.fermerConnection(rs, stmt, connection);
+        }
+        return null;
+    }
 }
 

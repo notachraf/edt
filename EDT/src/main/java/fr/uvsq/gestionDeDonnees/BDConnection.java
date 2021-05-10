@@ -1,16 +1,14 @@
 package fr.uvsq.gestionDeDonnees;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class BDConnection {
     private static Connection sConnection;
-    
-    
-    private static final String URL             = "jdbc:mysql://localhost:3306/emploi_du_temps";
-    //private static final String PROPERTY_DRIVER          = "com.mysql.jdbc.Driver";
+    private static final String URL  = "jdbc:mysql://localhost:3306/emploi_du_temps";
     private static final String USER = "root";
-    private static final String PASSWORD  = "";
+    private static final String PASSWORD  = "123456789";
 
     /**
      * 
@@ -20,14 +18,16 @@ public class BDConnection {
      * @return Connection
      */
     public static Connection getConnection(){
-    		try {
-    			
-    			sConnection = DriverManager.getConnection(URL,
-    					USER,
-    					PASSWORD);
-    		} catch (SQLException e) {
-    			e.printStackTrace();
-    		}
+        if( sConnection != null )
+            return sConnection;
+
+        try {
+            sConnection = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("\n ------------ Connected ------------------");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return sConnection;
     }
  

@@ -3,6 +3,7 @@ module fr.uvsq {
     requires javafx.fxml;
     requires java.sql;
     requires com.calendarfx.view;
+    requires mybatis;
     opens fr.uvsq.interfaces to javafx.fxml;
     exports fr.uvsq.interfaces;
 }

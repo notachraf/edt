@@ -44,7 +44,7 @@ public class SalleController {
     private void initialize() {
         mTypeComboBox.getItems().add("TD");
         mTypeComboBox.getItems().add("TP");
-        mTypeComboBox.getItems().add("COURS");
+        mTypeComboBox.getItems().add("CM");
     }
 
     /**
