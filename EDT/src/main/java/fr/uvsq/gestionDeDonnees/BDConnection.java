@@ -1,16 +1,22 @@
 package fr.uvsq.gestionDeDonnees;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+
+import fr.uvsq.gestionDeDonnees.exceptions.*;
 
 public class BDConnection {
     private static Connection sConnection;
     
     
-    private static final String URL             = "jdbc:mysql://localhost:3306/emploi_du_temps";
+    private static final String PROPERTY_URL             = "jdbc:mysql://localhost:3306/emploi_du_temps";
     //private static final String PROPERTY_DRIVER          = "com.mysql.jdbc.Driver";
-    private static final String USER = "root";
-    private static final String PASSWORD  = "";
+    private static final String PROPERTY_NOM_UTILISATEUR = "root";
+    private static final String PROPERTY_MOT_DE_PASSE    = "";
 
     /**
      * 
@@ -22,9 +28,9 @@ public class BDConnection {
     public static Connection getConnection(){
     		try {
     			
-    			sConnection = DriverManager.getConnection(URL,
-    					USER,
-    					PASSWORD);
+    			sConnection = DriverManager.getConnection(PROPERTY_URL,
+    					PROPERTY_NOM_UTILISATEUR,
+    					PROPERTY_MOT_DE_PASSE);
     		} catch (SQLException e) {
     			e.printStackTrace();
     		}

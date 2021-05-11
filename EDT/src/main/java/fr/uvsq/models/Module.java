@@ -1,129 +1,139 @@
 package fr.uvsq.models;
 
 /**
- * 
+ *
  * @Author Siham, Feriel, Aziz
  */
 public class Module {
-    private String mNom;
-    private int mId;
-    private int mDuree;
-    private int mNbCoursSemaine;
-    private boolean mTD;
-    private boolean mTP;
 
-    public Module() {
-    }
+	private int mId;
+	private String mNom;
+	private int mNbTD; // utiliser des noms parlants, pas d'abreviation !!
+	private int mNbCM; // ici aussi
+	private int mNbTP; // ici aussi
+	private int mDureeCM;
+	private int mDureeTP;
+	private int mDureeTD;
 
-    /**
-     * 
-     * @param nom
-     * @param duree
-     * @param nbCoursSemaine
-     * @param TD
-     * @param TP
-     */
-    public Module(String nom, int duree, int nbCoursSemaine, boolean TD, boolean TP) {
-        mNom = nom;
-        mDuree = duree;
-        mNbCoursSemaine = nbCoursSemaine;
-        mTD = TD;
-        mTP = TP;
-    }
+	public Module() {
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public String getNom() {
-        return mNom;
-    }
+	public Module(String nom, int nbTD, int nbCM, int nbTP, int dureeCM, int dureeTP, int dureeTD) {
+		mNom = nom;
+		mNbTD = nbTD;
+		mNbCM = nbCM;
+		mNbTP = nbTP;
+		mDureeCM = dureeCM;
+		mDureeTP = dureeTP;
+		mDureeTD = dureeTD;
+	}
 
-    /**
-     * 
-     * @param nom
-     */
-    public void setNom(String nom) {
-        mNom = nom;
-    }
+	public Module(String nom, int nbTD, int nbCM, int nbTP, int dureeCM, int dureeTP, int dureeTD, int profId) {
+		mNom = nom;
+		mNbTD = nbTD;
+		mNbCM = nbCM;
+		mNbTP = nbTP;
+		mDureeCM = dureeCM;
+		mDureeTP = dureeTP;
+		mDureeTD = dureeTD;
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public int getId() {
-        return mId;
-    }
+	public String getNom() {
+		return mNom;
+	}
 
-    /**
-     * 
-     * @param id
-     */
-    public void setId(int id) {
-        mId = id;
-    }
+	public void setNom(String nom) {
+		mNom = nom;
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public int getDuree() {
-        return mDuree;
-    }
+	public int getId() {
+		return mId;
+	}
 
-    /**
-     * 
-     * @param duree
-     */
-    public void setDuree(int duree) {
-        mDuree = duree;
-    }
+	public void setId(int id) {
+		this.mId = id;
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public int getNbCoursSemaine() {
-        return mNbCoursSemaine;
-    }
+	public int getNbTD() {
+		return mNbTD;
+	}
 
-    /**
-     * 
-     * @param nbCoursSemaine
-     */
-    public void setNbCoursSemaine(int nbCoursSemaine) {
-        mNbCoursSemaine = nbCoursSemaine;
-    }
+	public void setNbTD(int nbTD) {
+		mNbTD = nbTD;
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public boolean isTD() {
-        return mTD;
-    }
+	public int getNbCM() {
+		return mNbCM;
+	}
 
-    /**
-     * 
-     * @param TD
-     */
-    public void setTD(boolean TD) {
-        mTD = TD;
-    }
+	public void setNbCM(int nbCM) {
+		mNbCM = nbCM;
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public boolean isTP() {
-        return mTP;
-    }
+	public int getNbTP() {
+		return mNbTP;
+	}
 
-    /**
-     * 
-     * @param TP
-     */
-    public void setTP(boolean TP) {
-        mTP = TP;
-    }
+	public void setNbTP(int nbTP) {
+		mNbTP = nbTP;
+	}
+
+	public int getDureeCM() {
+		return mDureeCM;
+	}
+
+	public void setDureeCM(int dureeCM) {
+		mDureeCM = dureeCM;
+	}
+
+	public int getDureeTP() {
+		return mDureeTP;
+	}
+
+	public void setDureeTP(int dureeTP) {
+		mDureeTP = dureeTP;
+	}
+
+	public int getDureeTD() {
+		return mDureeTD;
+	}
+
+	public void setDureeTD(int dureeTD) {
+		mDureeTD = dureeTD;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + mId;
+		result = prime * result + ((mNom == null) ? 0 : mNom.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Module other = (Module) obj;
+		if (mId != other.mId)
+			return false;
+		if (mNom == null) {
+			if (other.mNom != null)
+				return false;
+		} else if (!mNom.equals(other.mNom))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Module [mId=" + mId + ", mNom=" + mNom + ", mNbTD=" + mNbTD + ", mNbCM=" + mNbCM + ", mNbTP=" + mNbTP
+				+ ", mDureeCM=" + mDureeCM + ", mDureeTP=" + mDureeTP + ", mDureeTD=" + mDureeTD + "]";
+	}
+
 }

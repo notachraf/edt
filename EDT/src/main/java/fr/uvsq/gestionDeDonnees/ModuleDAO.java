@@ -9,7 +9,7 @@ import java.util.List;
 
 import fr.uvsq.gestionDeDonnees.DAO;
 import fr.uvsq.models.Module;
-//import fr.uvsq.utils.ConnectionUtils;
+import fr.uvsq.utils.ConnectionUtils;
 
 public class ModuleDAO extends DAO<Module>{
 
@@ -22,7 +22,7 @@ public class ModuleDAO extends DAO<Module>{
         Connection connection = getConnection();
         PreparedStatement ps = null; 
         try {
-            ps = connection.prepareStatement("INSERT INTO Module(mod_nom, mod_nb_td, mod_nb_tp, mod_nb_cm, mod_duree_td, mod_duree_tp, mod_duree_cm) VALUES(?, ?, ?, ?, ?, ?, ?)", 
+            ps = connection.prepareStatement("INSERT INTO Module(mod_nom, mod_nb_td, mod_nb_tp, mod_nb_cours, mod_duree_td, mod_duree_tp, mod_duree_cours) VALUES(?, ?, ?, ?, ?, ?, ?)", 
             		Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, module.getNom());
@@ -51,7 +51,7 @@ public class ModuleDAO extends DAO<Module>{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            //ConnectionUtils.fermerConnection(ps, connection);
+            ConnectionUtils.fermerConnection(ps, connection);
         }
 
         return false;
@@ -82,7 +82,7 @@ public class ModuleDAO extends DAO<Module>{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            //ConnectionUtils.fermerConnection(ps, connection);
+            ConnectionUtils.fermerConnection(ps, connection);
         }
         
         return insertBon == 1; 
@@ -92,7 +92,6 @@ public class ModuleDAO extends DAO<Module>{
     public Module selectionner(int id) {
         return rechercher(id);
     }
-
 
     @Override
     public boolean supprimer(Module obj) {
@@ -112,7 +111,7 @@ public class ModuleDAO extends DAO<Module>{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            //ConnectionUtils.fermerConnection(stmt, connection);
+            ConnectionUtils.fermerConnection(stmt, connection);
         }
 
         return false;
@@ -121,7 +120,7 @@ public class ModuleDAO extends DAO<Module>{
     @Override
     public Module rechercher(int id) {
         
-    	Module module = null; 
+    	Module module = new Module();
     	ResultSet result = null; 
     	Connection connection= null; 
     	Statement stmt = null; 
@@ -136,21 +135,20 @@ public class ModuleDAO extends DAO<Module>{
                  
            result = stmt.executeQuery("SELECT * FROM Module WHERE mod_id = " + id);
            if(result.first()) {
-        	module =  new Module();
-   			module.setId( result.getInt("mod_id"));
-   			module.setNom( result.getString("mod_nom"));
-   			module.setNbCM( result.getInt("mod_nb_cm"));
-   			module.setNbTD( result.getInt("mod_nb_td"));
-   			module.setNbTP( result.getInt("mod_nb_tp"));
-   			module.setDureeTD(result.getInt("mod_duree_td"));
-   			module.setDureeTP(result.getInt("mod_duree_tp"));
-   			module.setDureeCM(result.getInt("mod_duree_cm"));
+        	module.setId( result.getInt("mod_id"));
+       		module.setNom( result.getString("mod_nom"));
+       		module.setNbCM( result.getInt("mod_nb_cours"));
+       		module.setNbTD( result.getInt("mod_nb_td"));
+       		module.setNbTP( result.getInt("mod_nb_tp"));
+       		module.setDureeTD( result.getInt("mod_duree_td"));
+       		module.setDureeTP( result.getInt("mod_duree_tp"));
+       		module.setDureeCM( result.getInt("mod_duree_cours"));
            	}
            
            } catch (SQLException e) {
                    e.printStackTrace();
            } finally {
-               //ConnectionUtils.fermerConnection(result, stmt,  connection);
+               ConnectionUtils.fermerConnection(result, stmt,  connection);
            }
        
           return module;
@@ -163,12 +161,12 @@ public class ModuleDAO extends DAO<Module>{
     	PreparedStatement ps = null; 
         try {
             ps = connection.prepareStatement("UPDATE Module SET mod_nom=?, "
-            		+ " mod_nb_cm=?, "
+            		+ " mod_nb_cours=?, "
             		+ " mod_nb_td=?, "
             		+ " mod_nb_tp=?, "
             		+ " mod_duree_td=?, "
             		+ " mod_duree_tp=?, "
-            		+ " mod_duree_cm=? "
+            		+ " mod_duree_cours=? "
             		+ "WHERE mod_id=?");
             
             ps.setString(1, module.getNom());
@@ -189,14 +187,14 @@ public class ModuleDAO extends DAO<Module>{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-        	//ConnectionUtils.fermerConnection(ps, connection);
+        	ConnectionUtils.fermerConnection(ps, connection);
 		}
         return false;
     }
 
     @Override
     public Module rechercher(String nom) {
-    	Module module = null; 
+    	Module module = new Module(); 
     	Connection connection= getConnection(); 
     	Statement stmt = null;
     	ResultSet result = null; 
@@ -210,21 +208,20 @@ public class ModuleDAO extends DAO<Module>{
                                                "SELECT * FROM Module WHERE mod_nom = " + nom
                                             );
            if(result.first()) {
-        	        module =  new Module();
-        			module.setId( result.getInt("mod_id"));
-        			module.setNom( result.getString("mod_nom"));
-        			module.setNbCM( result.getInt("mod_nb_cm"));
-        			module.setNbTD( result.getInt("mod_nb_td"));
-        			module.setNbTP( result.getInt("mod_nb_tp"));
-        			module.setDureeTD(result.getInt("mod_duree_td"));
-        			module.setDureeTP(result.getInt("mod_duree_tp"));
-        			module.setDureeCM(result.getInt("mod_duree_cm"));
+        	    module.setId( result.getInt("mod_id"));
+          		module.setNom( result.getString("mod_nom"));
+          		module.setNbCM( result.getInt("mod_nb_cours"));
+          		module.setNbTD( result.getInt("mod_nb_td"));
+          		module.setNbTP( result.getInt("mod_nb_tp"));
+          		module.setDureeTD( result.getInt("mod_duree_td"));
+          		module.setDureeTP( result.getInt("mod_duree_tp"));
+          		module.setDureeCM( result.getInt("mod_duree_cours"));
            	}
            
            } catch (SQLException e) {
                    e.printStackTrace();
            } finally {
-        	  // ConnectionUtils.fermerConnection(result, stmt, connection);
+        	   ConnectionUtils.fermerConnection(result, stmt, connection);
    		   }
        
           return module;
@@ -248,25 +245,24 @@ public class ModuleDAO extends DAO<Module>{
                                                "SELECT * FROM Module "
                                             );
            
-           Module module =  null; 
+           Module module =  new Module(); 
            while(result.next())
            {
-        	module =  new Module();
-   			module.setId( result.getInt("mod_id"));
-   			module.setNom( result.getString("mod_nom"));
-   			module.setNbCM( result.getInt("mod_nb_cm"));
-   			module.setNbTD( result.getInt("mod_nb_td"));
-   			module.setNbTP( result.getInt("mod_nb_tp"));
-   			module.setDureeTD(result.getInt("mod_duree_td"));
-   			module.setDureeTP(result.getInt("mod_duree_tp"));
-   			module.setDureeCM(result.getInt("mod_duree_cm"));
+        	    module.setId( result.getInt("mod_id"));
+          		module.setNom( result.getString("mod_nom"));
+          		module.setNbCM( result.getInt("mod_nb_cours"));
+          		module.setNbTD( result.getInt("mod_nb_td"));
+          		module.setNbTP( result.getInt("mod_nb_tp"));
+          		module.setDureeTD( result.getInt("mod_duree_td"));
+          		module.setDureeTP( result.getInt("mod_duree_tp"));
+          		module.setDureeCM( result.getInt("mod_duree_cours"));
                modules.add(module);
            }
            
            } catch (SQLException e) {
                    e.printStackTrace();
            } finally {
-        	   //ConnectionUtils.fermerConnection(result, stmt, connection);
+        	   ConnectionUtils.fermerConnection(result, stmt, connection);
    		   }
        
           return modules;

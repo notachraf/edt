@@ -12,17 +12,17 @@ public class Salle {
     private TypeSalle mTypeSalle;
 
     /**
-     * 
+     *
      */
     public Salle(){
         mId = -1;
         mNom = "";
         mCapacite = 0;
-        mTypeSalle = TypeSalle.COURS;
+        mTypeSalle = TypeSalle.CM;
     }
 
     /**
-     * 
+     *
      * @param nom
      * @param capacite
      * @param typeSalle
@@ -34,8 +34,23 @@ public class Salle {
         mTypeSalle = typeSalle;
     }
 
-    /**
-     * 
+    public Salle(String nom, int capacite, String typesalle) {
+        mId = -1;
+        mNom = nom;
+        mCapacite = capacite;
+        mTypeSalle = TypeSalle.valueOf(typesalle);
+    }
+ 
+    
+    public Salle(String nom, String capacite, String typesalle) {
+        mId = -1;
+        mNom = nom;
+        mCapacite = Integer.valueOf(capacite);
+        mTypeSalle = TypeSalle.valueOf(typesalle);
+    }
+
+	/**
+     *
      * @return
      */
     public int getId() {
@@ -43,7 +58,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @param id
      */
     public void setId(int id) {
@@ -51,7 +66,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getNom() {
@@ -59,7 +74,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @param nom
      */
     public void setNom(String nom) {
@@ -67,7 +82,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public int getCapacite() {
@@ -75,7 +90,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @param capacite
      */
     public void setCapacite(int capacite) {
@@ -83,7 +98,7 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public TypeSalle getTypeSalle() {
@@ -91,10 +106,17 @@ public class Salle {
     }
 
     /**
-     * 
+     *
      * @param typeSalle
      */
     public void setTypeSalle(TypeSalle typeSalle) {
         mTypeSalle = typeSalle;
     }
+    
+    @Override
+	public String toString() {
+		return "Salle [mId=" + mId + ", mNom=" + mNom + ", mCapacite=" + mCapacite +" , mTypeSalle="+ mTypeSalle +"]";
+	}
+    
+    
 }

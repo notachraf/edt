@@ -10,7 +10,7 @@ import fr.uvsq.gestionDeDonnees.DAO;
  */
 public class FactoryDAO {
 	/**
-	 * RÃ©cupÃ©re la connection depuis la classe BDConnection.
+	 * Récupére la connection depuis la classe BDConnection.
 	 */
 	public final static Connection sConnection = BDConnection.getConnection();
 
@@ -39,4 +39,3 @@ public class FactoryDAO {
 		return new PromotionDAO(sConnection);
 	}
 }
-
