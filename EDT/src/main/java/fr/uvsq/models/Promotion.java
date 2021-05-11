@@ -1,6 +1,7 @@
 package fr.uvsq.models;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Promotion {
@@ -10,11 +11,14 @@ public class Promotion {
     private int mNbGroupes;
     private ArrayList<Module> mListeModules;
 
-    public Promotion(String nom, int nbEleves, int nbGroupes, ArrayList<Module> listeModules) {
+    private LocalDate mLocalDate;
+
+    public Promotion(String nom, int nbEleves, int nbGroupes, ArrayList<Module> listeModules, LocalDate date) {
         mNom = nom;
         mNbEleves = nbEleves;
         mNbGroupes = nbGroupes;
         mListeModules = listeModules;
+        mLocalDate = date;
     }
 
     public Promotion(){
@@ -93,5 +97,13 @@ public class Promotion {
     		if (getRepetModule( this.mListeModules.get(i))>1) 
     			this.mListeModules.remove(i);
     	}
+    }
+
+    public LocalDate getLocalDate() {
+        return mLocalDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        mLocalDate = localDate;
     }
 }

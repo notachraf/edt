@@ -9,6 +9,7 @@ import fr.uvsq.generateurEDT.Evenement;
 import fr.uvsq.generateurEDT.GenerateurEDT;
 import fr.uvsq.models.*;
 import fr.uvsq.models.Module;
+import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -129,6 +130,8 @@ public class AppController {
     @FXML
     private TableColumn<Promotion, String> mModulesPromoCln;
     @FXML
+    private TableColumn<Promotion, LocalDate> mDatePromoCln;
+    @FXML
     private TableColumn<Promotion, Void> mActionPromoCln;
 
     /**
@@ -230,7 +233,7 @@ public class AppController {
     @FXML
     private void initialize(){
 
-        initCalendarView();
+        //initCalendarView();
 
         initSalleTableView();
         initModuleTableView();
@@ -300,13 +303,7 @@ public class AppController {
                 return cellData.getValue().getNom();
             }
         });
-        /*mDureeModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
-            @Override
-            public Integer getValue() {
-                return cellData.getValue().getDuree();
-            }
-        });*/
-        mNbCMCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+              mNbCMCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
                 return cellData.getValue().getNbCM();
@@ -400,6 +397,9 @@ public class AppController {
                 return cellData.getValue().getNbGroupes();
             }
         });
+        /*mDatePromoCln.setCellValueFactory(cellData -> () -> {
+            return cellData.getValue().getLocalDate();
+        });*/
         mModulesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<>() {
             @Override
             public String getValue() {

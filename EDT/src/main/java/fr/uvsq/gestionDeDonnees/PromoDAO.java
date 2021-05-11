@@ -78,6 +78,7 @@ public class PromoDAO extends DAO<Promotion>{
                 promotion.setNom( result.getString("promo_nom"));
                 promotion.setNbEleves( result.getInt("promo_nb_eleves"));
                 promotion.setNbGroupes( result.getInt("promo_nb_groupes"));
+                promotion.setLocalDate(result.getDate("promo_date").toLocalDate());
                 String cours = result.getString("promo_cours");
                 ArrayList<Module> listeModule = new ArrayList<>();
                 String listeCours[] =  cours.split(",");

@@ -1,6 +1,5 @@
 package fr.uvsq.interfaces;
 
-//import fr.uvsq.gestionDeDonnees.PromoDAO;
 import fr.uvsq.gestionDeDonnees.FactoryDAO;
 import fr.uvsq.gestionDeDonnees.PromoDAO;
 import fr.uvsq.models.Module;
@@ -9,13 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class PromoController {
@@ -36,6 +33,9 @@ public class PromoController {
             mNombreElevesTextField;
     @FXML
     private CheckComboBox<String> mModulesPromoComboBox;
+
+    @FXML
+    private DatePicker mDatePicker;
 
     /**
      * Bouton qui permet d'ajouter une promotions
@@ -112,7 +112,7 @@ public class PromoController {
             int nbEleve = Integer.parseInt(mNombreElevesTextField.getText());
             int nbGroupes = Integer.parseInt(mNombreGroupesTextField.getText());
 
-            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules);
+            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules, mDatePicker.getValue());
 
             mApp.getListePromos().add(promo);
             fermer();
@@ -140,17 +140,17 @@ public class PromoController {
             int nbEleve = Integer.parseInt(mNombreElevesTextField.getText());
             int nbGroupes = Integer.parseInt(mNombreGroupesTextField.getText());
 
-            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules);
+            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules, mDatePicker.getValue());
 
             int index = mApp.getListePromos().indexOf(mPromo);
             mApp.getListePromos().get(index).setNom(promo.getNom());
             mApp.getListePromos().get(index).setNbEleves(promo.getNbEleves());
             mApp.getListePromos().get(index).setNbGroupes(promo.getNbGroupes());
             mApp.getListePromos().get(index).setListeModules(promo.getListeModules());
+            mApp.getListePromos().get(index).setLocalDate(promo.getLocalDate());
             mPromoTableView.refresh();
 
             fermer();
-
         }
     }
 

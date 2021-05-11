@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import org.apache.ibatis.jdbc.ScriptRunner;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
