@@ -109,23 +109,23 @@ public class DonneesEDT {
 
 
     private List<Professeur> recupereProfesseursBD(){
-    	ProfesseurDAO pDao = (ProfesseurDAO)FactoryDAO.getProfesseurDAO();
+    	DAO<Professeur> pDao = (ProfesseurDAO)FactoryDAO.getProfesseurDAO();
     	mListeProfesseurs = pDao.recupererListe();
     	return mListeProfesseurs;
     }
     private List<Module> recupereModulesBD() {
-    	ModuleDAO mDao = (ModuleDAO)FactoryDAO.getModuleDAO();
+    	DAO<Module> mDao = (ModuleDAO)FactoryDAO.getModuleDAO();
     	mListeModules = mDao.recupererListe();
     	return mListeModules;
     }
     private List<Salle> recupereSallesBD() {
-    	SalleDAO sDao = (SalleDAO)FactoryDAO.getSalleDAO();
+    	DAO<Salle> sDao = (SalleDAO)FactoryDAO.getSalleDAO();
         mListeSalles = sDao.recupererListe();
         return mListeSalles;
         
     }
     private List<Promotion> recuperePromotionsBD() {
-    	PromoDAO promoDao= (PromoDAO)FactoryDAO.getPromotionDAO();
+    	DAO<Promotion> promoDao= (PromoDAO)FactoryDAO.getPromotionDAO();
     	mListePromotions = promoDao.recupererListe();
     	return mListePromotions;
     	
@@ -136,7 +136,7 @@ public class DonneesEDT {
      */
     public void creerEvenementsCM(){
 		int nbCm = 0;
-		Random random = new Random();
+		Random random = new Random(System.currentTimeMillis());
     	for(Promotion promo : mListePromotions) {
     		nbCm += promo.getListeModules().size();
     		for(Module module : promo.getListeModules()) {
@@ -148,7 +148,7 @@ public class DonneesEDT {
     				//choisi un prof
     				int indiceProf = 0;
     				while(indiceProf < mListeProfesseurs.size() && mListeProfesseurs.get(indiceProf).peutEnseigner(module) == false) {
-    					indiceProf = random.nextInt(mListeProfesseurs.size());
+    					++indiceProf; // = random.nextInt(mListeProfesseurs.size());
     				}
     				Professeur prof = new Professeur();
     				if( indiceProf < mListeProfesseurs.size())
@@ -169,13 +169,14 @@ public class DonneesEDT {
      * Créer les évenement de type TP.
      */
     public void creerEvenementsTP(){
-    	
-    	Random random = new Random();
+    	Random random = new Random(System.currentTimeMillis());
+    	int i = 0;
+    	System.out.println("GetList: " + mListePromotions.size());
 		for(Promotion promo : mListePromotions) {
 			List<Groupe> groupesPromo = new ArrayList<>();
 			int nbeleves = promo.getNbEleves();
 			int nbgroupes = promo.getNbGroupes();
-
+			System.out.println("i: " + i);
 			for(int j=0;j<promo.getNbGroupes();j++) {
 				String nomGroupe = "Groupe" + (j+1) + "";
 				Groupe gpe = new Groupe(nomGroupe,(nbeleves/nbgroupes),promo);
@@ -184,14 +185,16 @@ public class DonneesEDT {
 				nbgroupes--;
 			}
 
+			System.out.println("Gest module: " + promo.getListeModules().size() );
         	for(Module module : promo.getListeModules()) {
        			if(module.getNbTP() > 0) {
         				//créer les événements TP pour chaque groupe de de la promotion
         				//choisi un prof
+					System.out.println("G: " + groupesPromo.size());
        				for(Groupe unGroupe : groupesPromo) {
    	    				int indiceProf = 0;
    	    				while(indiceProf < mListeProfesseurs.size() && !mListeProfesseurs.get(indiceProf).peutEnseigner(module)) {
-   	    					indiceProf = random.nextInt(mListeProfesseurs.size());
+   	    					++indiceProf;// = random.nextInt(mListeProfesseurs.size());
    	    				}
 
 						Professeur prof = new Professeur();
@@ -204,6 +207,7 @@ public class DonneesEDT {
        				}
         		}
         	}
+        	i++;
 		}
 	}
 
@@ -211,7 +215,7 @@ public class DonneesEDT {
      * Créer les évenement de type TD.
      */
     public void creerEvenementsTD(){
-    	Random random = new Random();
+    	Random random = new Random(System.currentTimeMillis());
         for(Promotion promo : mListePromotions) {
 			List<Groupe> groupesPromo = new ArrayList<>();
 			int nbeleves = promo.getNbEleves();
@@ -231,7 +235,7 @@ public class DonneesEDT {
        				for(Groupe unGroupe : groupesPromo) {
    	    				int indiceProf = 0;
    	    				while( indiceProf < mListeProfesseurs.size() && !mListeProfesseurs.get(indiceProf).peutEnseigner(module)) {
-   	    					indiceProf = random.nextInt(mListeProfesseurs.size());
+   	    					++indiceProf; // = random.nextInt(mListeProfesseurs.size());
    	    				}
 
    	    				Professeur prof = new Professeur();

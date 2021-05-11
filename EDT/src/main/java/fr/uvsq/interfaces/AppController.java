@@ -398,7 +398,7 @@ public class AppController {
             }
         });
         /*mDatePromoCln.setCellValueFactory(cellData -> () -> {
-            return cellData.getValue().getLocalDate();
+            return cellData.getValue().getLocalDate();*/
         mModulesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<>() {
             @Override
             public String getValue() {

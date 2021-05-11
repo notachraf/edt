@@ -53,6 +53,7 @@ public class App extends Application {
         mAppStage = stage;
         initBaseDonnes();
         testSolutionInit();
+        System.out.println("AFFter testSolution");
         initialiseApp();
         initListeSalles();
         initListeModules();
