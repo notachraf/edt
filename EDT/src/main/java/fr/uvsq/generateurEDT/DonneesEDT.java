@@ -2,6 +2,7 @@ package fr.uvsq.generateurEDT;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import fr.uvsq.models.*;
 import fr.uvsq.models.Module;
 
@@ -108,23 +109,23 @@ public class DonneesEDT {
 
 
     private List<Professeur> recupereProfesseursBD(){
-	DAO<Professeur> pDao = FactoryDAO.getProfesseurDAO();
+    	ProfesseurDAO pDao = (ProfesseurDAO)FactoryDAO.getProfesseurDAO();
     	mListeProfesseurs = pDao.recupererListe();
     	return mListeProfesseurs;
     }
     private List<Module> recupereModulesBD() {
-    	DAO<Module> mDao = (ModuleDAO)FactoryDAO.getModuleDAO();
+    	ModuleDAO mDao = (ModuleDAO)FactoryDAO.getModuleDAO();
     	mListeModules = mDao.recupererListe();
     	return mListeModules;
     }
     private List<Salle> recupereSallesBD() {
-    	DAO<Salle> sDao = (SalleDAO)FactoryDAO.getSalleDAO();
+    	SalleDAO sDao = (SalleDAO)FactoryDAO.getSalleDAO();
         mListeSalles = sDao.recupererListe();
         return mListeSalles;
         
     }
     private List<Promotion> recuperePromotionsBD() {
-    	DAO<Promotion> promoDao= (PromoDAO)FactoryDAO.getPromotionDAO();
+    	PromoDAO promoDao= (PromoDAO)FactoryDAO.getPromotionDAO();
     	mListePromotions = promoDao.recupererListe();
     	return mListePromotions;
     	
@@ -135,6 +136,7 @@ public class DonneesEDT {
      */
     public void creerEvenementsCM(){
 		int nbCm = 0;
+		Random random = new Random();
     	for(Promotion promo : mListePromotions) {
     		nbCm += promo.getListeModules().size();
     		for(Module module : promo.getListeModules()) {
@@ -146,8 +148,7 @@ public class DonneesEDT {
     				//choisi un prof
     				int indiceProf = 0;
     				while(indiceProf < mListeProfesseurs.size() && mListeProfesseurs.get(indiceProf).peutEnseigner(module) == false) {
-    				//		indiceProf = (int)Math.random()*mListeProfesseurs.size();
-						indiceProf++;
+    					indiceProf = random.nextInt(mListeProfesseurs.size());
     				}
     				Professeur prof = new Professeur();
     				if( indiceProf < mListeProfesseurs.size())
@@ -168,6 +169,8 @@ public class DonneesEDT {
      * Créer les évenement de type TP.
      */
     public void creerEvenementsTP(){
+    	
+    	Random random = new Random();
 		for(Promotion promo : mListePromotions) {
 			List<Groupe> groupesPromo = new ArrayList<>();
 			int nbeleves = promo.getNbEleves();
@@ -188,8 +191,7 @@ public class DonneesEDT {
        				for(Groupe unGroupe : groupesPromo) {
    	    				int indiceProf = 0;
    	    				while(indiceProf < mListeProfesseurs.size() && !mListeProfesseurs.get(indiceProf).peutEnseigner(module)) {
-   	    					//indiceProf = (int)Math.random()*mListeProfesseurs.size();
-   	    					indiceProf++;
+   	    					indiceProf = random.nextInt(mListeProfesseurs.size());
    	    				}
 
 						Professeur prof = new Professeur();
@@ -209,6 +211,7 @@ public class DonneesEDT {
      * Créer les évenement de type TD.
      */
     public void creerEvenementsTD(){
+    	Random random = new Random();
         for(Promotion promo : mListePromotions) {
 			List<Groupe> groupesPromo = new ArrayList<>();
 			int nbeleves = promo.getNbEleves();
@@ -228,8 +231,7 @@ public class DonneesEDT {
        				for(Groupe unGroupe : groupesPromo) {
    	    				int indiceProf = 0;
    	    				while( indiceProf < mListeProfesseurs.size() && !mListeProfesseurs.get(indiceProf).peutEnseigner(module)) {
-   	    					//indiceProf = (int)Math.random()*mListeProfesseurs.size();
-   	    					indiceProf++;
+   	    					indiceProf = random.nextInt(mListeProfesseurs.size());
    	    				}
 
    	    				Professeur prof = new Professeur();
