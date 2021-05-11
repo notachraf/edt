@@ -97,7 +97,7 @@ public class EDTSalle {
     	if( e != null) {
     		boolean dispo = aUnEvenement(jour, horaire);
     		if(!dispo) {
-    			mEdt[jour][horaire] = e.getId();
+    			mEdt[horaire][jour] = e.getId();
     			Creneau creneau = new Creneau(jour,horaire, dispo, mSalle.getId());
     			e.setCreneau(creneau);
     		}

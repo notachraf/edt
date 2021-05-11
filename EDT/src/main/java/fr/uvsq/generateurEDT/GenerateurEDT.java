@@ -98,6 +98,8 @@ public class GenerateurEDT {
             randSalle2 = randSalle.nextInt(nbSalles);
         } while( randSalle1 == randSalle2 );
 
+        System.out.println("+++++ Salle1: " + randSalle1 + "salle2: " + randSalle2);
+
         while ( (idEven1 == idEven2  || idEven1 == -1 || idEven2 == -1) && (i != nbCreneaux)){
             //Choisir deux jours différents aléatoirement
             j1 = randJour.nextInt(EDTSalle.getNbJours());
@@ -106,7 +108,6 @@ public class GenerateurEDT {
             //Choisir deux horaires différents aléatoirement
             h1 = randHoraire.nextInt(EDTSalle.getNbHoraires());
             h2 = randHoraire.nextInt(EDTSalle.getNbHoraires());
-
             idEven1 = edt.getListeEDTSalles().get(randSalle1).getIdEvenement(j1, h1);
             idEven2 = edt.getListeEDTSalles().get(randSalle2).getIdEvenement(j2, h2);
             ++i;
@@ -117,8 +118,8 @@ public class GenerateurEDT {
             return edt;
 
         EDT nouvelleEdt = edt;
-        nouvelleEdt.getListeEDTSalles().get(randSalle1).modifieEvenement(j2, h2, idEven2);
-        nouvelleEdt.getListeEDTSalles().get(randSalle2).modifieEvenement(j1, h1, idEven1);
+        nouvelleEdt.getListeEDTSalles().get(randSalle1).modifieEvenement(j1, h1, idEven2);
+        nouvelleEdt.getListeEDTSalles().get(randSalle2).modifieEvenement(j2, h2, idEven1);
 
         return nouvelleEdt;
     }
@@ -150,16 +151,19 @@ public class GenerateurEDT {
 
     	// Association évenement et salle.
         Random random = new Random(System.currentTimeMillis());
+    	System.out.println("NB event : " + Evenement.getNbEvenements());
         for(Evenement e : mDonneesEDT.getListeEvenements()) {
-            Creneau creneau = listeCreneauxDisponibles.get(random.nextInt(listeCreneauxDisponibles.size()));
-            listeEDTSalle.get(creneau.getIdsalle()).ajouterEvenement(e, creneau.getJour(), creneau.getHoraire());
-            listeCreneauxDisponibles.remove(creneau);
+            if( listeCreneauxDisponibles.size() > 0 ){
+                Creneau creneau = listeCreneauxDisponibles.get(random.nextInt(listeCreneauxDisponibles.size()));
+                listeEDTSalle.get(creneau.getIdsalle()).ajouterEvenement(e, creneau.getJour(), creneau.getHoraire());
+                listeCreneauxDisponibles.remove(creneau);
+            }
         }
 
-        listeEDTSalle.clear();
         listeCreneauxDisponibles.clear();
-
-        return new EDT(listeEDTSalle, 0, mDonneesEDT);
+        mSolutionFinale = new EDT(listeEDTSalle, 0, mDonneesEDT);
+        return mSolutionFinale;
+        //return new EDT(listeEDTSalle, 0, mDonneesEDT);
     }
 
     /**
@@ -173,17 +177,15 @@ public class GenerateurEDT {
         for( int j = 0; j < EDTSalle.getNbJours(); j++){
             List<Evenement> listeEven = new ArrayList<>();
             for (EDTSalle edtSalle : mSolutionFinale.getListeEDTSalles()) {
-                for( int h = 0; h < EDTSalle.getNbJours(); h++) {
+                for( int h = 0; h < EDTSalle.getNbHoraires(); h++) {
                     int idEvenement = edtSalle.getIdEvenement(j, h);
                     if( idEvenement != -1 ) {
                         listeEven.add(mDonneesEDT.getListeEvenements().get(idEvenement));
                     }
                 }
             }
-
             planning.put(j, listeEven);
         }
-
         return planning;
     }
 
@@ -200,6 +202,20 @@ public class GenerateurEDT {
      */
     public StringBuilder getSolutionEnLatex(){
         return null;
+    }
+
+    public void displaySolutionInit(EDT edt){
+        System.out.println("======= NB Salles: " + edt.getListeEDTSalles().size());
+        for( int s = 0; s < edt.getListeEDTSalles().size(); s++){
+            System.out.println("======== Salle : " + s);
+            for( int h = 0; h < EDTSalle.getNbHoraires(); h++){
+                for( int j = 0; j < EDTSalle.getNbJours(); j++){
+                    System.out.print(" [ " + edt.getListeEDTSalles().get(s).getEdt()[h][j] + "]");
+                }
+                System.out.println("");
+            }
+            System.out.println("\n");
+        }
     }
 
 }
