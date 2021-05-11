@@ -25,13 +25,35 @@ public class PromotionDAO extends DAO<Promotion>{
 	@Override
 	public boolean inserer(Promotion promo) {
 		
-		boolean promotionInsere = insererJustePromotion(promo);
-		if (!promotionInsere) return false; 
-		if (promotionInsere && !promo.getListeModules().isEmpty()) {
-			insererAssociationPromotionModules(promo);
+		Connection connection =getConnection();
+		PreparedStatement ps =  null; 
+        try {
+            ps = connection.prepareStatement("INSERT INTO Promotion(promo_nom, promo_nb_eleves, promo_nb_groupes) VALUES (?, ?, ?)", 
+            		Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, promo.getNom());
+            ps.setInt(2, promo.getNbEleves());
+            ps.setInt(3, promo.getNbGroupes());
+            int i = ps.executeUpdate();
+	          if(i == 1) {
+	        	  try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+	                  if (generatedKeys.next()) {
+	                	  promo.setId(generatedKeys.getInt(1));
+	                  }
+	                  	else {
+	                  		throw new SQLException("Creation de Promotion a echoue.");
+	                  }
+	              }
+	        	  
+	        	  	return true;
+	          }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }  finally {
+			//ConnectionUtils.fermerConnection(ps, connection);
 		}
-		
-		return true; 
+
+		return false;
 	}
 	
 	
@@ -47,17 +69,7 @@ public class PromotionDAO extends DAO<Promotion>{
 
 	@Override
 	public boolean supprimer(Promotion promo) {
-		supprimerAssociationPromotionModules(promo);
-		return supprimerPromotion(promo);
-	}
-
-	/**
-	 * 
-	 * @param promo
-	 * @return
-	 */
-	private boolean supprimerPromotion(Promotion promo) {
-		Connection connection = getConnection();		
+	Connection connection = getConnection();		
 		Statement stmt = null;
 		ResultSet rs = null; 
 		
@@ -72,7 +84,7 @@ public class PromotionDAO extends DAO<Promotion>{
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			ConnectionUtils.fermerConnection(rs, stmt, connection);
+			//ConnectionUtils.fermerConnection(rs, stmt, connection);
 		}
 
 		return false;
@@ -108,7 +120,7 @@ public class PromotionDAO extends DAO<Promotion>{
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			ConnectionUtils.fermerConnection(rs, stmt, connection);
+			//ConnectionUtils.fermerConnection(rs, stmt, connection);
 		}
 
 		return null;
@@ -117,19 +129,7 @@ public class PromotionDAO extends DAO<Promotion>{
 
 	@Override
 	public boolean modifier(Promotion promo) {
-		if (modifierJustePromotion(promo)) {
-			return updateAssociationPromotionModule(promo);
-		}
-		return false; 
-	}
-
-
-	/**
-	 * 
-	 * @param promo
-	 * @return
-	 */
-	private boolean modifierJustePromotion(Promotion promo) {
+		
 		Connection connection = getConnection();
 		PreparedStatement ps = null;  
 		
@@ -148,7 +148,7 @@ public class PromotionDAO extends DAO<Promotion>{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-			ConnectionUtils.fermerConnection(ps, connection);
+			//ConnectionUtils.fermerConnection(ps, connection);
 		}
         
         return false;
@@ -185,7 +185,7 @@ public class PromotionDAO extends DAO<Promotion>{
 		} catch (SQLException ex) {
 				ex.printStackTrace();
 		} finally {
-			ConnectionUtils.fermerConnection(rs, stmt, connection);
+			//ConnectionUtils.fermerConnection(rs, stmt, connection);
 		}
 
 		return null;
@@ -219,7 +219,7 @@ public class PromotionDAO extends DAO<Promotion>{
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			ConnectionUtils.fermerConnection(rs, stmt, connection);
+			//ConnectionUtils.fermerConnection(rs, stmt, connection);
 		}
 
 		return null;
@@ -299,107 +299,13 @@ public class PromotionDAO extends DAO<Promotion>{
 	
 	}
 
-	/**
-	 * on supprime les modules associés au Promotion
-	 * 
-	 * @param promo
-	 * @return
-	 */
-	public void supprimerAssociationPromotionModules(Promotion promo) {
-		Statement stmt = null;
-		Connection connection =getConnection(); 
-		try {
-			stmt = connection.createStatement();
-			stmt.executeUpdate("DELETE FROM Promotion_Module WHERE promo_id=" + promo.getId());
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		} finally {
-			ConnectionUtils.fermerConnection(stmt, connection);
-		}
-
-	}
 	
 	
-	/**
-	 * 
-	 * @param promo
-	 * @return
-	 */
-	private boolean insererJustePromotion(Promotion promo) {
-		
-		Connection connection =getConnection();
-		PreparedStatement ps =  null; 
-        try {
-            ps = connection.prepareStatement("INSERT INTO Promotion(promo_nom, promo_nb_eleves, promo_nb_groupes) VALUES (?, ?, ?)", 
-            		Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, promo.getNom());
-            ps.setInt(2, promo.getNbEleves());
-            ps.setInt(3, promo.getNbGroupes());
-            int i = ps.executeUpdate();
-	          if(i == 1) {
-	        	  try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
-	                  if (generatedKeys.next()) {
-	                	  promo.setId(generatedKeys.getInt(1));
-	                  }
-	                  	else {
-	                  		throw new SQLException("Creation de Promotion a echoue.");
-	                  }
-	              }
-	        	  
-	        	  	return true;
-	          }
+	
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }  finally {
-			ConnectionUtils.fermerConnection(ps, connection);
-		}
-
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param promo
-	 * @return
-	 */
-	boolean insererAssociationPromotionModules(Promotion promo) {
-		Connection connection = getConnection(); 
-		String SQL = "INSERT INTO Promotion_Module (promo_id, mod_id) VALUES (?, ?)";
-		PreparedStatement stmt = null;
-		
-		try {
-			stmt = connection.prepareStatement(SQL);
-			for (Module module : promo.getListeModules()) {
-				stmt.setInt(1, promo.getId());
-				stmt.setInt(2, module.getId());
-				stmt.addBatch();				
-			}
-			int[] insertions = stmt.executeBatch();
-			boolean insere = IntStream.of(insertions).allMatch(x -> x == 1);
-			return insere;
-			
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		} finally {
-			ConnectionUtils.fermerConnection(stmt, connection);
-		}
-		return false;
-	}
 	
 	
-	/**
-	 * 
-	 * @param promo
-	 * @return
-	 */
-	boolean updateAssociationPromotionModule(Promotion promo) {
-		if (!promo.getListeModules().isEmpty()) {
-			supprimerAssociationPromotionModules(promo);	
-		}
-		return insererAssociationPromotionModules(promo);
-	}
+	
 	
 
 }
