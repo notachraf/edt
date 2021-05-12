@@ -82,7 +82,7 @@ public class PromoDAO extends DAO<Promotion>{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            ConnectionUtils.fermerConnection(ps, connection);
+            //ConnectionUtils.fermerConnection(ps, connection);
         }
         
         return insertBon == 1; 
