@@ -45,4 +45,3 @@ public class FactoryDAO {
 		return new PromoDAO(sConnection);
 	}
 }
-

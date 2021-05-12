@@ -3,6 +3,7 @@ package fr.uvsq.gestionDeDonnees;
 import fr.uvsq.gestionDeDonnees.DAO;
 import fr.uvsq.models.Salle;
 import fr.uvsq.models.TypeSalle;
+import fr.uvsq.utils.ConnectionUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,8 +43,6 @@ public class SalleDAO extends DAO<Salle> {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            //ConnectionUtils.fermerConnection(ps, connection);
         }
 
         return false;
@@ -73,75 +72,68 @@ public class SalleDAO extends DAO<Salle> {
                 //ConnectionUtils.fermerConnection(ps, connection);
             }
 
-            return i == 1;
+            return true;
         }
 
-        // methode redondante
-        @Override
-        public Salle selectionner ( int id){
-            return rechercher(id);
-        }
+    // methode redondante
+    @Override
+    public Salle selectionner ( int id){
+        return rechercher(id);
+    }
 
-        @Override
-        public boolean supprimer (Salle obj){
+    @Override
+    public boolean supprimer (Salle obj){
 
-            Connection connection = getConnection();
-            Statement stmt = null;
+        Connection connection = getConnection();
+        Statement stmt = null;
 
-            try {
-                stmt = connection.createStatement();
-                int i = stmt.executeUpdate("DELETE FROM Salle WHERE salle_id=" + obj.getId());
-
-                if (i == 1) {
-                    return true;
-                }
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } finally {
-                //ConnectionUtils.fermerConnection(stmt, connection);
+        try {
+            stmt = connection.createStatement();
+            int i = stmt.executeUpdate("DELETE FROM Salle WHERE salle_id=" + obj.getId());
+            if (i == 1) {
+                return true;
             }
 
-            return false;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            //ConnectionUtils.fermerConnection(stmt, connection);
         }
 
-        @Override
-        public Salle rechercher ( int id){
+        return false;
+    }
 
-            Salle salle = null;
-            ResultSet result = null;
-            Connection connection = this.getConnection();
-            Statement stmt = null;
-            try {
-                stmt = connection
-                        .createStatement(
-                                ResultSet.TYPE_SCROLL_INSENSITIVE,
-                                ResultSet.CONCUR_UPDATABLE
-                        );
-
-                result = stmt.executeQuery(
-                        "SELECT * FROM salle WHERE salle_id = " + id
-                );
-                if (result.first()) {
-                    salle.setId(result.getInt("salle_id"));
-                    salle.setNom(result.getString("salle_nom"));
-                    salle.setCapacite(result.getInt("salle_capacite"));
-                    salle.setTypeSalle(TypeSalle.valueOf(result.getString("salle_type")));
-                }
-
-            } catch (SQLException e) {
+    @Override
+    public Salle rechercher(int id) {
+        
+         Salle salle = null; 
+         ResultSet result = null; 
+         Connection connection = this.getConnection();
+         Statement stmt = null; 
+        try {
+            stmt = connection
+                                    .createStatement(
+                                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                                ResultSet.CONCUR_UPDATABLE
+                                             );
+            
+            result = stmt.executeQuery(
+                                                "SELECT * FROM salle WHERE salle_id = " + id
+                                             );
+            if(result.first()) {
+            		salle = extractSalleFromResultSet(result);
+             }
+                     } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
                 //ConnectionUtils.fermerConnection(result, stmt, connection);
             }
-
             return salle;
 
         }
 
         @Override
         public boolean modifier (Salle salle){
-
             Connection connection = this.getConnection();
             PreparedStatement ps = null;
 
@@ -160,10 +152,7 @@ public class SalleDAO extends DAO<Salle> {
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
                 ex.printStackTrace();
-            } finally {
-                //	ConnectionUtils.fermerConnection(ps, connection);
             }
-
             return false;
         }
 
@@ -234,6 +223,24 @@ public class SalleDAO extends DAO<Salle> {
             //ConnectionUtils.fermerConnection(rs, stmt, connection);
         }
         return null;
+    }
+    
+    /**
+     * 
+     * @param rs
+     * @return
+     * @throws SQLException 
+     */
+    private Salle extractSalleFromResultSet(ResultSet rs) throws SQLException {
+    	
+    	Salle salle = new Salle();
+    	salle.setId( rs.getInt("salle_id") );
+    	salle.setNom( rs.getString("salle_nom") );
+    	salle.setCapacite( rs.getInt("salle_capacite") );
+    	salle.setTypeSalle(TypeSalle.valueOf(rs.getString("salle_type")));
+
+        return salle;
+    	
     }
 }
 

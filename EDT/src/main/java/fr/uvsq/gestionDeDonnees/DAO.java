@@ -1,4 +1,5 @@
 package fr.uvsq.gestionDeDonnees;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,35 +14,35 @@ public abstract class DAO<T> {
     }
 
     /**
-     * InsÃ©rer un objet dans la Table T
+     * Insérer un objet dans la Table T
      * @param obj
      * @return boolean
      */
     public abstract boolean inserer(T obj);
 
     /**
-     * InsÃ©rer une liste d' objet dans la Table T
+     * Insérer une liste d' objet dans la Table T
      * @param obj
      * @return boolean
      */
     public abstract boolean insererListe(List<T> obj);
 
     /**
-     * Recupere une entrÃ©e dans la table T
+     * Recupere une entrée dans la table T
      * @param id
      * @return T
      */
     public abstract T selectionner(int id);
 
     /**
-     * Supprime une entrÃ©e dans T
+     * Supprime une entrée dans T
      * @param obj
      * @return
      */
     public abstract boolean supprimer(T obj);
 
     /**
-     * Cherche une entrÃ©e qui a pour identifiant id
+     * Cherche une entrée qui a pour identifiant id
      * dans la table T
      * @param id
      * @return
@@ -49,14 +50,14 @@ public abstract class DAO<T> {
     public abstract T rechercher(int id);
 
     /**
-     * Modifie une entrÃ©e de la table T.
+     * Modifie une entrée de la table T.
      * @param obj
      * @return
      */
     public abstract boolean modifier(T obj);
 
     /**
-     * Cherche une entrÃ©e avec l'attribut nom
+     * Cherche une entrée avec l'attribut nom
      * dans la table T
      * @param nom
      * @return
@@ -78,7 +79,7 @@ public abstract class DAO<T> {
 	protected Connection getConnection() {
 		try {
 			if (mConnection == null || mConnection.isClosed()) {
-				mConnection = BDConnection.getConnection(); 
+				mConnection = BDConnection.getConnection();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,4 +87,3 @@ public abstract class DAO<T> {
 		return mConnection;
 	}
 }
-

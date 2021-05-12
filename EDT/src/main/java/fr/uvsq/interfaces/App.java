@@ -53,11 +53,11 @@ public class App extends Application {
         mAppStage = stage;
         initialiseApp();
         initBaseDonnes();
-        mAppController.afficheEDT();
         initListeSalles();
         initListeModules();
         initListeProfs();
         initListePromotions();
+        mAppController.afficheEDT();
     }
 
     private void initialiseApp(){
@@ -102,7 +102,6 @@ public class App extends Application {
     private void initBaseDonnes() {
         ScriptRunner runner = new ScriptRunner(BDConnection.getConnection());
         try {
-
             Reader reader = new BufferedReader(new FileReader("src/main/resources/sql/scriptCreation.sql"));
             runner.runScript(reader);
         } catch (IOException e) {

@@ -27,8 +27,7 @@ public class BDConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return sConnection;
     }
+}  
  
-}

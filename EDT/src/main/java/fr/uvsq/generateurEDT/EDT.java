@@ -115,7 +115,7 @@ public class EDT {
 	     */
 	private int contrainteReservationProf(){
 	   	int contrainte = 0;
-	    Random random = new Random();	
+	    Random random = new Random();
     	for(Professeur prof : mDonneesEDT.getListeProfesseurs()) {
     		for(int i = 0; i < EDTSalle.getNbJours(); i++) {
     			for(int j = 0; j < EDTSalle.getNbHoraires();j++) {
@@ -125,6 +125,7 @@ public class EDT {
     		    	
 	    				// on récupère l'événement qui est au jour i pour le créneau j
 	    				int even = 0;
+
 		    			if(edtSalle.getEdt()[j][i] != -1) {
 		    				int idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 		    				while(idEven !=  edtSalle.getEdt()[j][i]  ){
@@ -132,7 +133,6 @@ public class EDT {
 		    					idEven = mDonneesEDT.getListeEvenements().get(even).getId();
 		    				}
 			    			Evenement evenement = mDonneesEDT.getListeEvenements().get(even);
-			    				
 			    			if(evenement.getProfesseur() == prof) { 
 			    				
 			    				contrainteJoursHoraires++;
@@ -165,8 +165,7 @@ public class EDT {
 			    			}
 		    			}
 	   		    	}
-    		    	
-	   		    	
+
 	   		    	if(contrainteJoursHoraires > 1) contrainte += (contrainteJoursHoraires-1);
 	    		}
 	   		}
@@ -252,7 +251,6 @@ public class EDT {
 	    		}
 	   		}
 	   	}
-	    	
     	return contrainte;
     }
     
@@ -265,47 +263,47 @@ public class EDT {
     				// on récupère l'événement qui est au jour i pour le créneau j
     				int even = 0;
 	    			if(edtSalle.getEdt()[j][i] != -1) {
-	    				int idEven = mDonneesEDT.getListeEvenements().get(even).getId();
-	    				while(idEven !=  edtSalle.getEdt()[j][i]  ){
-	    					even = random.nextInt(mDonneesEDT.getListeEvenements().size());
-	    					idEven = mDonneesEDT.getListeEvenements().get(even).getId();
-	    				}
-			    		Evenement evenement = mDonneesEDT.getListeEvenements().get(even);
-			    		int n =0;
-			    		if(evenement.getTypeEven() == TypeEven.CM) {
-			    			int duree =  evenement.getModule().getDureeCM();
-			    			if (duree>60) {
-			    				duree = (int)Math.ceil(duree/60);
-					    		for( n = j+1; n<EDTSalle.getNbHoraires() && duree>1; n++) {
-					    			if(edtSalle.getEdt()[n][i] != -1 && edtSalle.getEdt()[n][i] != evenement.getId()) contrainte++;
-					    			duree--;
-					    		}
-			    			}
-	    				}
-			    		if(evenement.getTypeEven() == TypeEven.TD) {
-			    			int duree =  evenement.getModule().getDureeTD();
-			    			if (duree>60) {
-			    				duree = (int)Math.ceil(duree/60);
-			    				for( n = j+1; n<EDTSalle.getNbHoraires() && duree>1; n++) {
-				    			if(edtSalle.getEdt()[n][i] != -1 && edtSalle.getEdt()[n][i] != evenement.getId()) contrainte++;
-				    			duree--;
-			    				}
-			    			}
-	    				}
-			    		if(evenement.getTypeEven() == TypeEven.TP) {
-			    			int duree =  evenement.getModule().getDureeTP();
-			    			if (duree>60) {
-			    				duree = (int)Math.ceil(duree/60);
-					    		for( n = j+1; n<EDTSalle.getNbHoraires() && 1 < duree; n++) {
-					    			if(edtSalle.getEdt()[n][i] != -1 && edtSalle.getEdt()[n][i] != evenement.getId()) contrainte++;
-					    			duree--;
-					    		}
-			    			}
-	    				}
-	    			}
-	    			
-		    		
-		    		
+						int idEven = mDonneesEDT.getListeEvenements().get(even).getId();
+						while (idEven != edtSalle.getEdt()[j][i]) {
+							even = random.nextInt(mDonneesEDT.getListeEvenements().size());
+							idEven = mDonneesEDT.getListeEvenements().get(even).getId();
+						}
+						Evenement evenement = mDonneesEDT.getListeEvenements().get(even);
+						int n = 0;
+						if (evenement.getTypeEven() == TypeEven.CM) {
+							int duree = evenement.getModule().getDureeCM();
+							if (duree > 60) {
+								duree = (int) Math.ceil(duree / 60);
+								for (n = j + 1; n < EDTSalle.getNbHoraires() && duree > 1; n++) {
+									if (edtSalle.getEdt()[n][i] != -1 && edtSalle.getEdt()[n][i] != evenement.getId())
+										contrainte++;
+									duree--;
+								}
+							}
+						}
+						if (evenement.getTypeEven() == TypeEven.TD) {
+							int duree = evenement.getModule().getDureeTD();
+							if (duree > 60) {
+								duree = (int) Math.ceil(duree / 60);
+								for (n = j + 1; n < EDTSalle.getNbHoraires() && duree > 1; n++) {
+									if (edtSalle.getEdt()[n][i] != -1 && edtSalle.getEdt()[n][i] != evenement.getId())
+										contrainte++;
+									duree--;
+								}
+							}
+						}
+						if (evenement.getTypeEven() == TypeEven.TP) {
+							int duree = evenement.getModule().getDureeTP();
+							if (duree > 60) {
+								duree = (int) Math.ceil(duree / 60);
+								for (n = j + 1; n < EDTSalle.getNbHoraires() && 1 < duree; n++) {
+									if (edtSalle.getEdt()[n][i] != -1 && edtSalle.getEdt()[n][i] != evenement.getId())
+										contrainte++;
+									duree--;
+								}
+							}
+						}
+					}
     			}
     		}
     	}

@@ -106,4 +106,9 @@ public class Promotion {
     public void setLocalDate(LocalDate localDate) {
         mLocalDate = localDate;
     }
+
+    @Override
+	public String toString() {
+		return "Promotion [mId=" + mId + ", mNom=" + mNom + ", mNbEleves="+mNbEleves +", mNbGroupes=" + mNbGroupes + ", promo_cours= " +getListeModulesAsString() +"]";
+	}
 }

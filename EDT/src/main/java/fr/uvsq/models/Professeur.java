@@ -120,5 +120,9 @@ public class Professeur {
 	                   this.mListeModules.remove(i);
 	   }
 	}
+	    @Override
+		public String toString() {
+			return "Professeur [mId=" + mId + ", mNom=" + mNom + ", modulesId="+getListeModules() +"]";
+		}
 
 }

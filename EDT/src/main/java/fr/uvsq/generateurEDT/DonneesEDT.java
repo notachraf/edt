@@ -195,7 +195,6 @@ public class DonneesEDT {
    	    				int indiceProf = 0;
    	    				while(indiceProf < mListeProfesseurs.size() && !mListeProfesseurs.get(indiceProf).peutEnseigner(module)) {
    	    					++indiceProf;// = random.nextInt(mListeProfesseurs.size());
-   	    				}
 
 						Professeur prof = new Professeur();
 						if( indiceProf < mListeProfesseurs.size() )
@@ -208,8 +207,10 @@ public class DonneesEDT {
         		}
         	}
         	i++;
+			}
 		}
-	}
+    }
+
 
     /**
      * Créer les évenement de type TD.

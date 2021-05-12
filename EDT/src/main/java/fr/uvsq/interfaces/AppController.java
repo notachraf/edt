@@ -42,6 +42,7 @@ public class AppController {
     private static final List<String> sHORAIRE = Arrays.asList(new String []{"8H00", "9H00",
             "10H00", "11H00", "12H00", "13H00", "14H00", "15H00", "16H00", "17H00", "18H00"});
     private static final List<String> sDAYS = Arrays.asList(new String []{"MO", "TU", "WE", "TH", "FR"});
+
     @FXML
     CalendarView mEDTCalendarPane;
 
@@ -177,7 +178,6 @@ public class AppController {
      * Initialise le calendrier.
      */
     private void initCalendarView(){
-
     }
 
     /**
@@ -186,7 +186,6 @@ public class AppController {
      */
     @FXML
     private void initialize(){
-
         initSalleTableView();
         initModuleTableView();
         initProfTableView();
@@ -255,7 +254,13 @@ public class AppController {
                 return cellData.getValue().getNom();
             }
         });
-              mNbCMCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+        /*mDureeModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+            @Override
+            public Integer getValue() {
+                return cellData.getValue().getDuree();
+            }
+        });*/
+        mNbCMCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
                 return cellData.getValue().getNbCM();
@@ -349,8 +354,6 @@ public class AppController {
                 return cellData.getValue().getNbGroupes();
             }
         });
-        /*mDatePromoCln.setCellValueFactory(cellData -> () -> {
-            return cellData.getValue().getLocalDate();*/
         mModulesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<>() {
             @Override
             public String getValue() {
@@ -391,7 +394,6 @@ public class AppController {
     private void afficherDialogueAjouterModule(){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fr/uvsq/module.fxml"));
-
         try{
             AnchorPane modulePane = loader.load();
             ModuleController moduleController = loader.getController();
@@ -434,6 +436,11 @@ public class AppController {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * Affiche une fenêtre qui permet d'ajouter un prof
+     */
 
     /**
      * Affiche une fenêtre qui permet d'ajouter une promotion
@@ -856,6 +863,7 @@ public class AppController {
         csrc.getCalendars().addAll(mCalendarCM, mCalendarTP, mCalendarTD);
         mEDTCalendarPane.getCalendarSources().add(csrc);
         //mEDTCalendarPane.toFront();
+
     }
 
     /**

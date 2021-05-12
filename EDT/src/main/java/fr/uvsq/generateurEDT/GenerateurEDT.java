@@ -21,6 +21,7 @@ public class GenerateurEDT {
     public void setSolutionFinale(EDT solutionFinale) {
         mSolutionFinale = solutionFinale;
     }
+
     public EDT getSolutionFinale(){ return mSolutionFinale;}
 
     public DonneesEDT getDonneesEDT() {
@@ -71,7 +72,8 @@ public class GenerateurEDT {
        	 double prob = Math.random();
        	 
        	 if( (prob < Math.exp(-(delta/temp))) || (energie1>energie2) ) return (double)energie2;
-       	 else return (double)energie1;
+
+       	 return (double)energie1;
     }
 
     /**
@@ -93,7 +95,7 @@ public class GenerateurEDT {
 	       		mSolutionFinale = voisin;
 	       	}
 	       	temp = (1-ref)*temp;
-	   	}     
+	   	}
     }
 
     /**

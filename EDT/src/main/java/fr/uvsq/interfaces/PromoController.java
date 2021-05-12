@@ -139,7 +139,6 @@ public class PromoController {
             String nom = mNomTextField.getText();
             int nbEleve = Integer.parseInt(mNombreElevesTextField.getText());
             int nbGroupes = Integer.parseInt(mNombreGroupesTextField.getText());
-
             Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules, mDatePicker.getValue());
 
             int index = mApp.getListePromos().indexOf(mPromo);

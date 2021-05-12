@@ -7,6 +7,7 @@ public class EDTSalle {
     private static final int NB_JOURS = 5;
     private static final int NB_HORAIRES = 11;
 
+
     /*
        *********************************************************************
        *                             EDTSALLES                             *
