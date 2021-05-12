@@ -1,9 +1,5 @@
 package fr.uvsq.interfaces;
 
-import fr.uvsq.generateurEDT.DonneesEDT;
-import fr.uvsq.generateurEDT.EDT;
-import fr.uvsq.generateurEDT.Evenement;
-import fr.uvsq.generateurEDT.GenerateurEDT;
 import fr.uvsq.gestionDeDonnees.*;
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Professeur;
@@ -19,8 +15,7 @@ import javafx.stage.Stage;
 import org.apache.ibatis.jdbc.ScriptRunner;
 
 import java.io.*;
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * JavaFX App
@@ -37,6 +32,10 @@ public class App extends Application {
     private PromoDAO mPromoDAO = (PromoDAO) FactoryDAO.getPromotionDAO();
     private ProfesseurDAO mProfDAO = (ProfesseurDAO) FactoryDAO.getProfesseurDAO();
     private FactoryDAO mFactoryDAO;
+
+    public AppController getAppController() {
+        return mAppController;
+    }
 
     public ObservableList<Salle> getListeSalles() {
         return mListeSalles;
@@ -77,26 +76,21 @@ public class App extends Application {
         }
     }
     private void initListeSalles(){
-        for (Salle salle : mSalleDAO.recupererListe()) {
-            mListeSalles.add(salle);
-        }
+        mListeSalles.addAll(mSalleDAO.recupererListe());
+        mAppController.setNbSalles(String.valueOf(mListeSalles.size()));
+
     }
 
     private void initListePromotions(){
-        for( Promotion promotion : mPromoDAO.recupererListe() ){
-            mListePromos.add(promotion);
-        }
+        mListePromos.addAll(mPromoDAO.recupererListe());
     }
     private void initListeModules() {
-        for (Module module : mModuleDAO.recupererListe()) {
-            mListeModule.add(module);
-        }
+        System.out.println("ISize: " + mModuleDAO.recupererListe().size());
+        mListeModule.addAll(mModuleDAO.recupererListe());
     }
 
     private void initListeProfs() {
-        for (Professeur professeur : mProfDAO.recupererListe()) {
-            mListeProfs.add(professeur);
-        }
+        mListeProfs.addAll(mProfDAO.recupererListe());
     }
 
     private void initBaseDonnes() {

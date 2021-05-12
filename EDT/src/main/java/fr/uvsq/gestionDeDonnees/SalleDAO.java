@@ -111,8 +111,7 @@ public class SalleDAO extends DAO<Salle> {
          Connection connection = this.getConnection();
          Statement stmt = null; 
         try {
-            stmt = connection
-                                    .createStatement(
+            stmt = connection.createStatement(
                                                 ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                 ResultSet.CONCUR_UPDATABLE
                                              );

@@ -144,25 +144,29 @@ public class ProfesseurDAO extends DAO<Professeur> {
 	@Override
 	public boolean modifier(Professeur prof) {
 		
-		Connection connection = getConnection();
-		PreparedStatement ps = null;  
+		PreparedStatement ps = null;
 		
         try {
-            ps = connection.prepareStatement("UPDATE Professeur SET prof_nom=? WHERE prof_id = ? ");
+            ps =getConnection().prepareStatement("UPDATE Professeur SET prof_nom=?, prof_cours = ? WHERE prof_id = ? ");
+            String cours = "";
+            int i;
+            for( i = 0; i < prof.getListeModules().size() - 1; i++){
+				cours += prof.getListeModules().get(i).getNom() + ",";
+			}
+			cours += prof.getListeModules().get(i).getNom();
             ps.setString(1, prof.getNom());
-            ps.setInt(2, prof.getId());
-            int i = ps.executeUpdate();
+			ps.setString(2, cours);
+            ps.setInt(3, prof.getId());
+            int r = ps.executeUpdate();
 
-          if(i == 1) {
+          if(r == 1) {
         	  return true; 
           }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-			//ConnectionUtils.fermerConnection(ps, connection);
-		}
-        
+        }
+
         return false;
     
 	}

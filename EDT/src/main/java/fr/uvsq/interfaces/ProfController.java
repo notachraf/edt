@@ -1,8 +1,10 @@
 package fr.uvsq.interfaces;
 
+import fr.uvsq.gestionDeDonnees.FactoryDAO;
 import fr.uvsq.gestionDeDonnees.ProfesseurDAO;
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Professeur;
+import fr.uvsq.verification.Verification;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -100,10 +102,13 @@ public class ProfController {
      */
     private void ajouterProf() {
         //
-        boolean estValide = true;
+        boolean estValide = Verification.controleDonneesProfesseur(mNomTextField.getText(), "0");
 
         if( estValide ) {
 
+            if( mProfDao == null ){
+                mProfDao = (ProfesseurDAO) FactoryDAO.getProfesseurDAO();
+            }
             ArrayList<Module> modules = new ArrayList<>();
             for(String module : mPeutEnseignerComboBox.getCheckModel().getCheckedItems()) {
                 for(Module m : mListeModule) {
@@ -112,8 +117,10 @@ public class ProfController {
                     }
                 }
             }
-
-            mApp.getListeProfs().add(new Professeur(mNomTextField.getText(), modules));
+            Professeur nouveauProfesser = new Professeur(mNomTextField.getText(), modules);
+            if( mProfDao.inserer(nouveauProfesser) ) {
+                mApp.getListeProfs().add(nouveauProfesser);
+            }
             fermer();
         }
     }
@@ -123,9 +130,12 @@ public class ProfController {
      */
     private void modifierProf() {
         //
-        boolean estValide = true;
+        boolean estValide = Verification.controleDonneesProfesseur(mNomTextField.getText(), "0");
 
         if( estValide ) {
+            if( mProfDao == null ){
+                mProfDao = (ProfesseurDAO) FactoryDAO.getProfesseurDAO();
+            }
 
             ArrayList<Module> modules = new ArrayList<>();
             for(String module : mPeutEnseignerComboBox.getCheckModel().getCheckedItems()) {
@@ -136,12 +146,13 @@ public class ProfController {
                 }
             }
             Professeur nouveauProf = new Professeur(mNomTextField.getText(), modules);
-
-            int index = mApp.getListeProfs().indexOf(mProf);
-            mApp.getListeProfs().get(index).setNom(nouveauProf.getNom());
-            mApp.getListeProfs().get(index).setListeModules(nouveauProf.getListeModules());
-            mProfTableView.refresh();
-
+            nouveauProf.setId(mProf.getId());
+            if( mProfDao.modifier(nouveauProf) ) {
+                int index = mApp.getListeProfs().indexOf(mProf);
+                mApp.getListeProfs().get(index).setNom(nouveauProf.getNom());
+                mApp.getListeProfs().get(index).setListeModules(nouveauProf.getListeModules());
+                mProfTableView.refresh();
+            }
             fermer();
         }
 

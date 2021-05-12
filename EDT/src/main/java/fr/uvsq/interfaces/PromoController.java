@@ -4,6 +4,7 @@ import fr.uvsq.gestionDeDonnees.FactoryDAO;
 import fr.uvsq.gestionDeDonnees.PromoDAO;
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Promotion;
+import fr.uvsq.verification.Verification;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -96,9 +97,15 @@ public class PromoController {
      * Vérifie les données d'une promotion et ajoute cette promotion dans la liste des promotions
      */
     private void ajouterPromo() {
-        //
-        boolean estValide = true;
+        boolean estValide = Verification.controleDonneesPromotion(
+                mNomTextField.getText(),
+                mNombreElevesTextField.getText(),
+                mNombreGroupesTextField.getText()
+        );
         if(estValide) {
+            if( mPromoDAO == null ){
+                mPromoDAO = (PromoDAO) FactoryDAO.getPromotionDAO();
+            }
             ArrayList<Module> modules = new ArrayList<>();
             for(String module : mModulesPromoComboBox.getCheckModel().getCheckedItems()) {
                 for(Module m : mListeModule) {
@@ -114,9 +121,11 @@ public class PromoController {
 
             Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules, mDatePicker.getValue());
 
-            mApp.getListePromos().add(promo);
-            fermer();
+            if( mPromoDAO.inserer(promo) ){
+                mApp.getListePromos().add(promo);
+            }
 
+            fermer();
         }
     }
 
@@ -124,9 +133,15 @@ public class PromoController {
      * Modifie les données d'une promotion
      */
     private void modifierPromo() {
-        //
-        boolean estValide = true;
-        if(estValide) {
+        boolean estValide = Verification.controleDonneesPromotion(
+                mNomTextField.getText(),
+                mNombreElevesTextField.getText(),
+                mNombreGroupesTextField.getText()
+        );
+        if( estValide) {
+            if( mPromoDAO == null ){
+                mPromoDAO = (PromoDAO) FactoryDAO.getPromotionDAO();
+            }
             ArrayList<Module> modules = new ArrayList<>();
             for(String module : mModulesPromoComboBox.getCheckModel().getCheckedItems()) {
                 for(Module m : mListeModule) {
@@ -141,13 +156,16 @@ public class PromoController {
             int nbGroupes = Integer.parseInt(mNombreGroupesTextField.getText());
             Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules, mDatePicker.getValue());
 
-            int index = mApp.getListePromos().indexOf(mPromo);
-            mApp.getListePromos().get(index).setNom(promo.getNom());
-            mApp.getListePromos().get(index).setNbEleves(promo.getNbEleves());
-            mApp.getListePromos().get(index).setNbGroupes(promo.getNbGroupes());
-            mApp.getListePromos().get(index).setListeModules(promo.getListeModules());
-            mApp.getListePromos().get(index).setLocalDate(promo.getLocalDate());
-            mPromoTableView.refresh();
+            promo.setId(mPromo.getId());
+            if( mPromoDAO.modifier(promo) ) {
+                int index = mApp.getListePromos().indexOf(mPromo);
+                mApp.getListePromos().get(index).setNom(promo.getNom());
+                mApp.getListePromos().get(index).setNbEleves(promo.getNbEleves());
+                mApp.getListePromos().get(index).setNbGroupes(promo.getNbGroupes());
+                mApp.getListePromos().get(index).setListeModules(promo.getListeModules());
+                mApp.getListePromos().get(index).setLocalDate(promo.getLocalDate());
+                mPromoTableView.refresh();
+            }
 
             fermer();
         }

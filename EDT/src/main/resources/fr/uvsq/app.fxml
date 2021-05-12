@@ -124,12 +124,12 @@
                               </VBox>
                               <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #512da8;">
                                  <children>
-                                    <Label alignment="BASELINE_CENTER" prefHeight="121.0" prefWidth="319.0" text="Salles" textFill="#f2ecec">
+                                    <Label alignment="BASELINE_CENTER" prefHeight="121.0" prefWidth="319.0" text="Salles" textFill="#f2ecec" >
                                        <font>
                                           <Font size="36.0" />
                                        </font>
                                     </Label>
-                                    <Label alignment="TOP_CENTER" prefHeight="107.0" prefWidth="319.0" text="0" textFill="#fcf9f9">
+                                    <Label alignment="TOP_CENTER" prefHeight="107.0" prefWidth="319.0" text="0" textFill="#fcf9f9" fx:id="mNbSalles">
                                        <font>
                                           <Font size="24.0" />
                                        </font>

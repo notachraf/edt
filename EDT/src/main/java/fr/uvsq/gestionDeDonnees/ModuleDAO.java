@@ -91,10 +91,8 @@ public class ModuleDAO extends DAO<Module>{
     @Override
     public boolean supprimer(Module obj) {
     	
-    	Statement stmt = null; 
-    	Connection connection = null; 
+    	Statement stmt = null;
         try {
-        	connection = getConnection();
             stmt = getConnection()
             		.createStatement();
             int i = stmt.executeUpdate("DELETE FROM module WHERE mod_id=" + obj.getId());
@@ -115,10 +113,8 @@ public class ModuleDAO extends DAO<Module>{
         
     	Module module = new Module();
     	ResultSet result = null; 
-    	Connection connection= null; 
-    	Statement stmt = null; 
+    	Statement stmt = null;
        try {
-    	   connection = this.getConnection(); 
            stmt = this.getConnection()
                                    .createStatement(
                                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -147,18 +143,16 @@ public class ModuleDAO extends DAO<Module>{
 
     @Override
     public boolean modifier(Module module) {
-    	
-    	Connection connection= getConnection(); 
-    	PreparedStatement ps = null; 
+
         try {
-            ps = connection.prepareStatement("UPDATE module SET mod_nom=?, "
-            		+ " mod_nb_cm=?, "
-            		+ " mod_nb_td=?, "
-            		+ " mod_nb_tp=?, "
-            		+ " mod_duree_td=?, "
-            		+ " mod_duree_tp=?, "
-            		+ " mod_duree_cm=? "
-            		+ "WHERE mod_id=?");
+            PreparedStatement ps = getConnection().prepareStatement("UPDATE Module SET mod_nom = ?,"
+                    + " mod_nb_cm = ?,"
+                    + " mod_nb_td = ?,"
+                    + " mod_nb_tp = ?,"
+                    + " mod_duree_td = ?,"
+                    + " mod_duree_tp = ?,"
+                    + " mod_duree_cm = ? "
+                    + "WHERE mod_id = ?");
             
             ps.setString(1, module.getNom());
             ps.setInt(2, module.getNbCM());
@@ -168,17 +162,16 @@ public class ModuleDAO extends DAO<Module>{
             ps.setInt(6, module.getDureeTP());
             ps.setInt(7, module.getDureeCM());
             ps.setInt(8, module.getId());
-            
+            System.out.println("id module: " + module.getId());
             int i = ps.executeUpdate();
-
-          if(i == 1) {
-        	  	return true;
+          if(i == 0) {
+        	  	return false;
           }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -187,47 +180,48 @@ public class ModuleDAO extends DAO<Module>{
     	PreparedStatement stmt = null;
     	ResultSet result = null; 
        try {
-           	stmt = getConnection().prepareStatement("SELECT * FROM Module WHERE mod_nom=?",
-                                                        ResultSet.TYPE_SCROLL_INSENSITIVE,
-                                                        ResultSet.CONCUR_UPDATABLE);
-           	stmt.setString(1, nom);
-           	result = stmt.executeQuery();
-           if(result.first()) {
-               module.setId( result.getInt("mod_id"));
-          		module.setNom( result.getString("mod_nom"));
-          		module.setNbCM( result.getInt("mod_nb_cm"));
-          		module.setNbTD( result.getInt("mod_nb_td"));
-          		module.setNbTP( result.getInt("mod_nb_tp"));
-          		module.setDureeTD( result.getInt("mod_duree_td"));
-          		module.setDureeTP( result.getInt("mod_duree_tp"));
-          		module.setDureeCM( result.getInt("mod_duree_cm"));
-           	}
-           
-           } catch (SQLException e) {
-                   e.printStackTrace();
-           }
-          return module;
+        stmt = getConnection().prepareStatement("SELECT * FROM Module WHERE mod_nom=?",
+                                                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                    ResultSet.CONCUR_UPDATABLE);
+        stmt.setString(1, nom);
+        result = stmt.executeQuery();
+       if(result.first()) {
+           module.setId( result.getInt("mod_id"));
+            module.setNom( result.getString("mod_nom"));
+            module.setNbCM( result.getInt("mod_nb_cm"));
+            module.setNbTD( result.getInt("mod_nb_td"));
+            module.setNbTP( result.getInt("mod_nb_tp"));
+            module.setDureeTD( result.getInt("mod_duree_td"));
+            module.setDureeTP( result.getInt("mod_duree_tp"));
+            module.setDureeCM( result.getInt("mod_duree_cm"));
+        }
+
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+       return module;
     }
 
 	@Override
 	public ArrayList<Module> recupererListe() {
     	ArrayList<Module> modules = new ArrayList<Module>(); 
-     	Connection connection= getConnection(); 
     	Statement stmt = null;
     	ResultSet result = null; 
     	
        try {
-           stmt = connection.createStatement(
+           stmt = getConnection().createStatement(
                                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                                ResultSet.CONCUR_UPDATABLE
                                             );
            result = stmt.executeQuery("SELECT * FROM Module ");
-           
-           Module module =  new Module(); 
+
+           Module module = null;
+
            while(result.next())
            {
+               module = new Module();
         	    module.setId( result.getInt("mod_id"));
-          		module.setNom( result.getString("mod_nom"));
+               module.setNom( result.getString("mod_nom"));
           		module.setNbCM( result.getInt("mod_nb_cm"));
           		module.setNbTD( result.getInt("mod_nb_td"));
           		module.setNbTP( result.getInt("mod_nb_tp"));

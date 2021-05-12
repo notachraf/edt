@@ -39,12 +39,12 @@ public class PromoDAO extends DAO<Promotion>{
 		Connection connection =getConnection();
 		PreparedStatement ps =  null; 
         try {
-            ps = connection.prepareStatement("INSERT INTO Promotion(promo_nom, promo_nb_eleves, promo_nb_groupes ,promo_cours ,promo_date ) VALUES (?, ?, ?, ?, ?)", 
+            ps = getConnection().prepareStatement("INSERT INTO Promotion(promo_nom, promo_nb_eleves, promo_nb_groupes ,promo_cours ,promo_date ) VALUES (?, ?, ?, ?, ?)",
             		Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, promo.getNom());
             ps.setInt(2, promo.getNbEleves());
             ps.setInt(3, promo.getNbGroupes());
-            ps.setString(4,promo.getListeModulesAsString());
+            ps.setString(4, promo.getListeModulesAsString());
             ps.setObject(5, promo.getLocalDate());
             int i = ps.executeUpdate();
 	          if(i == 1) {
@@ -105,13 +105,12 @@ public class PromoDAO extends DAO<Promotion>{
 
 	@Override
 	public boolean supprimer(Promotion promo) {
-	
-		Connection connection = getConnection();		
-		Statement stmt = null;
+
+    	Statement stmt = null;
 		ResultSet rs = null; 
 		
 		try {
-			stmt = connection.createStatement();
+			stmt = getConnection().createStatement();
 			int i = stmt.executeUpdate("DELETE FROM Promotion WHERE promo_id=" + promo.getId());
 
 			if (i == 1) {
@@ -130,12 +129,11 @@ public class PromoDAO extends DAO<Promotion>{
 	@Override
 	public Promotion rechercher(int id) {
 		Promotion promotion = new Promotion();
-		Connection connection = getConnection();
 		Statement stmt = null;
 		ResultSet rs = null; 
 
 		try {
-			stmt = connection
+			stmt = getConnection()
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE); 
 			rs = stmt.executeQuery("SELECT * FROM promotion WHERE promo_id = " + id);
 
@@ -171,15 +169,18 @@ public class PromoDAO extends DAO<Promotion>{
 
 	@Override
 	public boolean modifier(Promotion promo) {
-		Connection connection = getConnection();
-		PreparedStatement ps = null;  
+		PreparedStatement ps = null;
 		
         try {
-            ps = connection.prepareStatement("UPDATE Promotion SET promo_nom=?, promo_nb_eleves= ? , promo_nb_groupes=? WHERE promo_id = ?");
+            ps = getConnection().prepareStatement("UPDATE Promotion SET promo_nom=?, promo_nb_eleves=? , " +
+					"promo_nb_groupes=?, promo_cours=?, promo_date = ? WHERE promo_id = ?");
+
             ps.setString(1, promo.getNom());
             ps.setInt(2, promo.getNbEleves());
             ps.setInt(3, promo.getNbGroupes());
-            ps.setInt(4, promo.getId());
+			ps.setString(4, promo.getListeModulesAsString());
+			ps.setObject(5, promo.getLocalDate());
+			ps.setInt(6, promo.getId());
             int i = ps.executeUpdate();
 
           if(i == 1) {
@@ -188,22 +189,18 @@ public class PromoDAO extends DAO<Promotion>{
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-		//	ConnectionUtils.fermerConnection(ps, connection);
-		}
-        
+        }
         return false;
 	}
 
 	@Override
 	public Promotion rechercher(String nom) {
 		Promotion promotion =  new Promotion();
-		Connection connection = getConnection();
 		ResultSet rs = null;
 		Statement stmt = null; 
 		
 		try {
-			stmt =  connection
+			stmt =  getConnection()
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE); 
 			
 			rs = stmt.executeQuery("SELECT * FROM promotion WHERE promo_nom = " + nom);
@@ -242,12 +239,11 @@ public class PromoDAO extends DAO<Promotion>{
 	@Override
 	public ArrayList<Promotion> recupererListe() {
         ArrayList<Promotion> promotions = new ArrayList<>();
-        Connection connection= getConnection();
         Statement stmt = null;
         ResultSet result = null;
 
         try {
-            stmt = connection.createStatement(
+            stmt = getConnection().createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE
             );

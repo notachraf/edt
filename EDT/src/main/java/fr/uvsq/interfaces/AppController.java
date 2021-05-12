@@ -6,6 +6,7 @@ import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
 import fr.uvsq.generateurEDT.*;
+import fr.uvsq.gestionDeDonnees.*;
 import fr.uvsq.models.*;
 import fr.uvsq.models.Module;
 import javafx.beans.value.ObservableValue;
@@ -26,6 +27,7 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,12 +49,6 @@ public class AppController {
     CalendarView mEDTCalendarPane;
 
     @FXML
-    private TextField mNbCréneauxMax,
-                      mNbProfMax,
-                      mNbPromoMax,
-                      mNbSallesMax;
-
-    @FXML
     private Button mDashboardBtn,
             mSallesBtn,
             mModuleBtn,
@@ -61,13 +57,15 @@ public class AppController {
             mLatexBtn;
 
     @FXML
+    private Label mNbSalles;
+
+    @FXML
     private Pane mDashboardPane,
             mSallesPane,
             mProfPane,
             mModulePane,
             mLatexPane,
-            mPromoPane,
-            mContraintesPane;
+            mPromoPane;
 
     //=================== Salle TableView ======================
     @FXML
@@ -597,9 +595,11 @@ public class AppController {
                         removeBtn.setOnAction((ActionEvent event) -> {
                             Salle salle = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + salle.getNom());
-
-//                            mApp.supprimerSalle(salle);
-                            mApp.getListeSalles().remove(salle);
+                            SalleDAO salleDAO = (SalleDAO) FactoryDAO.getSalleDAO();
+                            if( salleDAO.supprimer(salle) ) {
+                                mApp.getListeSalles().remove(salle);
+                                mNbSalles.setText(String.valueOf(mApp.getListeSalles().size()));
+                            }
 
 
                         });
@@ -650,10 +650,10 @@ public class AppController {
                         removeBtn.setOnAction((ActionEvent event) -> {
                             Module module = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + module.getNom());
-
-//                            mApp.supprimerModule(module);
-                            mApp.getListModule().remove(module);
-
+                            ModuleDAO moduleDAO = (ModuleDAO) FactoryDAO.getModuleDAO();
+                            if( moduleDAO.supprimer(module) ) {
+                                mApp.getListModule().remove(module);
+                            }
                         });
                     }
 
@@ -702,8 +702,10 @@ public class AppController {
                         removeBtn.setOnAction((ActionEvent event) -> {
                             Professeur prof = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + prof.getNom());
-
-                            mApp.getListeProfs().remove(prof);
+                            ProfesseurDAO professeurDAO = (ProfesseurDAO) FactoryDAO.getProfesseurDAO();
+                            if( professeurDAO.supprimer(prof) ) {
+                                mApp.getListeProfs().remove(prof);
+                            }
                         });
                     }
 
@@ -753,8 +755,10 @@ public class AppController {
                         removeBtn.setOnAction((ActionEvent event) -> {
                             Promotion promo = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + promo.getNom());
-
-                            mApp.getListePromos().remove(promo);
+                            PromoDAO promoDAO = (PromoDAO) FactoryDAO.getPromotionDAO();
+                            if( promoDAO.supprimer(promo) ){
+                                mApp.getListePromos().remove(promo);
+                            }
                         });
                     }
 
@@ -804,13 +808,14 @@ public class AppController {
 
         mEDTCalendarPane.showMonthPage();
         mEDTCalendarPane.setShowAddCalendarButton(false);
+        mEDTCalendarPane.setWeekFields(WeekFields.ISO);
         mEDTCalendarPane.setShowPrintButton(false);
         mEDTCalendarPane.setShowDeveloperConsole(false);
         mCalendarCM = new Calendar();
         mCalendarTD = new Calendar();
         mCalendarTP = new Calendar();
         mCalendarCM.setStyle(Calendar.Style.STYLE1);
-        mCalendarTP.setStyle(Calendar.Style.STYLE3);
+        mCalendarTP.setStyle(Calendar.Style.STYLE4);
         mCalendarTD.setStyle(Calendar.Style.STYLE6);
 
         mGenerateurEDT= new GenerateurEDT(0.0, 0.0, null, null, new DonneesEDT());
@@ -881,4 +886,7 @@ public class AppController {
         mPromotionTableView.setItems(mApp.getListePromos());
     }
 
+    public void setNbSalles(String label) {
+        mNbSalles.setText(label);
+    }
 }

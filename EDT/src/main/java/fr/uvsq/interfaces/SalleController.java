@@ -1,5 +1,6 @@
 package fr.uvsq.interfaces;
 
+import fr.uvsq.gestionDeDonnees.FactoryDAO;
 import fr.uvsq.gestionDeDonnees.SalleDAO;
 import fr.uvsq.models.Salle;
 import fr.uvsq.models.TypeSalle;
@@ -98,10 +99,14 @@ public class SalleController {
         boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
 
         if( estValide ) {
-            System.out.println(" ========= Les Données sont valides ============");
-            System.out.println("======== Ajouter nouvelle salle");
-
-            mApp.getListeSalles().add(new Salle(mNomTextField.getText(), Integer.parseInt(mCapaciteTextField.getText()), TypeSalle.getType(mTypeComboBox.getValue())));
+            if( mSalleDAO == null ){
+                mSalleDAO = (SalleDAO) FactoryDAO.getSalleDAO();
+            }
+            Salle salle = new Salle(mNomTextField.getText(), Integer.parseInt(mCapaciteTextField.getText()), TypeSalle.getType(mTypeComboBox.getValue()));
+            if( mSalleDAO.inserer(salle)) {
+                mApp.getListeSalles().add(salle);
+                mApp.getAppController().setNbSalles(String.valueOf(mApp.getListeSalles().size()));
+            }
             fermer();
         }
     }
@@ -113,17 +118,20 @@ public class SalleController {
         Boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
 
         if( estValide ) {
-            System.out.println(" ========= Les Données sont valides ============");
-            System.out.println("========= Modifier la salle ");
+            if( mSalleDAO == null ){
+                mSalleDAO = (SalleDAO) FactoryDAO.getSalleDAO();
+            }
             if(mSalle != null) {
                 Salle nouvelleSalle = new Salle(mNomTextField.getText(), Integer.parseInt(mCapaciteTextField.getText()), TypeSalle.getType(mTypeComboBox.getValue()));
-//                mApp.modifierSalle(mSalle, nouvelleSalle, mSalleTableView);
 
-                int index = mApp.getListeSalles().indexOf(mSalle);
-                mApp.getListeSalles().get(index).setNom(nouvelleSalle.getNom());
-                mApp.getListeSalles().get(index).setCapacite(nouvelleSalle.getCapacite());
-                mApp.getListeSalles().get(index).setTypeSalle(nouvelleSalle.getTypeSalle());
-                mSalleTableView.refresh();
+                nouvelleSalle.setId(mSalle.getId());
+                if( mSalleDAO.modifier(nouvelleSalle) ) {
+                    int index = mApp.getListeSalles().indexOf(mSalle);
+                    mApp.getListeSalles().get(index).setNom(nouvelleSalle.getNom());
+                    mApp.getListeSalles().get(index).setCapacite(nouvelleSalle.getCapacite());
+                    mApp.getListeSalles().get(index).setTypeSalle(nouvelleSalle.getTypeSalle());
+                    mSalleTableView.refresh();
+                }
             }
             fermer();
         }
