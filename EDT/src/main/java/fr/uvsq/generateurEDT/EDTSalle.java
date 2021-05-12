@@ -5,7 +5,7 @@ public class EDTSalle {
     private Salle mSalle;
     private int[][] mEdt;
     private static final int NB_JOURS = 5;
-    private static final int NB_HORAIRES = 12;
+    private static final int NB_HORAIRES = 11;
 
     /*
        *********************************************************************

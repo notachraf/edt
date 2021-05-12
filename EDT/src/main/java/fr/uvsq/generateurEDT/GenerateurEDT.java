@@ -21,7 +21,7 @@ public class GenerateurEDT {
     public void setSolutionFinale(EDT solutionFinale) {
         mSolutionFinale = solutionFinale;
     }
-    public EDT getSolutionFinale(){ return null;}
+    public EDT getSolutionFinale(){ return mSolutionFinale;}
 
     public DonneesEDT getDonneesEDT() {
         return mDonneesEDT;

@@ -5,8 +5,7 @@ import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
-import fr.uvsq.generateurEDT.Evenement;
-import fr.uvsq.generateurEDT.GenerateurEDT;
+import fr.uvsq.generateurEDT.*;
 import fr.uvsq.models.*;
 import fr.uvsq.models.Module;
 import javafx.beans.value.ObservableValue;
@@ -28,6 +27,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +39,9 @@ public class AppController {
     private Calendar mCalendarCM;
     private Calendar mCalendarTD;
     private Calendar mCalendarTP;
-
+    private static final List<String> sHORAIRE = Arrays.asList(new String []{"8H00", "9H00",
+            "10H00", "11H00", "12H00", "13H00", "14H00", "15H00", "16H00", "17H00", "18H00"});
+    private static final List<String> sDAYS = Arrays.asList(new String []{"MO", "TU", "WE", "TH", "FR"});
     @FXML
     CalendarView mEDTCalendarPane;
 
@@ -175,55 +177,7 @@ public class AppController {
      * Initialise le calendrier.
      */
     private void initCalendarView(){
-        List<Entry<String>> mRV = new ArrayList<Entry<String>>();
-        mRV.add(new Entry<>("9H00 IN505 CM"));
-        mRV.add(new Entry<>("9H00 IN506 CM"));
-        mRV.add(new Entry<>("9H00 IN507 CM"));
-        mRV.add(new Entry<>("9H00 IN508 CM"));
-        mRV.add(new Entry<>("9H00 IN509 CM"));
-        mRV.add(new Entry<>("9H00 IN509 CM"));
-        mRV.add(new Entry<>("9H00 IN509 CM"));
-        mRV.add(new Entry<>("9H00 IN509 CM"));
-        mRV.add(new Entry<>("9H00 IN509 CM"));
 
-        mEDTCalendarPane.showMonthPage();
-        mEDTCalendarPane.setShowAddCalendarButton(false);
-        mEDTCalendarPane.setShowPrintButton(false);
-        mEDTCalendarPane.setShowDeveloperConsole(false);
-        mCalendarCM = new Calendar();
-        mCalendarTD = new Calendar();
-        mCalendarTP = new Calendar();
-        mCalendarCM.setStyle(Calendar.Style.STYLE1);
-        mCalendarTP.setStyle(Calendar.Style.STYLE3);
-        mCalendarTD.setStyle(Calendar.Style.STYLE6);
-
-        int i = 0;
-        for (Entry<String> entry :
-                mRV) {
-            entry.setUserObject("");
-            entry.setInterval(new Interval(LocalDate.now(), LocalTime.now(), LocalDate.now(),  LocalTime.of( LocalTime.now().getHour() + 3, 0)));
-            entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;BYDAY=MO;COUNT=12");
-            if (i % 2 == 0 && i % 3 == 0 ) {
-                mCalendarCM.setStyle(Calendar.Style.STYLE3);
-                mCalendarCM.addEntry(entry);
-            }
-            else if ( i % 3 == 0 && i % 2 != 0) {
-                mCalendarTD.setStyle(Calendar.Style.STYLE5);
-                mCalendarTD.addEntry(entry);
-
-            }
-            else {
-                mCalendarTP.setStyle(Calendar.Style.STYLE1);
-                mCalendarTP.addEntry(entry);
-
-            }
-
-            i++;
-        }
-        CalendarSource csrc = new CalendarSource();
-        csrc.getCalendars().addAll(mCalendarCM, mCalendarTP, mCalendarTD);
-        mEDTCalendarPane.getCalendarSources().add(csrc);
-        mEDTCalendarPane.toFront();
     }
 
     /**
@@ -232,8 +186,6 @@ public class AppController {
      */
     @FXML
     private void initialize(){
-
-        //initCalendarView();
 
         initSalleTableView();
         initModuleTableView();
@@ -843,6 +795,67 @@ public class AppController {
      */
     public void afficheEDT(){
 
+        mEDTCalendarPane.showMonthPage();
+        mEDTCalendarPane.setShowAddCalendarButton(false);
+        mEDTCalendarPane.setShowPrintButton(false);
+        mEDTCalendarPane.setShowDeveloperConsole(false);
+        mCalendarCM = new Calendar();
+        mCalendarTD = new Calendar();
+        mCalendarTP = new Calendar();
+        mCalendarCM.setStyle(Calendar.Style.STYLE1);
+        mCalendarTP.setStyle(Calendar.Style.STYLE3);
+        mCalendarTD.setStyle(Calendar.Style.STYLE6);
+
+        mGenerateurEDT= new GenerateurEDT(0.0, 0.0, null, null, new DonneesEDT());
+        mGenerateurEDT.solutionInitiale();
+        Map<Integer, List<Evenement>> map = mGenerateurEDT.getEvenementsParJour();
+
+        for( Map.Entry<Integer, List<Evenement>> even : map.entrySet()){
+
+            for (Evenement e : even.getValue()) {
+                String nomGroupe = (e.getTypeEven() == TypeEven.CM) ? "" : e.getGroupe().getNom();
+                int heure = e.getCreneau().getHoraire() + 8;
+                String nomSalle = mGenerateurEDT.getSolutionFinale().getListeEDTSalles().get(e.getCreneau()
+                                                .getIdsalle() - 1).getSalle().getNom();
+                String title = TypeEven.getTypeEvenString(e.getTypeEven()) + " "
+                        + " " +  e.getModule().getNom() + " "
+                        + " " +  nomGroupe + " "
+                        + " " + e.getGroupe().getPromotion().getNom() + " "
+                        + " Salle " + nomSalle;
+                Entry entry = new Entry();
+
+                entry.setInterval(e.getGroupe().getPromotion().getLocalDate());
+                if( e.getTypeEven() == TypeEven.CM){
+                    entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;BYDAY="+sDAYS.get(e.getCreneau().getJour())
+                                            +";COUNT="+ e.getModule().getNbCM());
+                    int dureeHeure = e.getModule().getDureeCM() / 60;
+                    int minute = e.getModule().getDureeCM() % 60;
+                    entry.setInterval(LocalTime.of(heure, 0), LocalTime.of(heure + dureeHeure, minute));
+                    entry.setTitle(title);
+                    mCalendarCM.addEntry(entry);
+                } else if ( e.getTypeEven() == TypeEven.TD){
+                    entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;BYDAY="+sDAYS.get(e.getCreneau().getJour())
+                            +";COUNT="+ e.getModule().getNbTD());
+                    int dureeHeure = e.getModule().getDureeTD() / 60;
+                    int minute = e.getModule().getDureeTD() % 60;
+                    entry.setInterval(LocalTime.of(heure, 0), LocalTime.of(heure + dureeHeure, minute));
+                    entry.setTitle(title);
+                    mCalendarTD.addEntry(entry);
+                } else {
+                    entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;BYDAY="+sDAYS.get(e.getCreneau().getJour())
+                            +";COUNT="+ e.getModule().getNbTP());
+                    int dureeHeure = e.getModule().getDureeTP() / 60;
+                    int minute = e.getModule().getDureeTP() % 60;
+                    entry.setInterval(LocalTime.of(heure, 0), LocalTime.of(heure + dureeHeure, minute));
+                    entry.setTitle(title);
+                    mCalendarTP.addEntry(entry);
+                }
+            }
+        }
+        CalendarSource csrc = new CalendarSource();
+        csrc.getCalendars().addAll(mCalendarCM, mCalendarTP, mCalendarTD);
+        mEDTCalendarPane.getCalendarSources().add(csrc);
+        //mEDTCalendarPane.toFront();
     }
 
     /**

@@ -51,10 +51,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         mAppStage = stage;
-        initBaseDonnes();
-        testSolutionInit();
-        System.out.println("AFFter testSolution");
         initialiseApp();
+        initBaseDonnes();
+        mAppController.afficheEDT();
         initListeSalles();
         initListeModules();
         initListeProfs();
@@ -111,21 +110,6 @@ public class App extends Application {
         }
     }
     private void testSolutionInit(){
-        GenerateurEDT gen = new GenerateurEDT(0.0, 0.0, null, null, new DonneesEDT());
-        EDT edt = gen.solutionInitiale();
-        Map<Integer, List<Evenement>> map = gen.getEvenementsParJour();
-        int nbEvent = 0;
-        for( Map.Entry<Integer, List<Evenement>> entry : map.entrySet()){
-            System.out.println("Jour: " + entry.getKey());
-            nbEvent += entry.getValue().size();
-            for (Evenement e : entry.getValue()) {
-                System.out.print(" " + e.getTypeEven());
-            }
-            System.out.println("");
-        }
-
-        System.out.println("NB even bis "  + nbEvent);
-
     }
     public static void main(String[] args) {
         launch();
