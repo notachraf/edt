@@ -1,13 +1,8 @@
 package fr.uvsq.gestionDeDonnees;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
-
-import fr.uvsq.gestionDeDonnees.exceptions.*;
 
 public class BDConnection {
     private static Connection sConnection;
@@ -36,5 +31,5 @@ public class BDConnection {
     		}
         return sConnection;
     }
+}  
  
-}

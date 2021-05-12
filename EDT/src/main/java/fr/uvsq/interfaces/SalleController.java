@@ -1,20 +1,16 @@
 package fr.uvsq.interfaces;
 
-import fr.uvsq.generateurEDT.TypeEven;
-import fr.uvsq.gestionDeDonnees.DAO;
-import fr.uvsq.gestionDeDonnees.FactoryDAO;
+import fr.uvsq.gestionDeDonnees.SalleDAO;
 import fr.uvsq.models.Salle;
+import fr.uvsq.models.TypeSalle;
 import fr.uvsq.verification.Verification;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 /**
  * Gérer l'inter-action avec la fenêtre de dialogue salle.
  */
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class SalleController {
@@ -22,7 +18,7 @@ public class SalleController {
     /**
      * Argument qui permet la connexion avec la base de données
      */
-	DAO<Salle> msSalleDao;
+    private SalleDAO mSalleDAO;
     private App mApp;
     private Stage mSalleStage;
     private Salle mSalle;
@@ -46,7 +42,9 @@ public class SalleController {
      */
     @FXML
     private void initialize() {
-        mTypeComboBox.getItems().addAll(TypeEven.names());
+        mTypeComboBox.getItems().add("TD");
+        mTypeComboBox.getItems().add("TP");
+        mTypeComboBox.getItems().add("CM");
     }
 
     /**
@@ -96,20 +94,14 @@ public class SalleController {
     /**
      * Vérifie les données d'une salle et ajoute cette salle dans la liste des salles.
      */
-    @SuppressWarnings("unchecked")
-	private void ajouterSalle() {
+    private void ajouterSalle() {
         boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
 
         if( estValide ) {
             System.out.println(" ========= Les Données sont valides ============");
             System.out.println("======== Ajouter nouvelle salle");
-            Salle nouvelleSalle = new Salle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
-            msSalleDao = FactoryDAO.getSalleDAO();
-            boolean ok  = msSalleDao.inserer(nouvelleSalle);
-            if (ok) {
-            	mApp.getListeSalles().add(nouvelleSalle);	
-            }
-            
+
+            mApp.getListeSalles().add(new Salle(mNomTextField.getText(), Integer.parseInt(mCapaciteTextField.getText()), TypeSalle.getType(mTypeComboBox.getValue())));
             fermer();
         }
     }
@@ -117,29 +109,22 @@ public class SalleController {
     /**
      * Modifie les données d'une salle
      */
-    @SuppressWarnings("unchecked")
-	private void modifierSalle() {
+    private void modifierSalle() {
         Boolean estValide = Verification.controleDonneesSalle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
 
         if( estValide ) {
             System.out.println(" ========= Les Données sont valides ============");
             System.out.println("========= Modifier la salle ");
             if(mSalle != null) {
-                Salle nouvelleSalle = new Salle(mNomTextField.getText(), mCapaciteTextField.getText(), mTypeComboBox.getValue());
-                nouvelleSalle.setId(mSalle.getId());
-                msSalleDao = FactoryDAO.getSalleDAO();
-                msSalleDao.modifier(nouvelleSalle);
-                
-//              mApp.modifierSalle(mSalle, nouvelleSalle, mSalleTableView);
+                Salle nouvelleSalle = new Salle(mNomTextField.getText(), Integer.parseInt(mCapaciteTextField.getText()), TypeSalle.getType(mTypeComboBox.getValue()));
+//                mApp.modifierSalle(mSalle, nouvelleSalle, mSalleTableView);
 
                 int index = mApp.getListeSalles().indexOf(mSalle);
-                
                 mApp.getListeSalles().get(index).setNom(nouvelleSalle.getNom());
                 mApp.getListeSalles().get(index).setCapacite(nouvelleSalle.getCapacite());
                 mApp.getListeSalles().get(index).setTypeSalle(nouvelleSalle.getTypeSalle());
                 mSalleTableView.refresh();
             }
-            
             fermer();
         }
     }

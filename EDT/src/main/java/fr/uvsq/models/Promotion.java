@@ -1,35 +1,34 @@
 package fr.uvsq.models;
 
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-/**
- * Cette classe représente l'entité groupe.
- * @Author Siham, Feriel, Aziz
- */
-
 public class Promotion {
-
-
-	private int mId;
     private String mNom;
+    private int mId;
     private int mNbEleves;
     private int mNbGroupes;
     private ArrayList<Module> mListeModules;
 
-    public Promotion(String nom, int nbEleves, int nbGroupes, ArrayList<Module> listeModules) {
+    private LocalDate mLocalDate;
+
+    public Promotion(String nom, int nbEleves, int nbGroupes, ArrayList<Module> listeModules, LocalDate date) {
         mNom = nom;
         mNbEleves = nbEleves;
         mNbGroupes = nbGroupes;
         mListeModules = listeModules;
+        mLocalDate = date;
     }
 
     public Promotion(){
         mId = -1;
-        mNom = null;
+        mNom = "";
         mNbEleves = 0;
         mNbGroupes = 0;
         mListeModules = null;
     }
+
 
     public String getNom() {
         return mNom;
@@ -79,40 +78,36 @@ public class Promotion {
         return String.join(", ", modules);
     }
     
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Promotion other = (Promotion) obj;
-		if (mId != other.mId)
-			return false;
-		if (mNom == null) {
-			if (other.mNom != null)
-				return false;
-		} else if (!mNom.equals(other.mNom))
-			return false;
-		return true;
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + mId;
-		result = prime * result + ((mNom == null) ? 0 : mNom.hashCode());
-		return result;
-	}
-	@Override
-	public String toString() {
-		return "Promotion [mId=" + mId + ", mNom=" + mNom + ",mNbEleves=" + mNbEleves + ", mNbGroupes=" + mNbGroupes + ", modulesId="+getModuleIds() +"]";
-	}
+    public void ajouteModule ( Module module ) {
+        Module m = new Module(module.getNom(), module.getNbCM(), module.getNbTD(), module.getNbTP(), module.getDureeCM(), module.getDureeTD(), module.getDureeTP());
+        mListeModules.add(m);    	
+    }
+    public boolean peutSuivre ( Module module ) {
+        return mListeModules.contains(module);
 
-	private String getModuleIds() {
-		// TODO Auto-generated method stub
-		return null;
+    }
+    private int getRepetModule ( Module module ) {
+        int repet=0;
+        for(int i = 0; i < this.mListeModules.size(); i++){
+        if(module == mListeModules.get(i)) repet++;          }
+         return repet;    	
+    }
+    public void removeDoublons () {
+    	for (int i = 0; i < this.mListeModules.size(); i++) { 
+    		if (getRepetModule( this.mListeModules.get(i))>1) 
+    			this.mListeModules.remove(i);
+    	}
+    }
+
+    public LocalDate getLocalDate() {
+        return mLocalDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        mLocalDate = localDate;
+    }
+    @Override
+	public String toString() {
+		return "Promotion [mId=" + mId + ", mNom=" + mNom + ", mNbEleves="+mNbEleves +", mNbGroupes=" + mNbGroupes + ", promo_cours= " +getListeModulesAsString() +"]";
 	}
 }

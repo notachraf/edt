@@ -1,18 +1,14 @@
 package fr.uvsq.interfaces;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import fr.uvsq.gestionDeDonnees.DAO;
-import fr.uvsq.gestionDeDonnees.FactoryDAO;
-import fr.uvsq.gestionDeDonnees.ModuleDAO;
-import fr.uvsq.gestionDeDonnees.ProfesseurDAO;
-import fr.uvsq.gestionDeDonnees.SalleDAO;
+import fr.uvsq.generateurEDT.DonneesEDT;
+import fr.uvsq.generateurEDT.EDT;
+import fr.uvsq.generateurEDT.Evenement;
+import fr.uvsq.generateurEDT.GenerateurEDT;
+import fr.uvsq.gestionDeDonnees.*;
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Professeur;
 import fr.uvsq.models.Promotion;
 import fr.uvsq.models.Salle;
-import fr.uvsq.models.TypeSalle;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +16,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.apache.ibatis.jdbc.ScriptRunner;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * JavaFX App
@@ -31,9 +33,10 @@ public class App extends Application {
     private ObservableList<Module> mListeModule = FXCollections.observableArrayList();
     private ObservableList<Professeur> mListeProfs = FXCollections.observableArrayList();
     private ObservableList<Promotion> mListePromos = FXCollections.observableArrayList();
-    private SalleDAO mSalleDAO;
-    private ModuleDAO mModuleDAO;
-    private ProfesseurDAO mProfDAO;
+    private SalleDAO mSalleDAO = (SalleDAO) FactoryDAO.getSalleDAO();
+    private ModuleDAO mModuleDAO = (ModuleDAO) FactoryDAO.getModuleDAO();
+    private PromoDAO mPromoDAO = (PromoDAO) FactoryDAO.getPromotionDAO();
+    private ProfesseurDAO mProfDAO = (ProfesseurDAO) FactoryDAO.getProfesseurDAO();
     private FactoryDAO mFactoryDAO;
 
     public ObservableList<Salle> getListeSalles() {
@@ -49,12 +52,13 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         mAppStage = stage;
+        initBaseDonnes();
+        testSolutionInit();
         initialiseApp();
         initListeSalles();
         initListeModules();
         initListeProfs();
         initListePromotions();
-//        initListeGroupes();
     }
 
     private void initialiseApp(){
@@ -73,34 +77,56 @@ public class App extends Application {
             e.printStackTrace();
         }
     }
-    
-    private void initListePromotions() {
-    	mListePromos.addAll(FactoryDAO.getPromotionDAO()
-    			.recupererListe());
-	}
-    
     private void initListeSalles(){
-    	DAO salleDao = FactoryDAO.getSalleDAO();
-    	ArrayList<Salle> salles = salleDao.recupererListe();
-    	mListeSalles.addAll(salles);
+        for (Salle salle : mSalleDAO.recupererListe()) {
+            mListeSalles.add(salle);
+        }
+    }
+
+    private void initListePromotions(){
+        for( Promotion promotion : mPromoDAO.recupererListe() ){
+            mListePromos.add(promotion);
+        }
     }
     private void initListeModules() {
-    	DAO moduleDao = FactoryDAO.getModuleDAO();
-    	ArrayList<Module> modules = moduleDao.recupererListe();
-    	mListeModule.addAll(modules);
+        for (Module module : mModuleDAO.recupererListe()) {
+            mListeModule.add(module);
+        }
     }
 
     private void initListeProfs() {
-
-    	DAO<Professeur> proDao = FactoryDAO.getProfesseurDAO();
-    	mListeProfs.addAll(proDao.recupererListe());
-    	
-    	DAO moduleDao = FactoryDAO.getModuleDAO();
-        ArrayList<Module> modules = new ArrayList<>();
-        modules.addAll(moduleDao.recupererListe());
-        
+        for (Professeur professeur : mProfDAO.recupererListe()) {
+            mListeProfs.add(professeur);
+        }
     }
-    
+
+    private void initBaseDonnes() {
+        ScriptRunner runner = new ScriptRunner(BDConnection.getConnection());
+        try {
+
+            Reader reader = new BufferedReader(new FileReader("src/main/resources/sql/scriptCreation.sql"));
+            runner.runScript(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void testSolutionInit(){
+        GenerateurEDT gen = new GenerateurEDT(0.0, 0.0, null, null, new DonneesEDT());
+        EDT edt = gen.solutionInitiale();
+        Map<Integer, List<Evenement>> map = gen.getEvenementsParJour();
+        int nbEvent = 0;
+        for( Map.Entry<Integer, List<Evenement>> entry : map.entrySet()){
+            System.out.println("Jour: " + entry.getKey());
+            nbEvent += entry.getValue().size();
+            for (Evenement e : entry.getValue()) {
+                System.out.print(" " + e.getTypeEven());
+            }
+            System.out.println("");
+        }
+
+        System.out.println("NB even bis "  + nbEvent);
+
+    }
     public static void main(String[] args) {
         launch();
     }

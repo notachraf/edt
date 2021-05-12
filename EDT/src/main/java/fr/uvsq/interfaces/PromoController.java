@@ -1,12 +1,8 @@
 package fr.uvsq.interfaces;
 
-import java.util.ArrayList;
-
-import org.controlsfx.control.CheckComboBox;
-
-import fr.uvsq.gestionDeDonnees.DAO;
+//import fr.uvsq.gestionDeDonnees.PromoDAO;
 import fr.uvsq.gestionDeDonnees.FactoryDAO;
-import fr.uvsq.gestionDeDonnees.PromotionDAO;
+import fr.uvsq.gestionDeDonnees.PromoDAO;
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Promotion;
 import javafx.collections.FXCollections;
@@ -18,13 +14,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.controlsfx.control.CheckComboBox;
+
+import java.util.ArrayList;
 
 public class PromoController {
 
     /**
      * Argument qui permet la connexion avec la base de données
      */
-    private PromotionDAO mPromoDAO;
+    private PromoDAO mPromoDAO;
     private App mApp;
     private Stage mPromoStage;
     private ObservableList<Module> mListeModule;
@@ -50,7 +49,7 @@ public class PromoController {
      * Initialise la fenêtre de dialogue promotion
      */
     private void initialize() {
-    	FactoryDAO.getPromotionDAO().recupererListe();
+
     }
 
     /**
@@ -104,9 +103,7 @@ public class PromoController {
             for(String module : mModulesPromoComboBox.getCheckModel().getCheckedItems()) {
                 for(Module m : mListeModule) {
                     if(module.equals(m.getNom())) {
-                    	Module mod = new Module(m.getNom(),  m.getNbTD(), m.getNbCM(), m.getNbTP(), m.getDureeCM(), m.getDureeTP(), m.getDureeTD());
-                    	mod.setId(m.getId());
-                        modules.add(mod);
+                        modules.add(new Module(m.getNom(), m.getNbTD(), m.getNbCM(), m.getNbTP(), m.getDureeCM(), m.getDureeTP(), m.getDureeTD()));
                     }
                 }
             }
@@ -115,12 +112,11 @@ public class PromoController {
             int nbEleve = Integer.parseInt(mNombreElevesTextField.getText());
             int nbGroupes = Integer.parseInt(mNombreGroupesTextField.getText());
 
-            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules);            
-            DAO<Promotion> promoDAO  = FactoryDAO.getPromotionDAO();
-            if (promoDAO.inserer(promo)) {
-            	mApp.getListePromos().add(promo);
-            	fermer();
-            }
+            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules);
+
+            mApp.getListePromos().add(promo);
+            fermer();
+
         }
     }
 
@@ -135,9 +131,7 @@ public class PromoController {
             for(String module : mModulesPromoComboBox.getCheckModel().getCheckedItems()) {
                 for(Module m : mListeModule) {
                     if(module.equals(m.getNom())) {
-                    	Module mod = new Module(m.getNom(),  m.getNbTD(), m.getNbCM(), m.getNbTP(), m.getDureeCM(), m.getDureeTP(), m.getDureeTD());
-                    	mod.setId(m.getId());
-                        modules.add(mod);
+                        modules.add(new Module(m.getNom(), m.getNbTD(), m.getNbCM(), m.getNbTP(), m.getDureeCM(), m.getDureeTP(), m.getDureeTD()));
                     }
                 }
             }
@@ -147,8 +141,7 @@ public class PromoController {
             int nbGroupes = Integer.parseInt(mNombreGroupesTextField.getText());
 
             Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules);
-            promo.setId(mPromo.getId());
-            FactoryDAO.getPromotionDAO().modifier(promo);
+
             int index = mApp.getListePromos().indexOf(mPromo);
             mApp.getListePromos().get(index).setNom(promo.getNom());
             mApp.getListePromos().get(index).setNbEleves(promo.getNbEleves());
@@ -161,7 +154,7 @@ public class PromoController {
         }
     }
 
-    public void setApp(App app, Stage promoStage, ObservableList<Module> listeModule, Promotion promo) {
+    public void setApp(App app, Stage promoStage, ObservableList<Module> listeModule) {
         mApp = app;
         mPromoStage = promoStage;
         mListeModule = listeModule;
@@ -171,11 +164,6 @@ public class PromoController {
             modules.add(module.getNom());
         }
         mModulesPromoComboBox.getItems().addAll(modules);
-        if (promo != null) {
-			for (Module mod : promo.getListeModules()) {
-				mModulesPromoComboBox.getCheckModel().check(mod.getNom());
-			}
-		}
     }
 
 

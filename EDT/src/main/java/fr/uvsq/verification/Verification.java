@@ -1,6 +1,7 @@
 package fr.uvsq.verification;
 
 import javafx.scene.control.Alert;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

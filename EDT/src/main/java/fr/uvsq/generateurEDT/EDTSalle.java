@@ -1,32 +1,47 @@
 package fr.uvsq.generateurEDT;
-
-import fr.uvsq.models.Salle;
+import fr.uvsq.models.*;
 
 public class EDTSalle {
     private Salle mSalle;
     private int[][] mEdt;
     private static final int NB_JOURS = 5;
-    private static final int NB_HORAIRES = 6;
+    private static final int NB_HORAIRES = 12;
 
     /*
        *********************************************************************
        *                             EDTSALLES                             *
        *********************************************************************
-       *    LUNDI   *   MARDI   *   MERCREDI   *   JEUDI   *   VENDREDI    *
+       *      LUNDI   *   MARDI   *   MERCREDI   *   JEUDI   *   VENDREDI    *
        *********************************************************************
-       * 1 | 
+       *  8h| 
        *********************************************************************
-       * 2 |
+       *  9h|
        *********************************************************************
-       * 3 |
+       * 10h|
        **********************************************************************
-       * 4 |
+       * 11h|
+       * ...
+       * 19h|
        **********************************************************************
      */
 
+    public EDTSalle() {
+        mSalle = null;
+    	mEdt = new int[NB_HORAIRES][NB_JOURS];
+        for( int h = 0; h < NB_HORAIRES; h++){
+            for (int j = 0; j < NB_JOURS; j++){
+                mEdt[h][j] = -1;
+            }
+        }
+    }
+    
     public EDTSalle(Salle salle, int[][] edt) {
         mSalle = salle;
-        mEdt = edt;
+        for( int h = 0; h < NB_HORAIRES; h++){
+            for (int j = 0; j < NB_JOURS; j++){
+                mEdt[h][j] = edt[h][j];
+            }
+        }
     }
 
     public Salle getSalle() {
@@ -45,12 +60,16 @@ public class EDTSalle {
         mEdt = edt;
     }
 
-    public static int getNbJours() {
+    public static final int getNbJours() {
         return NB_JOURS;
     }
 
-    public static int getNbHoraires() {
+    public static final int getNbHoraires() {
         return NB_HORAIRES;
+    }
+
+    public int getIdEvenement(int j, int h){
+        return mEdt[h][j];
     }
 
     /**
@@ -60,16 +79,29 @@ public class EDTSalle {
      * @return boolean
      */
     public boolean aUnEvenement(int jours, int horaire) {
-        return false;
+    	return (mEdt[horaire][jours] != -1) ? true : false;
+    }
+
+    public void modifieEvenement(int jours, int horaire, int idEven){
+        mEdt[horaire][jours] = idEven;
     }
 
     /**
      * Ajoute un Événement dans le planning Salle 
      * @param e l'événement
-     * @param jours le jour
+     * @param jour le jour
      * @param horaire l'horaire
      */
-    public void ajouterEvenement(Evenement e, int jours, int horaire){
+    public void ajouterEvenement(Evenement e, int jour, int horaire){
+    	
+    	if( e != null) {
+    		boolean dispo = aUnEvenement(jour, horaire);
+    		if(!dispo) {
+    			mEdt[horaire][jour] = e.getId();
+    			Creneau creneau = new Creneau(jour,horaire, dispo, mSalle.getId());
+    			e.setCreneau(creneau);
+    		}
+    	}
     }
     
 }

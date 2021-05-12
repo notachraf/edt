@@ -1,22 +1,19 @@
 package fr.uvsq.interfaces;
 
-import fr.uvsq.gestionDeDonnees.DAO;
-import fr.uvsq.gestionDeDonnees.FactoryDAO;
+import fr.uvsq.gestionDeDonnees.ModuleDAO;
 import fr.uvsq.models.Module;
+import fr.uvsq.verification.Verification;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class ModuleController {
 
         /**
-         * Argument qui permet la connexion avec la base de données
+         * Argument qui permet la connexion avec la base de donnÃ©es
          */
-        private DAO<Module> mModuleDao;
+        private ModuleDAO mModuleDao;
         private App mApp;
         private Stage mModuleStage;
         private Module mModule;
@@ -43,14 +40,14 @@ public class ModuleController {
 
 
         /**
-         * Initialise la fenêtre de dialogue module
+         * Initialise la fenÃªtre de dialogue module
          */
         private void initialize() {
 
         }
 
         /**
-         * Ferme la fenêtre de dialogue module.
+         * Ferme la fenÃªtre de dialogue module.
          */
         @FXML
         private void fermer() {
@@ -58,7 +55,7 @@ public class ModuleController {
         }
 
         /**
-         * Initialise le contenu de la fenêtre de dialogue
+         * Initialise le contenu de la fenÃªtre de dialogue
          * avec les attributs de la classe module
          * @param module
          * @param moduleTableView
@@ -72,6 +69,7 @@ public class ModuleController {
 
                 if (module != null) {
                         mNomTextField.setText(module.getNom());
+                        //mDureeTextField.setText(String.valueOf(module.getDuree()));
                         mNbCMTextField.setText(String.valueOf(module.getNbCM()));
                         mNbTDTextField.setText(String.valueOf(module.getNbTD()));
                         mNbTPTextField.setText(String.valueOf(module.getNbTP()));
@@ -82,7 +80,7 @@ public class ModuleController {
         }
 
         /**
-         * Gérer l'ajout d'un nouveau module
+         * GÃ©rer l'ajout d'un nouveau module
          * @param event
          */
         @FXML
@@ -97,19 +95,18 @@ public class ModuleController {
         }
 
         /**
-         * Vérifie les données d'un module et ajoute ce module dans la liste des modules
+         * VÃ©rifie les donnÃ©es d'un module et ajoute ce module dans la liste des modules
          */
         private void ajouterModule() {
-                //Vérification à implementer
+                //VÃ©rification Ã  implementer
                 boolean estValide = true;
 
                 if( estValide ) {
-                        System.out.println(" ========= Les Données sont valides ============");
+                        System.out.println(" ========= Les DonnÃ©es sont valides ============");
                         System.out.println("======== Ajouter nouveau module");
 
                         Module module = new Module(
                                 mNomTextField.getText(),
-                                Integer.parseInt(mDureeTextField.getText()),
                                 Integer.parseInt(mNbTDTextField.getText()),
                                 Integer.parseInt(mNbCMTextField.getText()),
                                 Integer.parseInt(mNbTPTextField.getText()),
@@ -119,27 +116,24 @@ public class ModuleController {
 
                         );
 
-                        mModuleDao = FactoryDAO.getModuleDAO(); 
-                        if (mModuleDao.inserer(module)) {                       
-                        	mApp.getListModule().add(module);
-                        	fermer();
-                        }// erreur
+                        mApp.getListModule().add(module);
+
+                        fermer();
                 }
         }
 
         /**
-         * Modifie les données d'un module
+         * Modifie les donnÃ©es d'un module
          */
         private void modifierModule() {
-                //Vérification à implementer
+                //VÃ©rification Ã  implementer
                 Boolean estValide = true;
                 if( estValide ) {
-                        System.out.println(" ========= Les Données sont valides ============");
+                        System.out.println(" ========= Les DonnÃ©es sont valides ============");
                         System.out.println("========= Modifier le module ");
                         if(mModule != null) {
                                 Module nouveauModule = new Module(
                                         mNomTextField.getText(),
-                                        Integer.parseInt(mDureeTextField.getText()),
                                         Integer.parseInt(mNbTDTextField.getText()),
                                         Integer.parseInt(mNbCMTextField.getText()),
                                         Integer.parseInt(mNbTPTextField.getText()),
@@ -147,25 +141,18 @@ public class ModuleController {
                                         Integer.parseInt(mDureeTPTextField.getText()),
                                         Integer.parseInt(mDureeTDTextField.getText())
                                 );
-                                
-                                
-                                nouveauModule.setId(mModule.getId());
-                                mModuleDao = FactoryDAO.getModuleDAO(); 
-                                if (mModuleDao.modifier(nouveauModule)) {
-                                	int index = mApp.getListModule().indexOf(mModule);
-                                    mApp.getListModule().get(index).setNom(nouveauModule.getNom());
-                                    mApp.getListModule().get(index).setDureeCM(nouveauModule.getDureeCM());
-                                    mApp.getListModule().get(index).setDureeTD(nouveauModule.getDureeTD());
-                                    mApp.getListModule().get(index).setDureeTP(nouveauModule.getDureeTP());
-                                    mApp.getListModule().get(index).setNbCM(nouveauModule.getNbCM());
-                                    mApp.getListModule().get(index).setNbTD(nouveauModule.getNbTD());
-                                    mApp.getListModule().get(index).setNbTP(nouveauModule.getNbTP());
-                                    mModuleTableView.refresh();
-                                } // else :erreur
+
+                                int index = mApp.getListModule().indexOf(mModule);
+                                mApp.getListModule().get(index).setNom(nouveauModule.getNom());
+                                mApp.getListModule().get(index).setDureeCM(nouveauModule.getDureeCM());
+                                mApp.getListModule().get(index).setDureeTD(nouveauModule.getDureeTD());
+                                mApp.getListModule().get(index).setDureeTP(nouveauModule.getDureeTP());
+                                mApp.getListModule().get(index).setNbCM(nouveauModule.getNbCM());
+                                mApp.getListModule().get(index).setNbTD(nouveauModule.getNbTD());
+                                mApp.getListModule().get(index).setNbTP(nouveauModule.getNbTP());
+                                mModuleTableView.refresh();
                         }
-                        
                         fermer();
-                         
                 }
         }
 

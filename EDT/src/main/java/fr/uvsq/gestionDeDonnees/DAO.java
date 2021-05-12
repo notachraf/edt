@@ -80,7 +80,7 @@ public abstract class DAO<T> {
 	protected Connection getConnection() {
 		try {
 			if (mConnection == null || mConnection.isClosed()) {
-				mConnection = BDConnection.getConnection(); 
+				mConnection = BDConnection.getConnection();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

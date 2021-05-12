@@ -1,42 +1,44 @@
 package fr.uvsq.models;
 
 public class Groupe {
-	
-    private int mNom;
-    private Promotion mPromo;
-    private int nbEleves;
+    private String mNom;
+    private Promotion mPromotion;
+    private int mNbEleves;
 
     public Groupe(){
-
+    	mNom = "";
+    	mPromotion = null;
+    	mNbEleves = 0;
+    	
     }
 
-    public Groupe(int nom, Promotion promo, int nbEleves) {
+    public Groupe(String nom, int nbEleves, Promotion promotion) {
         mNom = nom;
-        mPromo = promo;
-        this.nbEleves = nbEleves;
+        mPromotion = promotion;
+        mNbEleves = nbEleves;
     }
 
-    public int getNom() {
+    public String getNom() {
         return mNom;
     }
 
-    public void setNom(int nom) {
+    public void setNom(String nom) {
         mNom = nom;
     }
 
-    public Promotion getPromo() {
-        return mPromo;
+    public Promotion getPromotion() {
+        return mPromotion;
     }
 
-    public void setPromo(Promotion promo) {
-        mPromo = promo;
+    public void setPromotion(Promotion promotion) {
+        mPromotion = promotion;
     }
 
     public int getNbEleves() {
-        return nbEleves;
+        return mNbEleves;
     }
 
     public void setNbEleves(int nbEleves) {
-        this.nbEleves = nbEleves;
+        this.mNbEleves = nbEleves;
     }
 }

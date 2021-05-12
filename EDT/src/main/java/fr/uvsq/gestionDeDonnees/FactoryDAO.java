@@ -36,6 +36,6 @@ public class FactoryDAO {
 	}
 
 	public static DAO getPromotionDAO() {
-		return new PromotionDAO(sConnection);
+		return new PromoDAO(sConnection);
 	}
 }

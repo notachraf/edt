@@ -1,45 +1,34 @@
 package fr.uvsq.interfaces;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
-
-import fr.uvsq.gestionDeDonnees.DAO;
-import fr.uvsq.gestionDeDonnees.FactoryDAO;
 import fr.uvsq.generateurEDT.Evenement;
 import fr.uvsq.generateurEDT.GenerateurEDT;
+import fr.uvsq.models.*;
 import fr.uvsq.models.Module;
-import fr.uvsq.models.Professeur;
-import fr.uvsq.models.Promotion;
-import fr.uvsq.models.Salle;
-import fr.uvsq.models.TypeSalle;
 import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class AppController {
     private App mApp;
@@ -54,7 +43,7 @@ public class AppController {
     CalendarView mEDTCalendarPane;
 
     @FXML
-    private TextField mNbCreneauxMax,
+    private TextField mNbCréneauxMax,
                       mNbProfMax,
                       mNbPromoMax,
                       mNbSallesMax;
@@ -65,8 +54,7 @@ public class AppController {
             mModuleBtn,
             mProfBtn,
             mPromoBtn,
-            mLatexBtn,
-            mContraintesBtn;
+            mLatexBtn;
 
     @FXML
     private Pane mDashboardPane,
@@ -159,10 +147,7 @@ public class AppController {
      */
     @FXML
     private void handleSideMenuButtons(ActionEvent event){
-        if (event.getSource() == mContraintesBtn){
-            System.out.println(" =========== Contraintes button ===========");
-            mContraintesPane.toFront();
-        } else if( event.getSource() == mDashboardBtn){
+       if( event.getSource() == mDashboardBtn){
             System.out.println(" =========== Dashboard button ===========");
             mDashboardPane.toFront();
         } else if ( event.getSource() == mSallesBtn ){
@@ -210,22 +195,10 @@ public class AppController {
         mCalendarTD.setStyle(Calendar.Style.STYLE6);
 
         int i = 0;
-        for (Entry<String> entry : mRV) {
+        for (Entry<String> entry :
+                mRV) {
             entry.setUserObject("");
-            
-            LocalDate endDate = LocalDate.now();
-            LocalTime endTime = null;
-            
-            if (LocalTime.now().getHour() + 3 > 23) {
-            	endDate = endDate.plusDays(1);
-            	endTime = LocalTime.of(LocalTime.now().getHour() -20, 0);	
-            } else {
-            	endDate = LocalDate.now(); 
-                endTime = LocalTime.of( LocalTime.now().getHour() + 3, 0);
-            }
-            
-            entry.setInterval(new Interval(LocalDate.now(), LocalTime.now(), endDate,  endTime));
-            
+            entry.setInterval(new Interval(LocalDate.now(), LocalTime.now(), LocalDate.now(),  LocalTime.of( LocalTime.now().getHour() + 3, 0)));
             entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;BYDAY=MO;COUNT=12");
             if (i % 2 == 0 && i % 3 == 0 ) {
                 mCalendarCM.setStyle(Calendar.Style.STYLE3);
@@ -327,12 +300,12 @@ public class AppController {
                 return cellData.getValue().getNom();
             }
         });
-        /* mDureeModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
+        /*mDureeModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
                 return cellData.getValue().getDuree();
             }
-        }); */
+        });*/
         mNbCMCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
@@ -390,7 +363,7 @@ public class AppController {
             }
         });
 
-        mModuleProfCln.setCellValueFactory(cellData -> new ObservableValueBase<String>() {
+        mModuleProfCln.setCellValueFactory(cellData -> new ObservableValueBase<>() {
             @Override
             public String getValue() {
                 return cellData.getValue().getListeModulesAsString();
@@ -418,16 +391,16 @@ public class AppController {
         mNombreElevesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
-                return cellData.getValue().getId();
+                return cellData.getValue().getNbEleves();
             }
         });
         mNombreGroupesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
-                return cellData.getValue().getId();
+                return cellData.getValue().getNbGroupes();
             }
         });
-        mModulesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<String>() {
+        mModulesPromoCln.setCellValueFactory(cellData -> new ObservableValueBase<>() {
             @Override
             public String getValue() {
                 return cellData.getValue().getListeModulesAsString();
@@ -499,7 +472,7 @@ public class AppController {
             ProfController profController = loader.getController();
             Scene scene = new Scene(profPane);
             Stage profStage = new Stage(StageStyle.UNDECORATED);
-            profController.setApp(mApp, profStage, mApp.getListModule(), null);
+            profController.setApp(mApp, profStage, mApp.getListModule());
             profStage.setResizable(false);
             profStage.setScene(scene);
             profStage.initOwner(mApp.getAppStage());
@@ -525,7 +498,7 @@ public class AppController {
             PromoController promoController = loader.getController();
             Scene scene = new Scene(promoPane);
             Stage promoStage = new Stage(StageStyle.UNDECORATED);
-            promoController.setApp(mApp, promoStage, mApp.getListModule(), null);
+            promoController.setApp(mApp, promoStage, mApp.getListModule());
             promoStage.setResizable(false);
             promoStage.setScene(scene);
             promoStage.initOwner(mApp.getAppStage());
@@ -577,7 +550,7 @@ public class AppController {
             profController.initialiseDialogueModification(prof, mProfTableView);
             Scene scene = new Scene(profPane);
             Stage profStage = new Stage(StageStyle.UNDECORATED);
-            profController.setApp(mApp, profStage, mApp.getListModule(), prof);
+            profController.setApp(mApp, profStage, mApp.getListModule());
             profStage.setResizable(false);
             profStage.setScene(scene);
             profStage.initOwner(mApp.getAppStage());
@@ -630,7 +603,7 @@ public class AppController {
             promoController.initialiseDialogueModification(promo, mPromotionTableView);
             Scene scene = new Scene(promoPane);
             Stage promoStage = new Stage(StageStyle.UNDECORATED);
-            promoController.setApp(mApp, promoStage, mApp.getListModule(), promo);
+            promoController.setApp(mApp, promoStage, mApp.getListModule());
             promoStage.setResizable(false);
             promoStage.setScene(scene);
             promoStage.initOwner(mApp.getAppStage());
@@ -712,17 +685,16 @@ public class AppController {
                         removeBtn.setStyle("-fx-text-fill: #ffffff");
                         editBtn.setOnAction((ActionEvent event) -> {
                             Module module = getTableView().getItems().get(getIndex());
-                            System.out.println("selectedData: " + module.getId()+"---"+module.getNom());
+                            System.out.println("selectedData: " + module.getNom());
                             afficherDialogueModifierModule(module);
                         });
 
                         removeBtn.setOnAction((ActionEvent event) -> {
                             Module module = getTableView().getItems().get(getIndex());
-                            System.out.println("selectedData: " + module.getId()+"--"+module.getNom());
-                            DAO<Module> mModuleDao =  FactoryDAO.getModuleDAO(); 
-                            if (mModuleDao.supprimer(module)) {
-                            	mApp.getListModule().remove(module);
-                            }
+                            System.out.println("selectedData: " + module.getNom());
+
+//                            mApp.supprimerModule(module);
+                            mApp.getListModule().remove(module);
 
                         });
                     }
@@ -772,10 +744,8 @@ public class AppController {
                         removeBtn.setOnAction((ActionEvent event) -> {
                             Professeur prof = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + prof.getNom());
-                            boolean supprimerOK = FactoryDAO.getProfesseurDAO().supprimer(prof);
-                            if (supprimerOK) {
-                            	mApp.getListeProfs().remove(prof);
-                            }
+
+                            mApp.getListeProfs().remove(prof);
                         });
                     }
 
@@ -825,7 +795,7 @@ public class AppController {
                         removeBtn.setOnAction((ActionEvent event) -> {
                             Promotion promo = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + promo.getNom());
-                            FactoryDAO.getPromotionDAO().supprimer(promo);
+
                             mApp.getListePromos().remove(promo);
                         });
                     }

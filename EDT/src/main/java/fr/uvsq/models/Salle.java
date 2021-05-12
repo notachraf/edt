@@ -113,7 +113,7 @@ public class Salle {
         mTypeSalle = typeSalle;
     }
     
-    @Override
+   @Override
 	public String toString() {
 		return "Salle [mId=" + mId + ", mNom=" + mNom + ", mCapacite=" + mCapacite +" , mTypeSalle="+ mTypeSalle +"]";
 	}
