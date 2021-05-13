@@ -68,12 +68,14 @@ public class GenerateurEDT {
      * @return energie acceptée.
      */
     double accepteSolution(int energie1, int energie2, double temp){
-      	 int delta = energie1 - energie2;
-       	 double prob = Math.random();
-       	 
-       	 if( (prob < Math.exp(-(delta/temp))) || (energie1>energie2) ) return (double)energie2;
-
-       	 return (double)energie1;
+    	int delta = energie2 - energie1;
+        double prob = Math.random();
+    	       	 
+        if(delta<=0) return (double)energie2;
+    	else {
+    		if (prob > Math.exp(-(delta/temp))) return (double)energie2;
+    		else return (double)energie1;
+    	}       	 
     }
 
     /**
@@ -84,17 +86,20 @@ public class GenerateurEDT {
         mSolutionFinale = init;
 	   	int e1 = (int)init.calculEnergie(0, 0, 0);
 	   	init.setEnergie(e1);
-	   	double temp = 1000.2;
-	   	double ref = 0.5;
+	   	double tmp = mTemperature;
+	   	double ref = mConstRef;
 	   	
-	   	while(temp > mTempFinal) {
-	       	EDT voisin = modifierSolution(mSolutionFinale);
-	       	int e2 = (int)voisin.calculEnergie(0, 0, 0);
-	       	voisin.setEnergie(e2);
-	       	if( accepteSolution(mSolutionFinale.getEnergie(),voisin.getEnergie(),temp) == (double)voisin.getEnergie()) {
-	       		mSolutionFinale = voisin;
-	       	}
-	       	temp = (1-ref)*temp;
+	   	while(mSolutionFinale.getEnergie() > 0 || tmp > mTempFinal) {
+		   	int nbRep = 0;
+		   	while(nbRep < 2) {
+		       	EDT voisin = modifierSolution(mSolutionFinale);
+		       	int e2 = (int)voisin.calculEnergie(0, 0, 0);
+		       	voisin.setEnergie(e2);
+		       	if( accepteSolution(mSolutionFinale.getEnergie(),voisin.getEnergie(),tmp) == (double)voisin.getEnergie()) {
+		       		mSolutionFinale = voisin;
+		       	}
+		   	}	   		
+	       	tmp = ref*tmp;
 	   	}
     }
 
