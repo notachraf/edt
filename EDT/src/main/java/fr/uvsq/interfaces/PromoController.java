@@ -123,6 +123,7 @@ public class PromoController {
 
             if( mPromoDAO.inserer(promo) ){
                 mApp.getListePromos().add(promo);
+                mApp.getAppController().setNbPromos(String.valueOf(mApp.getListePromos().size()));
             }
 
             fermer();

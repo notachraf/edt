@@ -120,6 +120,7 @@ public class ProfController {
             Professeur nouveauProfesser = new Professeur(mNomTextField.getText(), modules);
             if( mProfDao.inserer(nouveauProfesser) ) {
                 mApp.getListeProfs().add(nouveauProfesser);
+                mApp.getAppController().setNbProfs(String.valueOf(mApp.getListeProfs().size()));
             }
             fermer();
         }

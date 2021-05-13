@@ -66,155 +66,8 @@
       </Pane>
    </left>
    <center>
-      <AnchorPane prefHeight="580.0" prefWidth="665.0">
+      <AnchorPane prefHeight="580.0" prefWidth="665.0" style="-fx-background-color: white;">
          <children>
-            <Pane fx:id="mLatexPane" layoutX="-6.0" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: #00acc1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <VBox prefHeight="580.0" prefWidth="674.0">
-                     <children>
-                        <Label prefHeight="75.0" prefWidth="674.0" style="-fx-background-color: white;" text="Latex" textFill="#512da8">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
-                        <ScrollPane prefHeight="517.0" prefWidth="674.0">
-                           <content>
-                              <TextField prefHeight="510.0" prefWidth="673.0" promptText="Latex " />
-                           </content>
-                        </ScrollPane>
-                     </children>
-                  </VBox>
-               </children></Pane>
-            <Pane fx:id="mDashboardPane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <VBox prefHeight="676.0" prefWidth="808.0">
-                     <children>
-                        <GridPane alignment="BASELINE_CENTER" prefHeight="413.0" prefWidth="637.0" VBox.vgrow="ALWAYS">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="207.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="233.0" minHeight="10.0" prefHeight="206.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #512da8;" GridPane.columnIndex="1">
-                                 <children>
-                                    <Label alignment="BASELINE_CENTER" prefHeight="121.0" prefWidth="319.0" text="Professeurs" textFill="#f2ecec">
-                                       <font>
-                                          <Font size="36.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="TOP_CENTER" prefHeight="107.0" prefWidth="319.0" text="0" textFill="#fcf9f9">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <GridPane.margin>
-                                    <Insets bottom="10.0" left="10.0" right="20.0" top="20.0" />
-                                 </GridPane.margin>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                              </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #512da8;">
-                                 <children>
-                                    <Label alignment="BASELINE_CENTER" prefHeight="121.0" prefWidth="319.0" text="Salles" textFill="#f2ecec" >
-                                       <font>
-                                          <Font size="36.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="TOP_CENTER" prefHeight="107.0" prefWidth="319.0" text="0" textFill="#fcf9f9" fx:id="mNbSalles">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <GridPane.margin>
-                                    <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
-                                 </GridPane.margin>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                              </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #512da8;" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label alignment="BASELINE_CENTER" prefHeight="121.0" prefWidth="319.0" text="Groupe" textFill="#f2ecec">
-                                       <font>
-                                          <Font size="36.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="TOP_CENTER" prefHeight="107.0" prefWidth="319.0" text="0" textFill="#fcf9f9">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="20.0" right="10.0" top="10.0" />
-                                 </GridPane.margin>
-                              </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #512da8;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label alignment="BASELINE_CENTER" prefHeight="121.0" prefWidth="319.0" text="Cours" textFill="#f2ecec">
-                                       <font>
-                                          <Font size="36.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="TOP_CENTER" prefHeight="107.0" prefWidth="319.0" text="0" textFill="#fcf9f9">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="10.0" right="20.0" top="10.0" />
-                                 </GridPane.margin>
-                              </VBox>
-                           </children>
-                           <VBox.margin>
-                              <Insets left="100.0" right="100.0" />
-                           </VBox.margin>
-                        </GridPane>
-                        <HBox prefHeight="119.0" prefWidth="637.0">
-                           <children>
-                              <AnchorPane prefHeight="113.0" prefWidth="584.0" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                                 <children>
-                                    <Button layoutX="220.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="157.0" text="Générer EDT" textFill="#fffdfd">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Button>
-                                    <Button layoutX="441.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="157.0" text="Latex" textFill="#f8f5f5">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                           <VBox.margin>
-                              <Insets top="60.0" />
-                           </VBox.margin>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </Pane>
             <AnchorPane fx:id="mModulePane" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox prefHeight="746.0" prefWidth="1040.0">
@@ -333,7 +186,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="mPromoPane" layoutX="9.0" layoutY="10.0" prefHeight="580.0" prefWidth="635.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="mPromoPane" layoutX="9.0" layoutY="10.0" prefHeight="580.0" prefWidth="636.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox prefHeight="590.0" prefWidth="683.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -355,7 +208,7 @@
                               </AnchorPane>
                            </children>
                         </HBox>
-                        <TableView fx:id="mPromotionTableView" editable="true" prefHeight="657.0" prefWidth="1033.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="mPromotionTableView" editable="true" prefHeight="707.0" prefWidth="1002.0" VBox.vgrow="ALWAYS">
                            <columns>
                               <TableColumn fx:id="mIdPromoCln" prefWidth="38.0" text="ID" />
                               <TableColumn fx:id="mNomPromoCln" prefWidth="120.0" text="Nom" />
@@ -373,7 +226,154 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <CalendarView fx:id="mEDTCalendarPane" prefHeight="746.0" prefWidth="1037.0" style="-fx-background-color: white;" />
+            <CalendarView fx:id="mEDTCalendarPane" prefHeight="746.0" prefWidth="1047.0" style="-fx-background-color: white;" />
+            <AnchorPane fx:id="mDashboardPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <VBox prefHeight="746.0" prefWidth="1046.0">
+                     <children>
+                        <GridPane alignment="BASELINE_CENTER" prefHeight="413.0" prefWidth="637.0" VBox.vgrow="ALWAYS">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="207.0" minHeight="10.0" prefHeight="207.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="233.0" minHeight="10.0" prefHeight="206.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #512da8;" GridPane.columnIndex="1">
+                                 <children>
+                                    <Label alignment="BASELINE_CENTER" prefHeight="96.0" prefWidth="394.0" text="Professeurs" textFill="#f2ecec">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="mNbProfs" alignment="CENTER" prefHeight="94.0" prefWidth="395.0" text="0" textFill="#fcf9f9">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="20.0" top="20.0" />
+                                 </GridPane.margin>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #512da8 #512da8;">
+                                 <children>
+                                    <Label alignment="BASELINE_CENTER" prefHeight="114.0" prefWidth="396.0" text="Salles" textFill="#f2ecec">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="mNbSalles" alignment="CENTER" contentDisplay="CENTER" prefHeight="88.0" prefWidth="395.0" text="0" textFill="#f5f0f0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+                                 </GridPane.margin>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #512da8;" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label alignment="BASELINE_CENTER" prefHeight="102.0" prefWidth="394.0" text="Promotions" textFill="#f2ecec">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="mNbPromos" alignment="TOP_CENTER" prefHeight="116.0" prefWidth="394.0" text="0" textFill="#fcf9f9">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                                 <GridPane.margin>
+                                    <Insets bottom="5.0" left="20.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #512da8;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label alignment="BASELINE_CENTER" prefHeight="116.0" prefWidth="394.0" text="Modules" textFill="#f2ecec">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="mNbModules" alignment="TOP_CENTER" prefHeight="105.0" prefWidth="393.0" text="0" textFill="#fcf9f9">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                                 <GridPane.margin>
+                                    <Insets bottom="5.0" left="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="100.0" right="100.0" />
+                           </VBox.margin>
+                        </GridPane>
+                        <HBox prefHeight="119.0" prefWidth="637.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="157.0" text="Générer EDT" textFill="#fffdfd">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="360.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="157.0" text="Latex" textFill="#f8f5f5">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="60.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="mLatexPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <VBox prefHeight="746.0" prefWidth="1049.0">
+                     <children>
+                        <Label prefHeight="102.0" prefWidth="1049.0" style="-fx-background-color: white;" text="Latex" textFill="#512da8">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <ScrollPane prefHeight="670.0" prefWidth="1043.0">
+                           <content>
+                              <TextField prefHeight="645.0" prefWidth="1048.0" promptText="Latex " />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </center>

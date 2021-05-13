@@ -124,6 +124,7 @@ public class ModuleController {
                         );
                         if( mModuleDao.inserer(module) ) {
                                 mApp.getListModule().add(module);
+                                mApp.getAppController().setNbModules(String.valueOf(mApp.getListModule().size()));
                         }
 
                         fermer();

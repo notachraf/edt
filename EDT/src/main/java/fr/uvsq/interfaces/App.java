@@ -69,7 +69,7 @@ public class App extends Application {
             Scene appScene = new Scene(appPane);
             mAppStage.setTitle("EDT");
             mAppStage.setScene(appScene);
-            mAppStage.setResizable(false);
+            //mAppStage.setResizable(false);
             mAppStage.show();
         }catch (IOException e){
             e.printStackTrace();
@@ -83,14 +83,16 @@ public class App extends Application {
 
     private void initListePromotions(){
         mListePromos.addAll(mPromoDAO.recupererListe());
+        mAppController.setNbPromos(String.valueOf(mListePromos.size()));
     }
     private void initListeModules() {
-        System.out.println("ISize: " + mModuleDAO.recupererListe().size());
         mListeModule.addAll(mModuleDAO.recupererListe());
+        mAppController.setNbModules(String.valueOf(mListeModule.size()));
     }
 
     private void initListeProfs() {
         mListeProfs.addAll(mProfDAO.recupererListe());
+        mAppController.setNbProfs(String.valueOf(mListeProfs.size()));
     }
 
     private void initBaseDonnes() {

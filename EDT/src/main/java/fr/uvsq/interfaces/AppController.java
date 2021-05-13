@@ -58,6 +58,12 @@ public class AppController {
 
     @FXML
     private Label mNbSalles;
+    @FXML
+    private Label mNbProfs;
+    @FXML
+    private Label mNbPromos;
+    @FXML
+    private Label mNbModules;
 
     @FXML
     private Pane mDashboardPane,
@@ -184,6 +190,7 @@ public class AppController {
      */
     @FXML
     private void initialize(){
+        mEDTCalendarPane.toFront();
         initSalleTableView();
         initModuleTableView();
         initProfTableView();
@@ -653,6 +660,7 @@ public class AppController {
                             ModuleDAO moduleDAO = (ModuleDAO) FactoryDAO.getModuleDAO();
                             if( moduleDAO.supprimer(module) ) {
                                 mApp.getListModule().remove(module);
+                                mNbModules.setText(String.valueOf(mApp.getListModule().size()));
                             }
                         });
                     }
@@ -705,6 +713,7 @@ public class AppController {
                             ProfesseurDAO professeurDAO = (ProfesseurDAO) FactoryDAO.getProfesseurDAO();
                             if( professeurDAO.supprimer(prof) ) {
                                 mApp.getListeProfs().remove(prof);
+                                mNbProfs.setText(String.valueOf(mApp.getListeProfs().size()));
                             }
                         });
                     }
@@ -758,6 +767,7 @@ public class AppController {
                             PromoDAO promoDAO = (PromoDAO) FactoryDAO.getPromotionDAO();
                             if( promoDAO.supprimer(promo) ){
                                 mApp.getListePromos().remove(promo);
+                                mNbPromos.setText(String.valueOf(mApp.getListePromos().size()));
                             }
                         });
                     }
@@ -888,5 +898,17 @@ public class AppController {
 
     public void setNbSalles(String label) {
         mNbSalles.setText(label);
+    }
+
+    public void setNbProfs(String nbProfs) {
+        mNbProfs.setText(nbProfs);
+    }
+
+    public void setNbPromos(String nbPromos) {
+        mNbPromos.setText(nbPromos);
+    }
+
+    public void setNbModules(String nbModules) {
+        mNbModules.setText(nbModules);
     }
 }
