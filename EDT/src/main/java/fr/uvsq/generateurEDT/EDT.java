@@ -70,7 +70,10 @@ public class EDT {
 	    				}
 	    			Evenement evenement = mDonneesEDT.getListeEvenements().get(even);
 	    				
-	    			if(evenement.getGroupe().getNbEleves() > edtSalle.getSalle().getCapacite()) contrainte++;
+	    			if(evenement.getTypeEven() == TypeEven.CM) {
+	    				if(evenement.getGroupe().getPromotion().getNbEleves() > edtSalle.getSalle().getCapacite()) contrainte++;
+	    			}
+	    			else if(evenement.getGroupe().getNbEleves() > edtSalle.getSalle().getCapacite()) contrainte++;
 	    			}
 	    		}
  		}
@@ -259,6 +262,8 @@ public class EDT {
 		    	
 	    	return contrainte;
 	    }
+	    
+	    //contraintes de chevauchement de chaque salle (si un evenement commence avant la fin ou juste à l'heure de fin de celui qui le precede )
 	    private int contrainteChevauchements() {
 	    	int contrainte = 0;
 	    	Random random = new Random();

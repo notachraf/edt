@@ -82,25 +82,52 @@ public class GenerateurEDT {
      * Déroule l'algorithme du recuit simulé
      */
     public void recuitSimule(){
-    	EDT init = solutionInitiale();
+       	EDT init = solutionInitiale();
         mSolutionFinale = init;
 	   	int e1 = (int)init.calculEnergie(0, 0, 0);
 	   	init.setEnergie(e1);
+	   	mTemperature = 10000.00;
+	   	mConstRef = 0.5;
 	   	double tmp = mTemperature;
 	   	double ref = mConstRef;
+	   	int num = 0;
+	   	mSolutions.add(num,mSolutionFinale);
+	   	num++;
+	   	System.out.println("Energie avant recuit = " + mSolutions.get(0).getEnergie());
+		for(Evenement even : mSolutionFinale.getDonneesEDT().getListeEvenements()){
+			
+			System.out.println("Evenement " + even.getId());
+			System.out.println("	Salle " +  mSolutionFinale.getListeEDTSalles().get(even.getCreneau().getIdsalle()).getSalle().getNom());
+			System.out.println("            " + even.getCreneau().getJour());
+			System.out.println("              " + even.getCreneau().getHoraire());
+
+			
+		}
+		System.out.println("Nombre de contraintes avant recuit: " + mSolutionFinale.getEnergie());
 	   	
-	   	while(mSolutionFinale.getEnergie() > 0 || tmp > mTempFinal) {
+	   	while(tmp > mTempFinal) {
 		   	int nbRep = 0;
-		   	while(nbRep < 2) {
-		       	EDT voisin = modifierSolution(mSolutionFinale);
+		   	while(nbRep < 50) {
+		       	EDT voisin = modifierSolution(init);
 		       	int e2 = (int)voisin.calculEnergie(0, 0, 0);
 		       	voisin.setEnergie(e2);
-		       	if( accepteSolution(mSolutionFinale.getEnergie(),voisin.getEnergie(),tmp) == (double)voisin.getEnergie()) {
-		       		mSolutionFinale = voisin;
+		       	if( accepteSolution(init.getEnergie(),voisin.getEnergie(),tmp) == (double)voisin.getEnergie()) {
+		       		init = voisin;
+		       		mSolutions.add(num,init);
+		       		num++;
 		       	}
+		       	nbRep++;
 		   	}	   		
 	       	tmp = ref*tmp;
 	   	}
+	   	
+	   	for(EDT edt : mSolutions) {
+	   	//	System.out.println("Energie = " + edt.getEnergie());
+	   		if(edt.getEnergie() < mSolutionFinale.getEnergie()) mSolutionFinale = edt;
+	   	}
+	   //	mSolutions = solutions;
+   		System.out.println("Energie = " + mSolutions.get(0).getEnergie());
+
     }
 
     /**
