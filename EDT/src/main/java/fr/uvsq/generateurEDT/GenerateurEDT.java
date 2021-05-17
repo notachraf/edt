@@ -98,7 +98,7 @@ public class GenerateurEDT {
 
 	   	while(mTemperature > mTempFinal) {
 		   	int nbRep = 0;
-		   	while(nbRep < 50) {
+		   	while(nbRep < 5000) {
 		       	EDT voisin = modifierSolution(mSolutionFinale);
 		       	int e2 = (int)voisin.calculEnergie(0, 0, 0);
 		       	voisin.setEnergie(e2);
