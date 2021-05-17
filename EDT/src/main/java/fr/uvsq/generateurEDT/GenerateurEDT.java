@@ -16,7 +16,13 @@ public class GenerateurEDT {
         mConstRef = constRef;
     }
     
-    public GenerateurEDT() {}
+    public GenerateurEDT() {
+    	mDonneesEDT = null;
+    	mConstRef = 0.5;
+    	mTemperature = 10000.00;
+    	mSolutions = new ArrayList<EDT>();
+    	mSolutionFinale = null;
+    }
 
     public void setSolutionFinale(EDT solutionFinale) {
         mSolutionFinale = solutionFinale;
@@ -71,59 +77,48 @@ public class GenerateurEDT {
     	int delta = energie2 - energie1;
         double prob = Math.random();
     	       	 
-        if(delta<=0) return (double)energie2;
+        if(delta<0) return (double)energie2;
     	else {
-    		if (prob > Math.exp(-(delta/temp))) return (double)energie2;
+    		if (prob < Math.exp(-(delta/temp))) return (double)energie2;
     		else return (double)energie1;
-    	}       	 
+    	}  
     }
 
     /**
      * Déroule l'algorithme du recuit simulé
      */
+    
     public void recuitSimule(){
- 	EDT init = solutionInitiale();
-        mSolutionFinale = init;
-	   	int e1 = (int)init.calculEnergie(0, 0, 0);
-	   	init.setEnergie(e1);
-	   	mTemperature = 10000.00;
-	   	mConstRef = 0.5;
-	   	double tmp = mTemperature;
-	   	double ref = mConstRef;
-	   	System.out.println("Energie avant recuit = " + mSolutionFinale.getEnergie());
-		for(Evenement even : mSolutionFinale.getDonneesEDT().getListeEvenements()){
-			
-			System.out.println("Evenement " + even.getId());
-			System.out.println("	Salle " +  mSolutionFinale.getListeEDTSalles().get(even.getCreneau().getIdsalle()).getSalle().getNom());
-			System.out.println("            " + even.getCreneau().getJour());
-			System.out.println("              " + even.getCreneau().getHoraire());
 
-			
-		}
-		System.out.println("Nombre de contraintes avant recuit: " + mSolutionFinale.getEnergie());
-	   	
-	   	while(tmp > mTempFinal) {
+     	EDT init = solutionInitiale();
+	   	init.setEnergie((int)init.calculEnergie(0, 0, 0));
+	   	mSolutionFinale = new EDT(init.getListeEDTSalles(),init.getEnergie(),init.getDonneesEDT());
+		System.out.println("Energie avant: " + mSolutionFinale.getEnergie());
+		//System.out.println("Taille liste avant: " + mSolutions.size());
+
+	   	while(mTemperature > mTempFinal) {
 		   	int nbRep = 0;
-		   	while(nbRep < 5000) {
-		       	EDT voisin = modifierSolution(init);
+		   	while(nbRep < 50) {
+		       	EDT voisin = modifierSolution(mSolutionFinale);
 		       	int e2 = (int)voisin.calculEnergie(0, 0, 0);
 		       	voisin.setEnergie(e2);
-		       	if( accepteSolution(mSolutionFinale.getEnergie(),voisin.getEnergie(),tmp) == (double)voisin.getEnergie()) {
-		       		mSolutionFinale = voisin;
+		       	if( accepteSolution(mSolutionFinale.getEnergie(),voisin.getEnergie(),mTemperature) == (double)voisin.getEnergie()) {
+		       		mSolutions.add(mSolutionFinale);
+		       		mSolutionFinale = new EDT(voisin.getListeEDTSalles(),voisin.getEnergie(),voisin.getDonneesEDT());
 		       	}
 		       	nbRep++;
 		   	}	   		
-	       	tmp = ref*tmp;
+		   	mTemperature = mConstRef*mTemperature;
 	   	}
-	   	
-	   /*	for(EDT edt : mSolutions) {
-	   		System.out.println("Nouvelle solution Energie = " + edt.getEnergie());
+
+	   	for(EDT edt : mSolutions) {
+	   		//System.out.println("Nouvelle solution Energie = " + edt.getEnergie());
 	   		if(edt.getEnergie() < mSolutionFinale.getEnergie()) mSolutionFinale = edt;
 	   	}
-   		System.out.println("Energie = " + mSolutions.get(0).getEnergie());
-	   */
-    }
+	   	System.out.println("Energie apres changement: " + mSolutionFinale.getEnergie());
+		// System.out.println("Taille liste avant: " + mSolutions.size());
 
+    }
     /**
      * Modifie l'edt passé en argument
      * @param edt
@@ -145,7 +140,7 @@ public class GenerateurEDT {
             randSalle2 = randSalle.nextInt(nbSalles);
         } while( randSalle1 == randSalle2 );
 
-        System.out.println("+++++ Salle1: " + randSalle1 + "salle2: " + randSalle2);
+        //System.out.println("+++++ Salle1: " + randSalle1 + "salle2: " + randSalle2);
 
         while ( (idEven1 == idEven2  || idEven1 == -1 || idEven2 == -1) && (i != nbCreneaux)){
             //Choisir deux jours différents aléatoirement
@@ -164,7 +159,7 @@ public class GenerateurEDT {
         if( i > nbCreneaux && (idEven1 == -1 || idEven2 == -1) )
             return edt;
 
-        EDT nouvelleEdt = edt;
+        EDT nouvelleEdt = new EDT(edt.getListeEDTSalles(),edt.getEnergie(),edt.getDonneesEDT());
         nouvelleEdt.getListeEDTSalles().get(randSalle1).modifieEvenement(j1, h1, idEven2);
         nouvelleEdt.getListeEDTSalles().get(randSalle2).modifieEvenement(j2, h2, idEven1);
 
