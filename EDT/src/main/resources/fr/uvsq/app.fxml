@@ -328,7 +328,7 @@
                         </GridPane>
                         <HBox prefHeight="119.0" prefWidth="637.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="157.0" text="Générer EDT" textFill="#fffdfd">
+                              <Button mnemonicParsing="false" onAction="#genereEDT" prefHeight="63.0" prefWidth="157.0" text="Générer EDT" textFill="#fffdfd">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

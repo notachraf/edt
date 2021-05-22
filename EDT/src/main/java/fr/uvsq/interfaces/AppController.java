@@ -807,8 +807,12 @@ public class AppController {
     /**
      * Lance la génération de l'emploi du temps
      */
+    @FXML
     public void genereEDT(){
-
+        mGenerateurEDT= new GenerateurEDT(0.0, 0.0, new ArrayList<>(), null, new DonneesEDT());
+        mGenerateurEDT.recuitSimule();
+        afficheEDT();
+        mEDTCalendarPane.toFront();
     }
 
     /**
@@ -828,8 +832,6 @@ public class AppController {
         mCalendarTP.setStyle(Calendar.Style.STYLE4);
         mCalendarTD.setStyle(Calendar.Style.STYLE6);
 
-        mGenerateurEDT= new GenerateurEDT(0.0, 0.0, null, null, new DonneesEDT());
-        mGenerateurEDT.solutionInitiale();
         Map<Integer, List<Evenement>> map = mGenerateurEDT.getEvenementsParJour();
 
         for( Map.Entry<Integer, List<Evenement>> even : map.entrySet()){

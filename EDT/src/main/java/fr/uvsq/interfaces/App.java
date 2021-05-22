@@ -56,7 +56,7 @@ public class App extends Application {
         initListeModules();
         initListeProfs();
         initListePromotions();
-        mAppController.afficheEDT();
+
     }
 
     private void initialiseApp(){

@@ -221,7 +221,9 @@ public class GenerateurEDT {
             for (EDTSalle edtSalle : mSolutionFinale.getListeEDTSalles()) {
                 for( int h = 0; h < EDTSalle.getNbHoraires(); h++) {
                     int idEvenement = edtSalle.getIdEvenement(j, h);
-                    if( idEvenement != -1 ) {
+                    if( idEvenement != -1 && idEvenement < mDonneesEDT.getListeEvenements().size()) {
+                        System.out.println("Nb Evenement: " + mDonneesEDT.getListeEvenements().size());
+                        System.out.println("id found: " + idEvenement);
                         listeEven.add(mDonneesEDT.getListeEvenements().get(idEvenement));
                     }
                 }
