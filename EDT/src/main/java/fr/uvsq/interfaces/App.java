@@ -55,7 +55,7 @@ public class App extends Application {
         initListeModules();
         initListeProfs();
         initListePromotions();
-        mAppController.setApp(this);
+
     }
 
     private void initialiseApp(){
@@ -64,9 +64,11 @@ public class App extends Application {
         try {
             BorderPane appPane = fxmlLoader.load();
             mAppController = fxmlLoader.getController();
+            mAppController.setApp(this);
             Scene appScene = new Scene(appPane);
             mAppStage.setTitle("EDT");
             mAppStage.setScene(appScene);
+
             //mAppStage.setResizable(false);
             mAppStage.show();
         }catch (IOException e){

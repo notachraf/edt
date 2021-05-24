@@ -35,7 +35,6 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -51,15 +50,7 @@
                   <Insets left="50.0" />
                </padding>
             </Label>
-            <Label prefHeight="79.0" prefWidth="281.0" text="Durée:" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-            </Label>
-            <Label prefHeight="78.0" prefWidth="281.0" text="Nombre de CM:" GridPane.rowIndex="2">
+            <Label prefHeight="78.0" prefWidth="281.0" text="Nombre de CM:" GridPane.rowIndex="1">
                <padding>
                   <Insets left="50.0" />
                </padding>
@@ -69,62 +60,57 @@
                   <Insets right="100.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="mDureeTextField" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="mNbCMTextField" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="mNbCMTextField" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets right="100.0" />
-               </GridPane.margin>
-            </TextField>
-            <Label text="Nombre de TD:" GridPane.rowIndex="3">
+            <Label text="Nombre de TD:" GridPane.rowIndex="2">
                <padding>
                   <Insets left="50.0" />
                </padding>
             </Label>
-            <Label text="Nombre de TP:" GridPane.rowIndex="4">
+            <Label text="Nombre de TP:" GridPane.rowIndex="3">
                <padding>
                   <Insets left="50.0" />
                </padding>
             </Label>
-            <Label text="Durée CM" GridPane.rowIndex="5">
+            <Label text="Durée CM(min)" GridPane.rowIndex="4">
                <padding>
                   <Insets left="50.0" />
                </padding>
             </Label>
-            <Label text="Durée TD" GridPane.rowIndex="6">
+            <Label text="Durée TD(min)" GridPane.rowIndex="5">
                <padding>
                   <Insets left="50.0" />
                </padding>
             </Label>
-            <Label text="Durée TP" GridPane.rowIndex="7">
+            <Label text="Durée TP(min)" GridPane.rowIndex="6">
                <padding>
                   <Insets left="50.0" />
                </padding>
             </Label>
-            <TextField fx:id="mNbTDTextField" layoutX="291.0" layoutY="117.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="mNbTDTextField" layoutX="291.0" layoutY="117.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="mNbTPTextField" layoutX="291.0" layoutY="166.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="mNbTPTextField" layoutX="291.0" layoutY="166.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="mDureeCMTextField" layoutX="291.0" layoutY="215.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="mDureeCMTextField" layoutX="291.0" layoutY="215.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="mDureeTDTextField" layoutX="291.0" layoutY="264.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="mDureeTDTextField" layoutX="291.0" layoutY="264.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="mDureeTPTextField" layoutX="291.0" layoutY="313.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <TextField fx:id="mDureeTPTextField" layoutX="291.0" layoutY="313.0" prefHeight="32.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>

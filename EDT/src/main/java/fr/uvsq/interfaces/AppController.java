@@ -795,7 +795,7 @@ public class AppController {
      */
     @FXML
     public void genereEDT(){
-        mGenerateurEDT= new GenerateurEDT(0.5, 1000.0, new ArrayList<>(), null, new DonneesEDT());
+        mGenerateurEDT= new GenerateurEDT(0.9, 10000.0, new ArrayList<>(), null, new DonneesEDT());
         mGenerateurEDT.recuitSimule();
         afficheEDT();
         mEDTCalendarPane.toFront();

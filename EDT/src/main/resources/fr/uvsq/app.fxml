@@ -94,14 +94,13 @@
                            <columns>
                               <TableColumn fx:id="mIdModuleCln" prefWidth="38.0" text="ID" />
                               <TableColumn fx:id="mNomModuleCln" prefWidth="147.0" text="NOM" />
-                              <TableColumn fx:id="mDureeModuleCln" minWidth="0.0" prefWidth="47.0" text="Durée" />
                               <TableColumn fx:id="mNbCMCln" prefWidth="79.0" text="Nombre de &#10;cours" />
                               <TableColumn fx:id="mNbTDCln" prefWidth="76.0" text="Nombre de &#10;TD" />
                               <TableColumn fx:id="mNbTPCln" prefWidth="73.0" text="Nombre de &#10;TP" />
-                              <TableColumn fx:id="mDureeCMCln" minWidth="0.0" prefWidth="45.0" text="Durée &#10;cours" />
-                              <TableColumn fx:id="mDureeTDCln" prefWidth="50.0" text="Durée &#10;TD" />
-                              <TableColumn fx:id="mDureeTPCln" minWidth="46.0" prefWidth="201.0" text="Durée &#10;TP" />
-                              <TableColumn fx:id="mActionModuleCln" minWidth="12.0" prefWidth="234.0" text="Action" />
+                              <TableColumn fx:id="mDureeCMCln" minWidth="0.0" prefWidth="95.0" text="Durée &#10;cours (min)&#10;" />
+                              <TableColumn fx:id="mDureeTDCln" minWidth="0.0" prefWidth="118.0" text="Durée &#10;TD (min)&#10;" />
+                              <TableColumn fx:id="mDureeTPCln" minWidth="46.0" prefWidth="148.0" text="Durée &#10;TP (min)" />
+                              <TableColumn fx:id="mActionModuleCln" minWidth="12.0" prefWidth="169.0" text="Action" />
                            </columns>
                            <VBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" />

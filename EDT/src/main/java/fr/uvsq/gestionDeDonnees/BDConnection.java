@@ -11,6 +11,7 @@ public class BDConnection {
     private static final String USER = null;
     private static final String PASSWORD  = null;
 
+
     /**
      * Etablir une connection avec les identifiants:
      * @URL,@USER,@PASSWORD

@@ -317,18 +317,8 @@ public class EDT {
 	    			}
 	    		}
 	    	}
-	    	
-	    	for(Evenement even : mDonneesEDT.getListeEvenements()) {
-	    		int duree = 0;
-	    		if(even.getTypeEven() == TypeEven.CM) duree = even.getModule().getDureeCM();
-	    		if(even.getTypeEven() == TypeEven.TD) duree = even.getModule().getDureeTD();
-	    		if(even.getTypeEven() == TypeEven.TP) duree = even.getModule().getDureeTP();
-	    		
-	    		duree = (int)Math.ceil(duree/60);
-	    		if(duree + even.getCreneau().getHoraire() > EDTSalle.getNbHoraires()) contrainte++;
 
-	    	}
-	    return contrainte;
+	    	return contrainte;
 	    }
 		    
 		public double calculEnergie ( int conTypeSalle , int conCapSalle , int ResProf ) {

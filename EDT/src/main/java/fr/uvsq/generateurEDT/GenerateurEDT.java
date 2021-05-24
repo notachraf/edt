@@ -87,7 +87,6 @@ public class GenerateurEDT {
     /**
      * Déroule l'algorithme du recuit simulé
      */
-    
     public void recuitSimule(){
 
      	EDT init = solutionInitiale();
@@ -95,22 +94,18 @@ public class GenerateurEDT {
 	   	mSolutionFinale = new EDT(init.getListeEDTSalles(),init.getEnergie(),init.getDonneesEDT());
 		System.out.println("Energie avant: " + mSolutionFinale.getEnergie());
 		//System.out.println("Taille liste avant: " + mSolutions.size());
-        int nbRep = 0;
 
         while(mTemperature > mTempFinal) {
-            //while(nbRep < 5000) {
-
-                System.out.println("In the loop : nbRep: " + nbRep);
+                System.out.println("temp " + mTemperature);
 
                 EDT voisin = modifierSolution(mSolutionFinale);
+                System.out.println("e1: " + mSolutionFinale.getEnergie()  +  "-- e2: " + voisin.getEnergie());
 		       	int e2 = (int)voisin.calculEnergie(0, 0, 0);
 		       	voisin.setEnergie(e2);
 		       	if( accepteSolution(mSolutionFinale.getEnergie(),voisin.getEnergie(),mTemperature) == (double)voisin.getEnergie()) {
 		       		mSolutions.add(mSolutionFinale);
 		       		mSolutionFinale = voisin;
 		       	}
-		       	nbRep++;
-		   	//}
 		   	mTemperature = mConstRef*mTemperature;
 	   	}
 
