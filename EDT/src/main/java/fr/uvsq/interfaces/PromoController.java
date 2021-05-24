@@ -13,8 +13,10 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PromoController {
 
@@ -74,7 +76,7 @@ public class PromoController {
         mNomTextField.setText(promo.getNom());
         mNombreElevesTextField.setText(String.valueOf(promo.getNbEleves()));
         mNombreGroupesTextField.setText(String.valueOf(promo.getNbGroupes()));
-
+        mDatePicker.setValue(LocalDate.parse(promo.getLocalDate()));
         mAjouterPromoBtn.setText("Modifier");
     }
 
@@ -119,7 +121,7 @@ public class PromoController {
             int nbEleve = Integer.parseInt(mNombreElevesTextField.getText());
             int nbGroupes = Integer.parseInt(mNombreGroupesTextField.getText());
 
-            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules, mDatePicker.getValue());
+            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules, mDatePicker.getValue().toString());
 
             if( mPromoDAO.inserer(promo) ){
                 mApp.getListePromos().add(promo);
@@ -155,7 +157,7 @@ public class PromoController {
             String nom = mNomTextField.getText();
             int nbEleve = Integer.parseInt(mNombreElevesTextField.getText());
             int nbGroupes = Integer.parseInt(mNombreGroupesTextField.getText());
-            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules, mDatePicker.getValue());
+            Promotion promo = new Promotion(nom, nbEleve, nbGroupes, modules, mDatePicker.getValue().toString());
 
             promo.setId(mPromo.getId());
             if( mPromoDAO.modifier(promo) ) {

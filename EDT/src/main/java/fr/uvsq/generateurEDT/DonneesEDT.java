@@ -25,8 +25,6 @@ public class DonneesEDT {
     	creerEvenementsCM();
     	creerEvenementsTD();
     	creerEvenementsTP();
-
-    	System.out.println("NB EVEn cons : "+ mListeEvenements.size());
     }
     /**
      * 
@@ -161,8 +159,6 @@ public class DonneesEDT {
     			}
     		}
     	}
-    	System.out.println("+++++ NB CM: " + nbCm);
-		System.out.println("Nb even CM: " + mListeEvenements.size() );
     }
 
     /**
@@ -171,12 +167,10 @@ public class DonneesEDT {
     public void creerEvenementsTP(){
     	Random random = new Random(System.currentTimeMillis());
     	int i = 0;
-    	System.out.println("GetList: " + mListePromotions.size());
 		for(Promotion promo : mListePromotions) {
 			List<Groupe> groupesPromo = new ArrayList<>();
 			int nbeleves = promo.getNbEleves();
 			int nbgroupes = promo.getNbGroupes();
-			System.out.println("i: " + i);
 			for(int j=0;j<promo.getNbGroupes();j++) {
 				String nomGroupe = "Groupe" + (j+1) + "";
 				Groupe gpe = new Groupe(nomGroupe,(nbeleves/nbgroupes),promo);
@@ -184,13 +178,10 @@ public class DonneesEDT {
 				nbeleves -= (nbeleves/nbgroupes);
 				nbgroupes--;
 			}
-
-			System.out.println("Gest module: " + promo.getListeModules().size() );
-        	for(Module module : promo.getListeModules()) {
+			for(Module module : promo.getListeModules()) {
        			if(module.getNbTP() > 0) {
         				//créer les événements TP pour chaque groupe de de la promotion
         				//choisi un prof
-					System.out.println("G: " + groupesPromo.size());
        				for(Groupe unGroupe : groupesPromo) {
    	    				int indiceProf = 0;
    	    				while(indiceProf < mListeProfesseurs.size() && !mListeProfesseurs.get(indiceProf).peutEnseigner(module)) {
@@ -231,8 +222,6 @@ public class DonneesEDT {
         	for(Module module : promo.getListeModules()) {
 
        			if(module.getNbTD() > 0) {
-        				//créer les événements TD pour chaque groupe de de la promotion
-        				//choisi un prof
        				for(Groupe unGroupe : groupesPromo) {
    	    				int indiceProf = 0;
    	    				while( indiceProf < mListeProfesseurs.size() && !mListeProfesseurs.get(indiceProf).peutEnseigner(module)) {

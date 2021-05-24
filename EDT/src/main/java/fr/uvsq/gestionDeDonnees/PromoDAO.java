@@ -7,23 +7,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
 
-import fr.uvsq.gestionDeDonnees.DAO;
-import fr.uvsq.models.Module;
-import fr.uvsq.models.Promotion;
-import fr.uvsq.utils.ConnectionUtils;
 
 public class PromoDAO extends DAO<Promotion>{
 
@@ -243,13 +231,10 @@ public class PromoDAO extends DAO<Promotion>{
         ResultSet result = null;
 
         try {
-            stmt = getConnection().createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE
-            );
+            stmt = getConnection().createStatement();
             result = stmt.executeQuery("SELECT * FROM Promotion ");
-
-            Promotion promotion =  null;
+			SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+			Promotion promotion =  null;
             while(result.next())
             {
                 promotion =  new Promotion();
@@ -257,7 +242,7 @@ public class PromoDAO extends DAO<Promotion>{
                 promotion.setNom( result.getString("promo_nom"));
                 promotion.setNbEleves( result.getInt("promo_nb_eleves"));
                 promotion.setNbGroupes( result.getInt("promo_nb_groupes"));
-                promotion.setLocalDate(result.getDate("promo_date").toLocalDate());
+                promotion.setLocalDate(result.getString("promo_date"));
                 String cours = result.getString("promo_cours");
                 ArrayList<Module> listeModule = new ArrayList<>();
                 String listeCours[] =  cours.split(",");

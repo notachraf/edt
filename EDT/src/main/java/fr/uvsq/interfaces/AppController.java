@@ -3,13 +3,11 @@ package fr.uvsq.interfaces;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
-import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
 import fr.uvsq.generateurEDT.*;
 import fr.uvsq.gestionDeDonnees.*;
 import fr.uvsq.models.*;
 import fr.uvsq.models.Module;
-import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -95,8 +93,6 @@ public class AppController {
     @FXML
     private TableColumn<Module, String> mNomModuleCln;
     @FXML
-    private TableColumn<Module, Integer> mDureeModuleCln;
-    @FXML
     private TableColumn<Module, Integer> mNbCMCln;
     @FXML
     private TableColumn<Module, Integer> mNbTDCln;
@@ -137,7 +133,7 @@ public class AppController {
     @FXML
     private TableColumn<Promotion, String> mModulesPromoCln;
     @FXML
-    private TableColumn<Promotion, LocalDate> mDatePromoCln;
+    private TableColumn<Promotion, String> mDatePromoCln;
     @FXML
     private TableColumn<Promotion, Void> mActionPromoCln;
 
@@ -259,12 +255,6 @@ public class AppController {
                 return cellData.getValue().getNom();
             }
         });
-        /*mDureeModuleCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
-            @Override
-            public Integer getValue() {
-                return cellData.getValue().getDuree();
-            }
-        });*/
         mNbCMCln.setCellValueFactory(cellData -> new ObservableValueBase<Integer>() {
             @Override
             public Integer getValue() {
@@ -363,6 +353,12 @@ public class AppController {
             @Override
             public String getValue() {
                 return cellData.getValue().getListeModulesAsString();
+            }
+        });
+        mDatePromoCln.setCellValueFactory(cellData -> new ObservableValueBase<String>() {
+            @Override
+            public String getValue() {
+                return cellData.getValue().getLocalDate();
             }
         });
     }
@@ -794,22 +790,12 @@ public class AppController {
 
     }
 
-
-    /**
-     * Récuper les contraintes saisies par l'utilisateur
-     * et appelle méthode de vérification de la classe Vérification.
-     */
-    @FXML
-    private void validerContraintes(){
-
-    }
-
     /**
      * Lance la génération de l'emploi du temps
      */
     @FXML
     public void genereEDT(){
-        mGenerateurEDT= new GenerateurEDT(0.0, 0.0, new ArrayList<>(), null, new DonneesEDT());
+        mGenerateurEDT= new GenerateurEDT(0.5, 1000.0, new ArrayList<>(), null, new DonneesEDT());
         mGenerateurEDT.recuitSimule();
         afficheEDT();
         mEDTCalendarPane.toFront();
@@ -847,8 +833,7 @@ public class AppController {
                         + " " + e.getGroupe().getPromotion().getNom() + " "
                         + " Salle " + nomSalle;
                 Entry entry = new Entry();
-
-                entry.setInterval(e.getGroupe().getPromotion().getLocalDate());
+                entry.setInterval(LocalDate.parse(e.getGroupe().getPromotion().getLocalDate()));
                 if( e.getTypeEven() == TypeEven.CM){
                     entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;BYDAY="+sDAYS.get(e.getCreneau().getJour())
                                             +";COUNT="+ e.getModule().getNbCM());

@@ -4,7 +4,7 @@ import java.util.*;
 public class GenerateurEDT {
     private DonneesEDT mDonneesEDT;
     private double mConstRef;
-    private final static int mTempFinal = 0;
+    private final static double mTempFinal = 0.1;
     private double mTemperature;
     private List<EDT> mSolutions; // pour débugger
     private EDT mSolutionFinale;
@@ -62,7 +62,7 @@ public class GenerateurEDT {
     	mConstRef = constanteDiminue;
     }
 
-    public static int getTempFinal() {
+    public static double getTempFinal() {
         return mTempFinal;
     }
 
@@ -95,19 +95,22 @@ public class GenerateurEDT {
 	   	mSolutionFinale = new EDT(init.getListeEDTSalles(),init.getEnergie(),init.getDonneesEDT());
 		System.out.println("Energie avant: " + mSolutionFinale.getEnergie());
 		//System.out.println("Taille liste avant: " + mSolutions.size());
+        int nbRep = 0;
 
-	   	while(mTemperature > mTempFinal) {
-		   	int nbRep = 0;
-		   	while(nbRep < 5000) {
-		       	EDT voisin = modifierSolution(mSolutionFinale);
+        while(mTemperature > mTempFinal) {
+            //while(nbRep < 5000) {
+
+                System.out.println("In the loop : nbRep: " + nbRep);
+
+                EDT voisin = modifierSolution(mSolutionFinale);
 		       	int e2 = (int)voisin.calculEnergie(0, 0, 0);
 		       	voisin.setEnergie(e2);
 		       	if( accepteSolution(mSolutionFinale.getEnergie(),voisin.getEnergie(),mTemperature) == (double)voisin.getEnergie()) {
 		       		mSolutions.add(mSolutionFinale);
-		       		mSolutionFinale = new EDT(voisin.getListeEDTSalles(),voisin.getEnergie(),voisin.getDonneesEDT());
+		       		mSolutionFinale = voisin;
 		       	}
 		       	nbRep++;
-		   	}	   		
+		   	//}
 		   	mTemperature = mConstRef*mTemperature;
 	   	}
 
@@ -205,7 +208,6 @@ public class GenerateurEDT {
         listeCreneauxDisponibles.clear();
         mSolutionFinale = new EDT(listeEDTSalle, 0, mDonneesEDT);
         return mSolutionFinale;
-        //return new EDT(listeEDTSalle, 0, mDonneesEDT);
     }
 
     /**
@@ -222,8 +224,6 @@ public class GenerateurEDT {
                 for( int h = 0; h < EDTSalle.getNbHoraires(); h++) {
                     int idEvenement = edtSalle.getIdEvenement(j, h);
                     if( idEvenement != -1 && idEvenement < mDonneesEDT.getListeEvenements().size()) {
-                        System.out.println("Nb Evenement: " + mDonneesEDT.getListeEvenements().size());
-                        System.out.println("id found: " + idEvenement);
                         listeEven.add(mDonneesEDT.getListeEvenements().get(idEvenement));
                     }
                 }
@@ -246,20 +246,6 @@ public class GenerateurEDT {
      */
     public StringBuilder getSolutionEnLatex(){
         return null;
-    }
-
-    public void displaySolutionInit(EDT edt){
-        System.out.println("======= NB Salles: " + edt.getListeEDTSalles().size());
-        for( int s = 0; s < edt.getListeEDTSalles().size(); s++){
-            System.out.println("======== Salle : " + s);
-            for( int h = 0; h < EDTSalle.getNbHoraires(); h++){
-                for( int j = 0; j < EDTSalle.getNbJours(); j++){
-                    System.out.print(" [ " + edt.getListeEDTSalles().get(s).getEdt()[h][j] + "]");
-                }
-                System.out.println("");
-            }
-            System.out.println("\n");
-        }
     }
 
 }

@@ -3,12 +3,13 @@ package fr.uvsq.gestionDeDonnees;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class BDConnection {
     private static Connection sConnection;
-    private static final String URL  = "jdbc:mysql://localhost:3306/emploi_du_temps";
-    private static final String USER = "root";
-    private static final String PASSWORD  = "123456789";
+    private static final String URL  = "jdbc:sqlite:src/main/resources/sql/emploi_du_temps.db";
+    private static final String USER = null;
+    private static final String PASSWORD  = null;
 
     /**
      * Etablir une connection avec les identifiants:
@@ -20,7 +21,7 @@ public class BDConnection {
             return sConnection;
 
         try {
-            sConnection = DriverManager.getConnection(URL, USER, PASSWORD);
+            sConnection = DriverManager.getConnection(URL);
             System.out.println("\n ------------ Connected ------------------");
         } catch (SQLException e) {
             e.printStackTrace();

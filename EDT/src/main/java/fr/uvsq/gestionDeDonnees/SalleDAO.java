@@ -3,7 +3,6 @@ package fr.uvsq.gestionDeDonnees;
 import fr.uvsq.gestionDeDonnees.DAO;
 import fr.uvsq.models.Salle;
 import fr.uvsq.models.TypeSalle;
-import fr.uvsq.utils.ConnectionUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -111,10 +110,7 @@ public class SalleDAO extends DAO<Salle> {
          Connection connection = this.getConnection();
          Statement stmt = null; 
         try {
-            stmt = connection.createStatement(
-                                                ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                                                ResultSet.CONCUR_UPDATABLE
-                                             );
+            stmt = connection.createStatement();
             
             result = stmt.executeQuery(
                                                 "SELECT * FROM salle WHERE salle_id = " + id

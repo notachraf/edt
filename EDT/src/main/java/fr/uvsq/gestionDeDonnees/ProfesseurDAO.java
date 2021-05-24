@@ -225,10 +225,7 @@ public class ProfesseurDAO extends DAO<Professeur> {
         ResultSet result = null;
 
         try {
-            stmt = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE
-            );
+            stmt = connection.createStatement();
             result = stmt.executeQuery("SELECT * FROM Professeur ");
 
             Professeur professeur =  null;

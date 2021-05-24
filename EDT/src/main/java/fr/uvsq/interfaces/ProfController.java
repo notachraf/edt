@@ -171,5 +171,4 @@ public class ProfController {
         mPeutEnseignerComboBox.getItems().addAll(modules);
     }
 
-
 }

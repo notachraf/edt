@@ -180,12 +180,10 @@ public class ModuleDAO extends DAO<Module>{
     	PreparedStatement stmt = null;
     	ResultSet result = null; 
        try {
-        stmt = getConnection().prepareStatement("SELECT * FROM Module WHERE mod_nom=?",
-                                                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                                                    ResultSet.CONCUR_UPDATABLE);
+        stmt = getConnection().prepareStatement("SELECT * FROM Module WHERE mod_nom=?");
         stmt.setString(1, nom);
         result = stmt.executeQuery();
-       if(result.first()) {
+       if(result.next()) {
            module.setId( result.getInt("mod_id"));
             module.setNom( result.getString("mod_nom"));
             module.setNbCM( result.getInt("mod_nb_cm"));
@@ -209,10 +207,7 @@ public class ModuleDAO extends DAO<Module>{
     	ResultSet result = null; 
     	
        try {
-           stmt = getConnection().createStatement(
-                                               ResultSet.TYPE_SCROLL_INSENSITIVE, 
-                                               ResultSet.CONCUR_UPDATABLE
-                                            );
+           stmt = getConnection().createStatement();
            result = stmt.executeQuery("SELECT * FROM Module ");
 
            Module module = null;

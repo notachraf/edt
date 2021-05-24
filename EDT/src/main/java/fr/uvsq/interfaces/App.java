@@ -31,7 +31,6 @@ public class App extends Application {
     private ModuleDAO mModuleDAO = (ModuleDAO) FactoryDAO.getModuleDAO();
     private PromoDAO mPromoDAO = (PromoDAO) FactoryDAO.getPromotionDAO();
     private ProfesseurDAO mProfDAO = (ProfesseurDAO) FactoryDAO.getProfesseurDAO();
-    private FactoryDAO mFactoryDAO;
 
     public AppController getAppController() {
         return mAppController;
@@ -49,14 +48,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        initBaseDonnes();
         mAppStage = stage;
         initialiseApp();
-        initBaseDonnes();
         initListeSalles();
         initListeModules();
         initListeProfs();
         initListePromotions();
-
+        mAppController.setApp(this);
     }
 
     private void initialiseApp(){
@@ -65,7 +64,6 @@ public class App extends Application {
         try {
             BorderPane appPane = fxmlLoader.load();
             mAppController = fxmlLoader.getController();
-            mAppController.setApp(this);
             Scene appScene = new Scene(appPane);
             mAppStage.setTitle("EDT");
             mAppStage.setScene(appScene);
@@ -99,13 +97,13 @@ public class App extends Application {
         ScriptRunner runner = new ScriptRunner(BDConnection.getConnection());
         try {
             Reader reader = new BufferedReader(new FileReader("src/main/resources/sql/scriptCreation.sql"));
+            runner.setEscapeProcessing(false);
             runner.runScript(reader);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private void testSolutionInit(){
-    }
+
     public static void main(String[] args) {
         launch();
     }

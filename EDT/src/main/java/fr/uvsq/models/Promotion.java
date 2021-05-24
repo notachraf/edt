@@ -3,6 +3,7 @@ package fr.uvsq.models;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Promotion {
     private String mNom;
@@ -11,9 +12,9 @@ public class Promotion {
     private int mNbGroupes;
     private ArrayList<Module> mListeModules;
 
-    private LocalDate mLocalDate;
+    private String mLocalDate;
 
-    public Promotion(String nom, int nbEleves, int nbGroupes, ArrayList<Module> listeModules, LocalDate date) {
+    public Promotion(String nom, int nbEleves, int nbGroupes, ArrayList<Module> listeModules, String date) {
         mNom = nom;
         mNbEleves = nbEleves;
         mNbGroupes = nbGroupes;
@@ -99,11 +100,11 @@ public class Promotion {
     	}
     }
 
-    public LocalDate getLocalDate() {
+    public String getLocalDate() {
         return mLocalDate;
     }
 
-    public void setLocalDate(LocalDate localDate) {
+    public void setLocalDate(String localDate) {
         mLocalDate = localDate;
     }
 
