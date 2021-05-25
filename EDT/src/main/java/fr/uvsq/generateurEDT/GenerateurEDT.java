@@ -289,12 +289,4 @@ public class GenerateurEDT {
         recuitSimule();
     }
 
-    /**
-     * Retourne la solution de l'EDT en Latex
-     * @return StringBuilder
-     */
-    public StringBuilder getSolutionEnLatex(){
-        return null;
-    }
-
 }
