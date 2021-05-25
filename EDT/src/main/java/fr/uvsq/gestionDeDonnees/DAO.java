@@ -45,7 +45,7 @@ public abstract class DAO<T> {
      * Cherche une entrée qui a pour identifiant id
      * dans la table T
      * @param id
-     * @return
+     * @return 
      */
     public abstract T rechercher(int id);
 
@@ -65,8 +65,9 @@ public abstract class DAO<T> {
     public abstract T rechercher(String nom);
     
     /**
-     * 
-     * @return
+     * reourne une liste avec toutes les entrées
+     * de la table T
+     * @return LIST
      */
     public abstract ArrayList<T> recupererListe();
     
