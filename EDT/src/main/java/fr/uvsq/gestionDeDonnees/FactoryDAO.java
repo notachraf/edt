@@ -6,7 +6,7 @@ import fr.uvsq.gestionDeDonnees.BDConnection;
 import fr.uvsq.gestionDeDonnees.DAO;
 
 /**
- * Cette permet d'instancier des Classes.
+ * Cette classe permet d'instancier des Classes.
  */
 public class FactoryDAO {
 	/**
