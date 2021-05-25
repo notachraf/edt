@@ -100,26 +100,29 @@ public class SalleDAO extends DAO<Salle> {
 
     @Override
     public Salle rechercher(int id) {
-        
-         Salle salle = null; 
-         ResultSet result = null; 
-         Connection connection = this.getConnection();
-         Statement stmt = null; 
+
+        Salle salle = null;
+        ResultSet result = null;
+        Connection connection = this.getConnection();
+        Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            
-            result = stmt.executeQuery(
-                                                "SELECT * FROM salle WHERE salle_id = " + id
-                                             );
-            if(result.first()) {
-            		salle = extractSalleFromResultSet(result);
-             }
-                     } catch (SQLException e) {
-                e.printStackTrace();
+
+            result = stmt.executeQuery("SELECT * FROM salle WHERE salle_id = " + id);
+
+            if (result.first()) {
+                 salle = new Salle();
+                salle.setId(result.getInt("salle_id"));
+                salle.setNom(result.getString("salle_nom"));
+                salle.setCapacite(result.getInt("salle_capacite"));
+                salle.setTypeSalle(TypeSalle.valueOf(result.getString("salle_type")));
             }
-            return salle;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
 
         }
+        return salle;
+    }
 
         @Override
         public boolean modifier (Salle salle){
@@ -213,23 +216,6 @@ public class SalleDAO extends DAO<Salle> {
         }
         return null;
     }
-    
-    /**
-     * 
-     * @param rs
-     * @return
-     * @throws SQLException 
-     */
-    private Salle extractSalleFromResultSet(ResultSet rs) throws SQLException {
-    	
-    	Salle salle = new Salle();
-    	salle.setId( rs.getInt("salle_id") );
-    	salle.setNom( rs.getString("salle_nom") );
-    	salle.setCapacite( rs.getInt("salle_capacite") );
-    	salle.setTypeSalle(TypeSalle.valueOf(rs.getString("salle_type")));
 
-        return salle;
-    	
-    }
 }
 
