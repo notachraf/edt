@@ -67,8 +67,6 @@ public class SalleDAO extends DAO<Salle> {
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
-            } finally {
-                //ConnectionUtils.fermerConnection(ps, connection);
             }
 
             return true;
@@ -95,8 +93,6 @@ public class SalleDAO extends DAO<Salle> {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            //ConnectionUtils.fermerConnection(stmt, connection);
         }
 
         return false;
@@ -120,8 +116,6 @@ public class SalleDAO extends DAO<Salle> {
              }
                      } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                //ConnectionUtils.fermerConnection(result, stmt, connection);
             }
             return salle;
 

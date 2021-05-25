@@ -32,16 +32,44 @@ public class App extends Application {
     private PromoDAO mPromoDAO = (PromoDAO) FactoryDAO.getPromotionDAO();
     private ProfesseurDAO mProfDAO = (ProfesseurDAO) FactoryDAO.getProfesseurDAO();
 
+    /**
+     *
+     * @return appController actuel
+     */
     public AppController getAppController() {
         return mAppController;
     }
 
+    /**
+     *
+     * @return liste des salles actuelle
+     */
     public ObservableList<Salle> getListeSalles() {
         return mListeSalles;
     }
+
+    /**
+     *
+     * @return liste des modules actuelle
+     */
     public ObservableList<Module> getListModule() { return mListeModule; }
+
+    /**
+     *
+     * @return liste des professeurs actuelle
+     */
     public ObservableList<Professeur> getListeProfs() { return mListeProfs; }
+
+    /**
+     *
+     * @return liste des promotions actuelle
+     */
     public ObservableList<Promotion> getListePromos() { return mListePromos; }
+
+    /**
+     *
+     * @return appStage actuelle
+     */
     public Stage getAppStage() {
         return mAppStage;
     }
@@ -58,6 +86,9 @@ public class App extends Application {
 
     }
 
+    /**
+     * Initialisation de la fenêtre principale
+     */
     private void initialiseApp(){
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/fr/uvsq/app.fxml"));
@@ -75,26 +106,42 @@ public class App extends Application {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Initialisation de la liste des Salles
+     */
     private void initListeSalles(){
         mListeSalles.addAll(mSalleDAO.recupererListe());
         mAppController.setNbSalles(String.valueOf(mListeSalles.size()));
 
     }
 
+    /**
+     * Initialisation de la liste des Promotion
+     */
     private void initListePromotions(){
         mListePromos.addAll(mPromoDAO.recupererListe());
         mAppController.setNbPromos(String.valueOf(mListePromos.size()));
     }
+
+    /**
+     * Initialisation de la liste des Modules
+     */
     private void initListeModules() {
         mListeModule.addAll(mModuleDAO.recupererListe());
         mAppController.setNbModules(String.valueOf(mListeModule.size()));
     }
-
+    /**
+     * Initialisation de la liste des Professeurs
+     */
     private void initListeProfs() {
         mListeProfs.addAll(mProfDAO.recupererListe());
         mAppController.setNbProfs(String.valueOf(mListeProfs.size()));
     }
 
+    /**
+     * Initialisation de la base de données.
+     */
     private void initBaseDonnes() {
         ScriptRunner runner = new ScriptRunner(BDConnection.getConnection());
         try {
@@ -106,6 +153,10 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Lance l'application.
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }

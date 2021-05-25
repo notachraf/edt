@@ -50,9 +50,7 @@ public class PromoDAO extends DAO<Promotion>{
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }  finally {
-			//ConnectionUtils.fermerConnection(ps, connection);
-		}
+        }
 
 		return false;
 	}
@@ -78,8 +76,6 @@ public class PromoDAO extends DAO<Promotion>{
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            //ConnectionUtils.fermerConnection(ps, connection);
         }
         
         return insertBon == 1; 
@@ -107,10 +103,7 @@ public class PromoDAO extends DAO<Promotion>{
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-		} finally {
-			//ConnectionUtils.fermerConnection(rs, stmt, connection);
 		}
-
 		return false;
 	}
 
@@ -147,8 +140,6 @@ public class PromoDAO extends DAO<Promotion>{
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-		} finally {
-			//ConnectionUtils.fermerConnection(rs, stmt, connection);
 		}
 
 		return promotion;
@@ -216,8 +207,6 @@ public class PromoDAO extends DAO<Promotion>{
 
 		} catch (SQLException ex) {
 				ex.printStackTrace();
-		} finally {
-			//ConnectionUtils.fermerConnection(rs, stmt, connection);
 		}
 
 		return promotion;

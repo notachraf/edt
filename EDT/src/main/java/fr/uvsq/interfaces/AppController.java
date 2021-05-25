@@ -16,12 +16,20 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import org.usajusaj.jtex.*;
+import org.usajusaj.jtex.io.TeXIOException;
+import org.usajusaj.jtex.io.TeXInvalidFileException;
+import org.usajusaj.jtex.items.ITItem;
+import org.usajusaj.jtex.items.env.TeXEnvEnum;
+import org.usajusaj.jtex.items.env.TeXEnvironmentImpl;
+import org.usajusaj.jtex.util.TeXCommands;
 
-
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -33,14 +41,11 @@ import java.util.Map;
 
 public class AppController {
     private App mApp;
-    private StringBuilder mEDTEnLatex;
-    private Map<Integer, List<Evenement>> mEvenementParJour;
+    private String mEDTEnLatex;
     private GenerateurEDT mGenerateurEDT;
     private Calendar mCalendarCM;
     private Calendar mCalendarTD;
     private Calendar mCalendarTP;
-    private static final List<String> sHORAIRE = Arrays.asList(new String []{"8H00", "9H00",
-            "10H00", "11H00", "12H00", "13H00", "14H00", "15H00", "16H00", "17H00", "18H00"});
     private static final List<String> sDAYS = Arrays.asList(new String []{"MO", "TU", "WE", "TH", "FR"});
 
     @FXML
@@ -62,6 +67,8 @@ public class AppController {
     private Label mNbPromos;
     @FXML
     private Label mNbModules;
+    @FXML
+    private TextArea mLatexText;
 
     @FXML
     private Pane mDashboardPane,
@@ -172,12 +179,6 @@ public class AppController {
             System.out.println(" =========== Latex button ===========");
             mLatexPane.toFront();
         }
-    }
-
-    /**
-     * Initialise le calendrier.
-     */
-    private void initCalendarView(){
     }
 
     /**
@@ -437,11 +438,6 @@ public class AppController {
             e.printStackTrace();
         }
     }
-
-
-    /**
-     * Affiche une fenêtre qui permet d'ajouter un prof
-     */
 
     /**
      * Affiche une fenêtre qui permet d'ajouter une promotion
@@ -787,7 +783,6 @@ public class AppController {
         };
 
         mActionPromoCln.setCellFactory(cellFactory);
-
     }
 
     /**
@@ -811,15 +806,15 @@ public class AppController {
         mEDTCalendarPane.setWeekFields(WeekFields.ISO);
         mEDTCalendarPane.setShowPrintButton(false);
         mEDTCalendarPane.setShowDeveloperConsole(false);
-        mCalendarCM = new Calendar();
-        mCalendarTD = new Calendar();
-        mCalendarTP = new Calendar();
+        mCalendarCM = new Calendar("CM");
+        mCalendarTD = new Calendar("TD");
+        mCalendarTP = new Calendar("TP");
         mCalendarCM.setStyle(Calendar.Style.STYLE1);
         mCalendarTP.setStyle(Calendar.Style.STYLE4);
         mCalendarTD.setStyle(Calendar.Style.STYLE6);
 
         Map<Integer, List<Evenement>> map = mGenerateurEDT.getEvenementsParJour();
-
+        mEDTEnLatex = new String();
         for( Map.Entry<Integer, List<Evenement>> even : map.entrySet()){
 
             for (Evenement e : even.getValue()) {
@@ -832,31 +827,40 @@ public class AppController {
                         + " " +  nomGroupe + " "
                         + " " + e.getGroupe().getPromotion().getNom() + " "
                         + " Salle " + nomSalle;
+
                 Entry entry = new Entry();
                 entry.setInterval(LocalDate.parse(e.getGroupe().getPromotion().getLocalDate()));
+                mEDTEnLatex += "\\\\ date: " + LocalDate.parse(e.getGroupe().getPromotion().getLocalDate());
+                mEDTEnLatex += "\\\\" + title;
                 if( e.getTypeEven() == TypeEven.CM){
-                    entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;BYDAY="+sDAYS.get(e.getCreneau().getJour())
-                                            +";COUNT="+ e.getModule().getNbCM());
+                    String rrule = "RRULE:FREQ=WEEKLY;BYDAY="+sDAYS.get(e.getCreneau().getJour())
+                            +";COUNT="+ e.getModule().getNbCM();
+                    entry.setRecurrenceRule(rrule);
                     int dureeHeure = e.getModule().getDureeCM() / 60;
                     int minute = e.getModule().getDureeCM() % 60;
                     entry.setInterval(LocalTime.of(heure, 0), LocalTime.of(heure + dureeHeure, minute));
                     entry.setTitle(title);
+                    mEDTEnLatex += "\\\\" + rrule + "\n";
                     mCalendarCM.addEntry(entry);
                 } else if ( e.getTypeEven() == TypeEven.TD){
-                    entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;BYDAY="+sDAYS.get(e.getCreneau().getJour())
-                            +";COUNT="+ e.getModule().getNbTD());
+                    String rrule = "RRULE:FREQ=WEEKLY;BYDAY="+sDAYS.get(e.getCreneau().getJour())
+                            +";COUNT="+ e.getModule().getNbTD();
+                    entry.setRecurrenceRule(rrule);
                     int dureeHeure = e.getModule().getDureeTD() / 60;
                     int minute = e.getModule().getDureeTD() % 60;
                     entry.setInterval(LocalTime.of(heure, 0), LocalTime.of(heure + dureeHeure, minute));
                     entry.setTitle(title);
+                    mEDTEnLatex += "\\\\" + rrule + "\n";
                     mCalendarTD.addEntry(entry);
                 } else {
-                    entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;BYDAY="+sDAYS.get(e.getCreneau().getJour())
-                            +";COUNT="+ e.getModule().getNbTP());
+                    String rrule = "RRULE:FREQ=WEEKLY;BYDAY="+sDAYS.get(e.getCreneau().getJour())
+                            +";COUNT="+ e.getModule().getNbTP();
+                    entry.setRecurrenceRule(rrule);
                     int dureeHeure = e.getModule().getDureeTP() / 60;
                     int minute = e.getModule().getDureeTP() % 60;
                     entry.setInterval(LocalTime.of(heure, 0), LocalTime.of(heure + dureeHeure, minute));
                     entry.setTitle(title);
+                    mEDTEnLatex += "\\\\" + rrule + "\n";
                     mCalendarTP.addEntry(entry);
                 }
             }
@@ -864,17 +868,57 @@ public class AppController {
         CalendarSource csrc = new CalendarSource();
         csrc.getCalendars().addAll(mCalendarCM, mCalendarTP, mCalendarTD);
         mEDTCalendarPane.getCalendarSources().add(csrc);
-        //mEDTCalendarPane.toFront();
+    }
 
+    /**
+     * Afficher l'EDT en Latex dans le mLatexPane.
+     */
+    @FXML
+    private void afficheLatex(){
+        if( mGenerateurEDT != null ) {
+            String debut = "\\documentclass{ltxdoc}\n" +
+                    "% PREAMBLE\n" +
+                    "\\usepackage[utf8]{inputenc}\n" +
+                    "% PREAMBLE\n" +
+                    "\n" +
+                    "\\begin{document}\n" +
+                    "\\begin{center}";
+            String fin = "\\end{center}\n" +
+                    "\\end{document}";
+            mLatexText.setText(debut + mEDTEnLatex + fin);
+            mLatexPane.toFront();
+        }
     }
 
     /**
      * Sauvegarde l'EDT dans un fichier Latex.
      */
-    public void saugarderEDTEnLatex(){
+    @FXML
+    public void sauvegarderEDTEnLatex() throws TeXInvalidFileException, TeXIOException, TeXException {
+        if ( mGenerateurEDT != null ){
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            File path = directoryChooser.showDialog(mApp.getAppStage());
+            System.out.println(" ++++ " + path.getAbsolutePath());
+            ITClass c = new TeXClassImpl(TeXClassEnum.LTX_DOC);
+            TeXPackageCollectionImpl pc = new TeXPackageCollectionImpl();
 
+            pc.addPackage(new TeXPackageImpl("inputenc", "utf8"));
+            TeXDocument doc = new TeXDocument(path + File.separator + "edt.tex", c, pc);
+
+            doc.getWriter().writel(TeXCommands.documentClass(TeXClassEnum.LTX_DOC.toString(), null));
+            doc.createPreamble();
+            ITItem centerEnvironment = new TeXEnvironmentImpl(TeXEnvEnum.CENTER);
+            doc.getWriter().writel(centerEnvironment.head());
+            doc.getWriter().writel(mEDTEnLatex);
+            doc.getWriter().writel(centerEnvironment.foot());
+            doc.close();
+        }
     }
 
+    /**
+     *
+     * @param app fixe la fenêtre principale
+     */
     public void setApp(App app) {
         mApp = app;
         mSallesTableView.setItems(mApp.getListeSalles());
@@ -883,18 +927,34 @@ public class AppController {
         mPromotionTableView.setItems(mApp.getListePromos());
     }
 
+    /**
+     *
+     * @param label nombre de total de Salles à fixer
+     */
     public void setNbSalles(String label) {
         mNbSalles.setText(label);
     }
 
+    /**
+     *
+     * @param nbProfs nombre total de Professeur à fixer
+     */
     public void setNbProfs(String nbProfs) {
         mNbProfs.setText(nbProfs);
     }
 
+    /**
+     *
+     * @param nbPromos nombre total de promotions à fixer
+     */
     public void setNbPromos(String nbPromos) {
         mNbPromos.setText(nbPromos);
     }
 
+    /**
+     *
+     * @param nbModules nombre total de modules à fixer
+     */
     public void setNbModules(String nbModules) {
         mNbModules.setText(nbModules);
     }

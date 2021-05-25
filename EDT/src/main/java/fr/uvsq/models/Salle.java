@@ -1,9 +1,5 @@
 package fr.uvsq.models;
 
-/**
- *
- * @Author Siham, Feriel, Aziz
- */
 public class Salle {
 
     private int mId;
@@ -12,7 +8,7 @@ public class Salle {
     private TypeSalle mTypeSalle;
 
     /**
-     *
+     * Constructeur par défaut
      */
     public Salle(){
         mId = -1;
@@ -22,10 +18,10 @@ public class Salle {
     }
 
     /**
-     *
-     * @param nom
-     * @param capacite
-     * @param typeSalle
+     * Création d'une instance de salle
+     * @param nom nom de la salle
+     * @param capacite capacité de la salle
+     * @param typeSalle type de salle
      */
     public Salle(String nom, int capacite, TypeSalle typeSalle) {
         mId = -1;
@@ -34,24 +30,9 @@ public class Salle {
         mTypeSalle = typeSalle;
     }
 
-    public Salle(String nom, int capacite, String typesalle) {
-        mId = -1;
-        mNom = nom;
-        mCapacite = capacite;
-        mTypeSalle = TypeSalle.valueOf(typesalle);
-    }
- 
-    
-    public Salle(String nom, String capacite, String typesalle) {
-        mId = -1;
-        mNom = nom;
-        mCapacite = Integer.valueOf(capacite);
-        mTypeSalle = TypeSalle.valueOf(typesalle);
-    }
-
 	/**
      *
-     * @return
+     * @return id de la salle actuel
      */
     public int getId() {
         return mId;
@@ -59,7 +40,7 @@ public class Salle {
 
     /**
      *
-     * @param id
+     * @param id id à fixer
      */
     public void setId(int id) {
         mId = id;
@@ -67,7 +48,7 @@ public class Salle {
 
     /**
      *
-     * @return
+     * @return nom de la salle actuel
      */
     public String getNom() {
         return mNom;
@@ -75,7 +56,7 @@ public class Salle {
 
     /**
      *
-     * @param nom
+     * @param nom nom à fixer
      */
     public void setNom(String nom) {
         mNom = nom;
@@ -83,7 +64,7 @@ public class Salle {
 
     /**
      *
-     * @return
+     * @return capacité de la salle actuelle
      */
     public int getCapacite() {
         return mCapacite;
@@ -91,7 +72,7 @@ public class Salle {
 
     /**
      *
-     * @param capacite
+     * @param capacite capacité à fixer
      */
     public void setCapacite(int capacite) {
         mCapacite = capacite;
@@ -99,7 +80,7 @@ public class Salle {
 
     /**
      *
-     * @return
+     * @return type de la salle actuel
      */
     public TypeSalle getTypeSalle() {
         return mTypeSalle;
@@ -107,7 +88,7 @@ public class Salle {
 
     /**
      *
-     * @param typeSalle
+     * @param typeSalle typeSalle à fixer
      */
     public void setTypeSalle(TypeSalle typeSalle) {
         mTypeSalle = typeSalle;

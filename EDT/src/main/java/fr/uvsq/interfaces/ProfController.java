@@ -47,13 +47,6 @@ public class ProfController {
     private Button mAjouterProfBtn;
 
     /**
-     * Initialise la fenêtre de dialogue professeur
-     */
-    private void initialize() {
-
-    }
-
-    /**
      * Ferme la fenêtre de dialogue professeur
      */
     @FXML
@@ -159,6 +152,13 @@ public class ProfController {
 
     }
 
+    /**
+     * fixe la fenêtre principale et initialise la
+     * liste de des modules
+     * @param app fenêtre principale
+     * @param profStage fenête de modification
+     * @param listeModule liste des module
+     */
     public void setApp(App app, Stage profStage, ObservableList<Module> listeModule) {
         mApp = app;
         mProfStage = profStage;

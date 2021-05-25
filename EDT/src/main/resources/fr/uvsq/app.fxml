@@ -7,7 +7,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -335,7 +335,7 @@
                                     <Insets left="360.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="157.0" text="Latex" textFill="#f8f5f5">
+                              <Button mnemonicParsing="false" onAction="#afficheLatex" prefHeight="63.0" prefWidth="157.0" text="Latex" textFill="#f8f5f5">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -366,9 +366,17 @@
                         </Label>
                         <ScrollPane prefHeight="670.0" prefWidth="1043.0">
                            <content>
-                              <TextField prefHeight="645.0" prefWidth="1048.0" promptText="Latex " />
+                              <TextArea fx:id="mLatexText" prefHeight="654.0" prefWidth="1049.0" />
                            </content>
                         </ScrollPane>
+                        <Button fx:id="mEnregisterLatexBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#sauvegarderEDTEnLatex" prefHeight="32.0" prefWidth="106.0" text="Enregistrer" textFill="#fcf9f9">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="900.0" top="10.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                   </VBox>
                </children>

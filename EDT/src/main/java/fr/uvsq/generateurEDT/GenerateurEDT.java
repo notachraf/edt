@@ -9,13 +9,25 @@ public class GenerateurEDT {
     private List<EDT> mSolutions; // pour débugger
     private EDT mSolutionFinale;
 
+    /**
+     * Création d'une instance de génération d'emploi du temps
+     * @param constRef constante de réduction de la température
+     * @param temperature température initiale
+     * @param solutions listes solutions
+     * @param solutionFinale solution finale
+     * @param donneesEDT données utilisées pour dérouler l'algorithme
+     *                   du recuit simulé
+     */
     public GenerateurEDT(double constRef, double temperature, List<EDT> solutions, EDT solutionFinale, DonneesEDT donneesEDT) {
         mDonneesEDT = donneesEDT;
         mTemperature = temperature;
         mSolutions = solutions;
         mConstRef = constRef;
     }
-    
+
+    /**
+     * contructeur par défaut.
+     */
     public GenerateurEDT() {
     	mDonneesEDT = null;
     	mConstRef = 0.5;
@@ -24,44 +36,88 @@ public class GenerateurEDT {
     	mSolutionFinale = null;
     }
 
+    /**
+     *
+     * @param solutionFinale solutionFinale à fixer
+     */
     public void setSolutionFinale(EDT solutionFinale) {
         mSolutionFinale = solutionFinale;
     }
 
+    /**
+     *
+     * @return SolutionFinal actuelle.
+     */
     public EDT getSolutionFinale(){ return mSolutionFinale;}
 
+    /**
+     *
+     * @return Donnees EDT actuelles.
+     */
     public DonneesEDT getDonneesEDT() {
         return mDonneesEDT;
     }
 
+    /**
+     *
+     * @param donneesEDT donneesEDT à fixer
+     */
     public void setDonneesEDT(DonneesEDT donneesEDT) {
         mDonneesEDT = donneesEDT;
     }
 
+    /**
+     *
+     * @return temperature actuel
+     */
     public double getTemperature() {
         return mTemperature;
     }
 
+    /**
+     *
+     * @param temperature temperature à fixer
+     */
     public void setTemperature(Double temperature) {
         mTemperature = temperature;
     }
 
+    /**
+     *
+     * @return listes EDT actuelles.
+     */
     public List<EDT> getSolutions() {
         return mSolutions;
     }
 
+    /**
+     *
+     * @param solutions solutions à fixer
+     */
     public void setSolutions(List<EDT> solutions) {
         mSolutions = solutions;
     }
 
+    /**
+     *
+     * @return constante de diminution actuelle
+     */
     public double getConstanteDiminue() {
         return mConstRef;
     }
 
+    /**
+     *
+     * @param constanteDiminue constanteDiminue à fixer
+     */
     public void setConstanteDiminue(Double constanteDiminue) {
     	mConstRef = constanteDiminue;
     }
 
+    /**
+     *
+     * @return température finale actuelle.
+     */
     public static double getTempFinal() {
         return mTempFinal;
     }
@@ -137,8 +193,6 @@ public class GenerateurEDT {
             randSalle1 = randSalle.nextInt(nbSalles);
             randSalle2 = randSalle.nextInt(nbSalles);
         } while( randSalle1 == randSalle2 );
-
-        //System.out.println("+++++ Salle1: " + randSalle1 + "salle2: " + randSalle2);
 
         while ( (idEven1 == idEven2  || idEven1 == -1 || idEven2 == -1) && (i != nbCreneaux)){
             //Choisir deux jours différents aléatoirement

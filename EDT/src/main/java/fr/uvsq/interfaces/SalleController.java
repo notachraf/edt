@@ -138,9 +138,9 @@ public class SalleController {
     }
 
     /**
-     * Modifie la classe App et Stage
-     * @param app
-     * @param salleStage
+     * Fixe la fenêtre principale et la fenêtre de modification
+     * @param app fenêtre principale
+     * @param salleStage fenêtre de modification
      */
     public void setApp(App app, Stage salleStage) {
         mApp = app;

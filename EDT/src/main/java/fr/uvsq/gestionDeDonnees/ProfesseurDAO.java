@@ -2,12 +2,9 @@ package fr.uvsq.gestionDeDonnees;
 
 import fr.uvsq.models.Module;
 import fr.uvsq.models.Professeur;
-import fr.uvsq.models.Promotion;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class ProfesseurDAO extends DAO<Professeur> {
 
@@ -67,8 +64,6 @@ public class ProfesseurDAO extends DAO<Professeur> {
 
 	        } catch (SQLException ex) {
 	            ex.printStackTrace();
-	        } finally {
-	            //ConnectionUtils.fermerConnection(ps, connection);
 	        }
 	        return insertBon == 1;
 	    }
@@ -94,8 +89,6 @@ public class ProfesseurDAO extends DAO<Professeur> {
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-		} finally {
-			//ConnectionUtils.fermerConnection(rs, stmt, connection);
 		}
 
 		return false;
@@ -133,8 +126,6 @@ public class ProfesseurDAO extends DAO<Professeur> {
 
 		} catch (SQLException ex) {
 				ex.printStackTrace();
-		} finally {
-			//ConnectionUtils.fermerConnection(rs, stmt, connection);
 		}
 
 		return professeur;
@@ -205,8 +196,6 @@ public class ProfesseurDAO extends DAO<Professeur> {
 
 		} catch (SQLException ex) {
 				ex.printStackTrace();
-		} finally {
-			//ConnectionUtils.fermerConnection(rs, stmt, connection);
 		}
 
 		return professeur;

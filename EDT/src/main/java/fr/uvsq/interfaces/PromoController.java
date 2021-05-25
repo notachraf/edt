@@ -49,13 +49,6 @@ public class PromoController {
     private Label mTitleLabel;
 
     /**
-     * Initialise la fenêtre de dialogue promotion
-     */
-    private void initialize() {
-
-    }
-
-    /**
      * Ferme la fenêtre de dialogue promotion
      */
     @FXML
@@ -174,6 +167,12 @@ public class PromoController {
         }
     }
 
+    /**
+     * Fixe la fenêtre principale et la fenêtre de modification
+     * @param app fenêtre principale
+     * @param promoStage fenêtre de modification
+     * @param listeModule liste des modules.
+     */
     public void setApp(App app, Stage promoStage, ObservableList<Module> listeModule) {
         mApp = app;
         mPromoStage = promoStage;

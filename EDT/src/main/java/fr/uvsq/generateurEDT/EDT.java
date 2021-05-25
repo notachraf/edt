@@ -9,82 +9,114 @@ public class EDT {
     private int mEnergie;
     private DonneesEDT mDonneesEDT;
 
+	/**
+	 * Création d'un emploi du temps
+	 * @param listeEDTSalles listes des salles
+	 * @param energie l'énergie initiale
+	 * @param donneesEDT données utilisées pour créer
+	 *                   l'emploi du temps.
+	 */
     public EDT(List<EDTSalle> listeEDTSalles, int energie, DonneesEDT donneesEDT) {
         mListeEDTSalles = listeEDTSalles;
         mEnergie = energie;
         mDonneesEDT = donneesEDT;
     }
 
-    public EDT() {
+	/**
+	 * Constructeur par défaut.
+	 */
+	public EDT() {
+		mListeEDTSalles = null;
+		mEnergie = 0;
+		mDonneesEDT = null;
     }
 
-    public List<EDTSalle> getListeEDTSalles() {
+	/**
+	 *
+	 * @return liste edts actuelles.
+	 */
+	public List<EDTSalle> getListeEDTSalles() {
         return mListeEDTSalles;
     }
 
-    public void setListeEDTSalles(List<EDTSalle> listeEDTSalles) {
+	/**
+	 *
+	 * @param listeEDTSalles listes edt à fixer
+	 */
+	public void setListeEDTSalles(List<EDTSalle> listeEDTSalles) {
         mListeEDTSalles = listeEDTSalles;
     }
 
-    public int getEnergie() {
+	/**
+	 *
+	 * @return energie actuelle
+	 */
+	public int getEnergie() {
         return mEnergie;
     }
 
-    public void setEnergie(int energie) {
+	/**
+	 *
+	 * @param energie energie à fixer
+	 */
+	public void setEnergie(int energie) {
         mEnergie = energie;
     }
 
-    public DonneesEDT getDonneesEDT() {
+	/**
+	 *
+	 * @return DonneesEDT actuelles
+	 */
+	public DonneesEDT getDonneesEDT() {
         return mDonneesEDT;
     }
 
-    public void setDonneesEDT(DonneesEDT donneesEDT) {
+	/**
+	 *
+	 * @param donneesEDT donnesEDT à fixer
+	 */
+	public void setDonneesEDT(DonneesEDT donneesEDT) {
         mDonneesEDT = donneesEDT;
     }
-
-    /**
-     * Contrainte pour l'heure de déroulement des cours
-     * Contrainte pour l'écart entre deux Evénements.
-     */
 
     /**
      * Calcule le nombre de fois que la capacité d'une
      * Salle n'est pas respecté.
      * @return le nombre de contraintes
      */
- private int contrainteCapaciteSalle(){
-	   	// pour chaque salle on regarde ses horaires de chaque jour
- 	int contrainte = 0;
- 	Random random = new Random();
- 	for(EDTSalle edtSalle : mListeEDTSalles){
- 		for(int i = 0; i < EDTSalle.getNbJours(); i++) {
- 			for(int j = 0; j < EDTSalle.getNbHoraires();j++) {
- 				
- 				// on récupère l'événement qui est au jour i pour le créneau j
- 				int even = 0;
-	    			if(edtSalle.getEdt()[j][i] > -1) {
-	    				int idEven = mDonneesEDT.getListeEvenements().get(even).getId();
-	    				while(idEven !=  edtSalle.getEdt()[j][i]  ){
-	    					even = random.nextInt(mDonneesEDT.getListeEvenements().size());
-	    					idEven = mDonneesEDT.getListeEvenements().get(even).getId();
-	    				}
-	    			Evenement evenement = mDonneesEDT.getListeEvenements().get(even);
-	    				
-	    			if(evenement.getTypeEven() == TypeEven.CM) {
-	    				if(evenement.getGroupe().getPromotion().getNbEleves() > edtSalle.getSalle().getCapacite()) contrainte++;
-	    			}
-	    			else if(evenement.getGroupe().getNbEleves() > edtSalle.getSalle().getCapacite()) contrainte++;
-	    			}
-	    		}
- 		}
- 	}
-     return contrainte;
-    }
-	    /**
-     * Calcule le nombre de fois que le type de cours
-	     * effectué dans une salle n'est pas respecté.
-	     * @return le nombre de contraintes.
-	     */
+	 private int contrainteCapaciteSalle(){
+			// pour chaque salle on regarde ses horaires de chaque jour
+		int contrainte = 0;
+		Random random = new Random();
+		for(EDTSalle edtSalle : mListeEDTSalles){
+			for(int i = 0; i < EDTSalle.getNbJours(); i++) {
+				for(int j = 0; j < EDTSalle.getNbHoraires();j++) {
+
+					// on récupère l'événement qui est au jour i pour le créneau j
+					int even = 0;
+						if(edtSalle.getEdt()[j][i] > -1) {
+							int idEven = mDonneesEDT.getListeEvenements().get(even).getId();
+							while(idEven !=  edtSalle.getEdt()[j][i]  ){
+								even = random.nextInt(mDonneesEDT.getListeEvenements().size());
+								idEven = mDonneesEDT.getListeEvenements().get(even).getId();
+							}
+						Evenement evenement = mDonneesEDT.getListeEvenements().get(even);
+
+						if(evenement.getTypeEven() == TypeEven.CM) {
+							if(evenement.getGroupe().getPromotion().getNbEleves() > edtSalle.getSalle().getCapacite()) contrainte++;
+						}
+						else if(evenement.getGroupe().getNbEleves() > edtSalle.getSalle().getCapacite()) contrainte++;
+						}
+					}
+			}
+		}
+		 return contrainte;
+	 }
+	/**
+ 	 * Calcule le nombre de fois que le type de cours
+	 * effectué dans une salle n'est pas respecté.
+	 * @return le nombre de contraintes.
+	 */
     private int contrainteTypeSalle(){
        	int contrainte = 0;
     	Random random = new Random();
@@ -110,12 +142,11 @@ public class EDT {
 	    return contrainte;
     }
 
-	    /**    private List<Evenement> mListeEvenements;
-
-	     * Calcule le nombre de salles réservées pour un prof
-	     * en même temps.
-	     * @return le nombre de contraintes.
-	     */
+	/**
+	 * Calcule le nombre de salles réservées pour un prof
+	 * en même temps.
+	 * @return le nombre de contraintes.
+	 */
 	private int contrainteReservationProf(){
 	   	int contrainte = 0;
 	    Random random = new Random();
@@ -176,8 +207,13 @@ public class EDT {
 	    	
     	return contrainte;
     }
-	   
-	 private int contrainteResGroupe() {
+
+	/**
+	 * Cacule les contraintes de double
+	 * réservations de groupe.
+	 * @return contrainte
+	 */
+	private int contrainteResGroupe() {
 		    List <Groupe> lesGroupes = new ArrayList<>(); 
 		    
 		    for(Promotion promo : mDonneesEDT.getListePromotions()) {
@@ -259,12 +295,16 @@ public class EDT {
 		    		}
 		   		}
 		   	}
-		    	
 	    	return contrainte;
-	    }
-	    
-	    //contraintes de chevauchement de chaque salle (si un evenement commence avant la fin ou juste à l'heure de fin de celui qui le precede )
-	    private int contrainteChevauchements() {
+	}
+
+	/**
+	 * contraintes de chevauchement de chaque salle
+	 * (si un evenement commence avant la fin ou
+	 * juste à l'heure de fin de celui qui le precede )
+ 	 * @return contraine de chevauchements.
+	 */
+	private int contrainteChevauchements() {
 	    	int contrainte = 0;
 	    	Random random = new Random();
 	    	for(EDTSalle edtSalle : mListeEDTSalles) {
@@ -320,14 +360,22 @@ public class EDT {
 
 	    	return contrainte;
 	    }
-		    
-		public double calculEnergie ( int conTypeSalle , int conCapSalle , int ResProf ) {
+
+	/**
+	 * Calcule la somme des énergies de toutes
+	 * les contraintes.
+	 * @param conTypeSalle containtes de type salle
+	 * @param conCapSalle contraintes de type capacité salle
+	 * @param ResProf restrictions pour les professeurs
+	 * @return somme d'énergie.
+	 */
+	public double calculEnergie ( int conTypeSalle , int conCapSalle , int ResProf ) {
 	    	conCapSalle = contrainteCapaciteSalle();
 	    	conTypeSalle = contrainteTypeSalle();
 		  	ResProf = contrainteReservationProf() ;
 		   	int conGr = contrainteResGroupe();
 		   	int contCh = contrainteChevauchements();
 		   	mEnergie = conTypeSalle + conCapSalle + ResProf  + contCh + conGr;
-		   	return (double)mEnergie;
+		   	return mEnergie;
 	   }
 }

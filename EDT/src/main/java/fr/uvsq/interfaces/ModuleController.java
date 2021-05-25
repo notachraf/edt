@@ -38,14 +38,6 @@ public class ModuleController {
                 mDureeTDTextField,
                 mDureeTPTextField;
 
-
-        /**
-         * Initialise la fenêtre de dialogue module
-         */
-        private void initialize() {
-
-        }
-
         /**
          * Ferme la fenêtre de dialogue module.
          */
@@ -178,6 +170,11 @@ public class ModuleController {
                 }
         }
 
+        /**
+         * fixe la fenêtre principale et la fenêtre de modification
+         * @param app fenêtre principale
+         * @param moduleStage fenêtre de modification
+         */
         public void setApp(App app, Stage moduleStage) {
                 mApp = app;
                 mModuleStage = moduleStage;

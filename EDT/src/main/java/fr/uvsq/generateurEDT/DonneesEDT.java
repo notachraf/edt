@@ -16,7 +16,10 @@ public class DonneesEDT {
     private List<Promotion> mListePromotions;
     private List<Evenement> mListeEvenements;
 
-    public DonneesEDT() {
+	/**
+	 * constructeur par défaut
+	 */
+	public DonneesEDT() {
     	mListeSalles = getListeSalles();
     	mListeModules = getListeModules();
     	mListeProfesseurs = getListeProfesseurs();
@@ -26,9 +29,10 @@ public class DonneesEDT {
     	creerEvenementsTD();
     	creerEvenementsTP();
     }
+
     /**
      * 
-     * @return
+     * @return liste de salles actuelle
      */
     public List<Salle> getListeSalles() {
         return recupereSallesBD();
@@ -36,7 +40,7 @@ public class DonneesEDT {
 
     /**
      * 
-     * @param listeSalles
+     * @param listeSalles liste de salles à fixer
      */
     public void setListeSalles(List<Salle> listeSalles) {
         mListeSalles = listeSalles;
@@ -44,7 +48,7 @@ public class DonneesEDT {
 
     /**
      * 
-     * @return
+     * @return liste de professeurs actuelle
      */
     public List<Professeur> getListeProfesseurs() {
         return recupereProfesseursBD();
@@ -52,7 +56,7 @@ public class DonneesEDT {
 
     /**
      * 
-     * @param listeProfesseurs
+     * @param listeProfesseurs liste de professeurs à fixer
      */
     public void setListeProfesseurs(List<Professeur> listeProfesseurs) {
         mListeProfesseurs = listeProfesseurs;
@@ -60,7 +64,7 @@ public class DonneesEDT {
     
     /**
      * 
-     * @return
+     * @return liste de modules actuelle
      */
     public List<Module> getListeModules() {
         return recupereModulesBD();
@@ -68,7 +72,7 @@ public class DonneesEDT {
 
     /**
      * 
-     * @param listeModules
+     * @param listeModules liste de modules à fixer
      */
     public void setListeModules(List<Module> listeModules) {
         mListeModules = listeModules;
@@ -76,21 +80,21 @@ public class DonneesEDT {
 
     /**
      * 
-     * @return
+     * @return liste de promotions actuelles
      */
     public List<Promotion> getListePromotions() {
     	return recuperePromotionsBD();
     }
     /**
      * 
-     * @param listePromotions
+     * @param listePromotions liste de promotions à fixer
      */
     public void setListePromotions(List<Promotion> listePromotions) {
         mListePromotions = listePromotions;
     }
     /**
      * 
-     * @param listeEvenements
+     * @param listeEvenements liste d'événements à fixer
      */
     public void setListeEvenements(List<Evenement> listeEvenements) {
         mListeEvenements= listeEvenements;
@@ -99,30 +103,49 @@ public class DonneesEDT {
     
     /**
      * 
-     * @return
+     * @return liste d'événement actuelle
      */
     public List<Evenement> getListeEvenements() {
     	return mListeEvenements;
     }
 
 
-    private List<Professeur> recupereProfesseursBD(){
+	/**
+	 *
+	 * @return liste des professeurs.
+	 */
+	private List<Professeur> recupereProfesseursBD(){
     	DAO<Professeur> pDao = (ProfesseurDAO)FactoryDAO.getProfesseurDAO();
     	mListeProfesseurs = pDao.recupererListe();
     	return mListeProfesseurs;
     }
-    private List<Module> recupereModulesBD() {
+
+	/**
+	 *
+	 * @return liste des modules
+	 */
+	private List<Module> recupereModulesBD() {
     	DAO<Module> mDao = (ModuleDAO)FactoryDAO.getModuleDAO();
     	mListeModules = mDao.recupererListe();
     	return mListeModules;
     }
-    private List<Salle> recupereSallesBD() {
+
+	/**
+	 *
+	 * @return liste des salles
+	 */
+	private List<Salle> recupereSallesBD() {
     	DAO<Salle> sDao = (SalleDAO)FactoryDAO.getSalleDAO();
         mListeSalles = sDao.recupererListe();
         return mListeSalles;
         
     }
-    private List<Promotion> recuperePromotionsBD() {
+
+	/**
+	 *
+	 * @return liste des promotions
+	 */
+	private List<Promotion> recuperePromotionsBD() {
     	DAO<Promotion> promoDao= (PromoDAO)FactoryDAO.getPromotionDAO();
     	mListePromotions = promoDao.recupererListe();
     	return mListePromotions;

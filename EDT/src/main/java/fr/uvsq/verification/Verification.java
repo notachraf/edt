@@ -58,9 +58,6 @@ public class Verification {
         if (!isOK) {
             StringBuilder sb = new StringBuilder();
             listErreur.stream().forEach((x) -> sb.append("\n" + x));
-            /*for (String erreur: listErreur) {
-                sb.append("\n" + erreur);
-            }*/
             afficheErreur(sb.toString(), Alert.AlertType.WARNING);
         }
 
@@ -175,9 +172,6 @@ public class Verification {
         if (!isOK) {
             StringBuilder sb = new StringBuilder();
             listErreur.stream().forEach((x) -> sb.append("\n" + x));
-            /*for (String erreur: listErreur) {
-                sb.append("\n" + erreur);
-            }*/
             afficheErreur(sb.toString(), Alert.AlertType.WARNING);
         }
 
@@ -226,9 +220,6 @@ public class Verification {
         if (!isOK) {
             StringBuilder sb = new StringBuilder();
             listErreur.stream().forEach((x) -> sb.append("\n" + x));
-            /*for (String erreur: listErreur) {
-                sb.append("\n" + erreur);
-            }*/
             afficheErreur(sb.toString(), Alert.AlertType.WARNING);
         }
 
@@ -285,9 +276,6 @@ public class Verification {
         if (!isOK) {
             StringBuilder sb = new StringBuilder();
             listErreur.stream().forEach((x) -> sb.append("\n" + x));
-            /*for (String erreur: listErreur) {
-                sb.append("\n" + erreur);
-            }*/
             afficheErreur(sb.toString(), Alert.AlertType.WARNING);
         }
 
@@ -325,9 +313,6 @@ public class Verification {
      */
     private static boolean contientAlphabet(String mot){
         return mot.matches("[a-zA-Z]+");
-      /*  return mot.matches("\\w+\\.?");
-        [A-Za-z ]* -> ici il y a les espaces
-       */
     }
 
     /**

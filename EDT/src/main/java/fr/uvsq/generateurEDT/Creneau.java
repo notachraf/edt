@@ -7,7 +7,7 @@ public class Creneau {
     private int mIdsalle;
 
     /**
-     * 
+     * Constructeur par défaut.
      */
     public Creneau() {
     	mJour = -1;
@@ -17,7 +17,7 @@ public class Creneau {
     }
 
     /**
-     * 
+     * Creation de Créneau
      * @param jour
      * @param horaire
      * @param disponible
@@ -32,7 +32,7 @@ public class Creneau {
 
     /**
      * 
-     * @return
+     * @return jour actuel
      */
     public int getJour() {
         return mJour;
@@ -40,7 +40,7 @@ public class Creneau {
 
     /**
      * 
-     * @param jour
+     * @param jour jour à fixer
      */
     public void setJour(int jour) {
         mJour = jour;
@@ -48,7 +48,7 @@ public class Creneau {
 
     /**
      * 
-     * @return
+     * @return horaire actuel
      */
     public int getHoraire() {
         return mHoraire;
@@ -56,7 +56,7 @@ public class Creneau {
 
     /**
      * 
-     * @param horaire
+     * @param horaire horaire à fixer
      */
     public void setHoraire(int horaire) {
         mHoraire = horaire;
@@ -64,7 +64,7 @@ public class Creneau {
 
     /**
      * 
-     * @return
+     * @return un boolean selon la disponibilité
      */
     public boolean isDisponible() {
         return mDisponible;
@@ -72,7 +72,7 @@ public class Creneau {
 
     /**
      * 
-     * @param disponible
+     * @param disponible disponibilité à fixer
      */
     public void setDisponible(boolean disponible) {
         mDisponible = disponible;
@@ -80,7 +80,7 @@ public class Creneau {
 
     /**
      * 
-     * @return
+     * @return idSalle actuel
      */
     public int getIdsalle() {
         return mIdsalle;
@@ -88,7 +88,7 @@ public class Creneau {
 
     /**
      * 
-     * @param idsalle
+     * @param idsalle idSalle à fixer
      */
     public void setIdsalle(int idsalle) {
         mIdsalle = idsalle;
