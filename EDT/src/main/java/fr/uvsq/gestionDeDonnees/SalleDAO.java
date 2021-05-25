@@ -42,6 +42,7 @@ public class SalleDAO extends DAO<Salle>{
 	                  	else {
 	                  		throw new SQLException("Creation de la salle a echoue.");
 	                  }
+				  
 	              }
 	        	  
         	  	 return true;
@@ -50,7 +51,7 @@ public class SalleDAO extends DAO<Salle>{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-     	   	ConnectionUtils.fermerConnection(ps, connection);
+     	   	//ConnectionUtils.fermerConnection(ps, connection);
 		}
 
         return false;
@@ -78,7 +79,7 @@ public class SalleDAO extends DAO<Salle>{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-     	   	ConnectionUtils.fermerConnection(ps, connection);
+     	   	//ConnectionUtils.fermerConnection(ps, connection);
 		}
 
         return i == 1;
@@ -109,7 +110,7 @@ public class SalleDAO extends DAO<Salle>{
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-     	   	ConnectionUtils.fermerConnection(stmt, connection);
+     	   	//ConnectionUtils.fermerConnection(stmt, connection);
 		}
 
         return false;
@@ -118,7 +119,7 @@ public class SalleDAO extends DAO<Salle>{
     @Override
     public Salle rechercher(int id) {
         
-         Salle salle = null; 
+         Salle salle = new Salle(); 
          ResultSet result = null; 
          Connection connection = this.getConnection();
          Statement stmt = null; 
@@ -133,13 +134,16 @@ public class SalleDAO extends DAO<Salle>{
                                                 "SELECT * FROM salle WHERE salle_id = " + id
                                              );
             if(result.first()) {
-            		salle = extractSalleFromResultSet(result);
+            		salle.setId( result.getInt("salle_id") );
+    	                salle.setNom( result.getString("salle_nom") );
+    			salle.setCapacite( result.getInt("salle_capacite") );
+    			salle.setTypeSalle(TypeSalle.valueOf(result.getString("salle_type")));     
              }
             
             } catch (SQLException e) {
                     e.printStackTrace();
             } finally {
-         	   	ConnectionUtils.fermerConnection(result, stmt, connection);
+         	   	//ConnectionUtils.fermerConnection(result, stmt, connection);
     		}
         
            return salle;
@@ -168,7 +172,7 @@ public class SalleDAO extends DAO<Salle>{
         	System.err.println(ex.getMessage());
             ex.printStackTrace();
         } finally {
-     	   	ConnectionUtils.fermerConnection(ps, connection);
+     	   	//ConnectionUtils.fermerConnection(ps, connection);
 		}
 
         return false;
@@ -193,13 +197,16 @@ public class SalleDAO extends DAO<Salle>{
                                                 "SELECT * FROM salle WHERE salle_nom = " + nom
                                              );
             if(result.first()) {
-            		salle = extractSalleFromResultSet(result);                    
+            		salle.setId( result.getInt("salle_id") );
+    	                salle.setNom( result.getString("salle_nom") );
+    			salle.setCapacite( result.getInt("salle_capacite") );
+    			salle.setTypeSalle(TypeSalle.valueOf(result.getString("salle_type")));               
             }
             
             } catch (SQLException e) {
                     e.printStackTrace();
             } finally {
-            	ConnectionUtils.fermerConnection(result, stmt, connection);
+            	//ConnectionUtils.fermerConnection(result, stmt, connection);
 			}
            return salle;
     }
@@ -220,11 +227,14 @@ public class SalleDAO extends DAO<Salle>{
             rs = stmt.executeQuery("SELECT * FROM salle ");
 
             ArrayList<Salle> salles = new ArrayList<Salle>();
-            Salle salle =  null; 
+            Salle salle =  new Salle(); 
 
             while(rs.next())
             {
-                salle = extractSalleFromResultSet(rs);
+                salle.setId( rs.getInt("salle_id") );
+    	        salle.setNom( rs.getString("salle_nom") );
+    	        salle.setCapacite( rs.getInt("salle_capacite") );
+    	        salle.setTypeSalle(TypeSalle.valueOf(rs.getString("salle_type")));
                 salles.add(salle);
             }
 
@@ -239,24 +249,6 @@ public class SalleDAO extends DAO<Salle>{
         return null;
     }
     
-    
-    
-    /**
-     * 
-     * @param rs
-     * @return
-     * @throws SQLException 
-     */
-    private Salle extractSalleFromResultSet(ResultSet rs) throws SQLException {
-    	
-    	Salle salle = new Salle();
-    	salle.setId( rs.getInt("salle_id") );
-    	salle.setNom( rs.getString("salle_nom") );
-    	salle.setCapacite( rs.getInt("salle_capacite") );
-    	salle.setTypeSalle(TypeSalle.valueOf(rs.getString("salle_type")));
-
-        return salle;
-    	
-    }
+ 
     
 }
